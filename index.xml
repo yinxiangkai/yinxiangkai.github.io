@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>豈風</title>
+        <link>http://yinxiangkai.github.io/</link>
+        <description>记录自己的学习笔记，用于督促自己</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yinxkai@gmail.com (豈)</managingEditor>
+            <webMaster>yinxkai@gmail.com (豈)</webMaster><lastBuildDate>Mon, 19 Feb 2024 15:01:54 &#43;0800</lastBuildDate>
+            <atom:link href="http://yinxiangkai.github.io/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>文章标题</title>
+    <link>http://yinxiangkai.github.io/%E6%96%87%E7%AB%A0%E6%A0%87%E9%A2%98/</link>
+    <pubDate>Mon, 19 Feb 2024 15:01:54 &#43;0800</pubDate>
+    <author>豈</author>
+    <guid>http://yinxiangkai.github.io/%E6%96%87%E7%AB%A0%E6%A0%87%E9%A2%98/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>
