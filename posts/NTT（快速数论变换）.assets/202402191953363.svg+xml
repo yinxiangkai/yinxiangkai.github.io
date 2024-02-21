@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_图层_2" data-name="图层 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 223.98 176.89">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9 {
+        fill: #000300;
+      }
+
+      .cls-1, .cls-2, .cls-9 {
+        font-family: TimesNewRomanPS-ItalicMT, 'Times New Roman';
+        font-style: italic;
+      }
+
+      .cls-1, .cls-3, .cls-4 {
+        font-size: 12.09px;
+      }
+
+      .cls-2, .cls-7 {
+        font-size: 12.21px;
+      }
+
+      .cls-3, .cls-6, .cls-8 {
+        font-family: SymbolMT, Symbol;
+      }
+
+      .cls-10 {
+        letter-spacing: 0em;
+      }
+
+      .cls-4, .cls-5, .cls-7 {
+        font-family: TimesNewRomanPSMT, 'Times New Roman';
+      }
+
+      .cls-11 {
+        letter-spacing: 0em;
+      }
+
+      .cls-12 {
+        letter-spacing: 0em;
+      }
+
+      .cls-5 {
+        font-size: 12.06px;
+      }
+
+      .cls-6 {
+        font-size: 12.72px;
+      }
+
+      .cls-13 {
+        stroke: #262424;
+      }
+
+      .cls-13, .cls-14 {
+        fill: none;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-15 {
+        letter-spacing: 2.65em;
+      }
+
+      .cls-14 {
+        stroke: #cc2128;
+      }
+
+      .cls-16 {
+        letter-spacing: 0em;
+      }
+
+      .cls-17 {
+        letter-spacing: 0em;
+      }
+
+      .cls-18 {
+        letter-spacing: 0em;
+      }
+
+      .cls-19 {
+        fill: #262424;
+        stroke-width: 0px;
+      }
+
+      .cls-8 {
+        font-size: 12.74px;
+      }
+
+      .cls-20 {
+        letter-spacing: 0em;
+      }
+
+      .cls-21 {
+        letter-spacing: 1.97em;
+      }
+
+      .cls-9 {
+        font-size: 11.64px;
+      }
+    </style>
+  </defs>
+  <g id="_图层_5" data-name="图层 5">
+    <g>
+      <line class="cls-13" y1="113.81" x2="185.89" y2="113.81"/>
+      <polygon class="cls-19" points="192.95 113.81 183.01 117.88 185.37 113.81 183.01 109.75 192.95 113.81"/>
+    </g>
+    <g>
+      <line class="cls-13" x1="80.45" y1="176.89" x2="80.45" y2="7.93"/>
+      <polygon class="cls-19" points="80.45 .87 84.52 10.82 80.45 8.46 76.39 10.82 80.45 .87"/>
+    </g>
+    <line class="cls-13" x1="157.55" y1="113.81" x2="157.55" y2="54.35"/>
+    <line class="cls-14" x1="80.45" y1="113.81" x2="157.27" y2="53.83"/>
+    <text class="cls-2" transform="translate(89.51 10.15)"><tspan x="0" y="0">i</tspan></text>
+    <text class="cls-9" transform="translate(196.34 127.95) scale(1.01 1)"><tspan x="0" y="0">r</tspan></text>
+    <path class="cls-13" d="M97.67,114.3c.1-3.62-.95-7.22-3-10.21"/>
+    <text class="cls-5" transform="translate(110.54 127.95)"><tspan class="cls-12" x="0" y="0">c</tspan><tspan x="5.28" y="0">os</tspan></text>
+    <text class="cls-5" transform="translate(162.77 87.34)"><tspan class="cls-11" x="0" y="0">s</tspan><tspan class="cls-16" x="4.71" y="0">i</tspan><tspan x="8.1" y="0">n</tspan></text>
+    <text class="cls-6" transform="translate(103.95 109.2) scale(.95) skewX(-18.43)"><tspan x="0" y="0">θ</tspan></text>
+    <text class="cls-6" transform="translate(127.18 127.97) scale(.95) skewX(-18.43)"><tspan x="0" y="0">θ</tspan></text>
+    <text class="cls-6" transform="translate(177.91 87.35) scale(.95) skewX(-18.43)"><tspan x="0" y="0">θ</tspan></text>
+    <g>
+      <text class="cls-4" transform="translate(159.49 54.35)"><tspan class="cls-18" x="0" y="0">c</tspan><tspan x="5.3" y="0">o</tspan><tspan class="cls-21" x="11.34" y="0">s</tspan><tspan class="cls-20" x="39.88" y="0">s</tspan><tspan class="cls-17" x="44.59" y="0">i</tspan><tspan x="47.99" y="0">n</tspan></text>
+      <text class="cls-1" transform="translate(194.29 54.35)"><tspan x="0" y="0">i</tspan></text>
+      <text class="cls-8" transform="translate(176 54.38) scale(.94) skewX(-18.44)"><tspan class="cls-15" x="0" y="0">θ</tspan><tspan class="cls-10" x="40.41" y="0">θ</tspan></text>
+      <text class="cls-3" transform="translate(185.82 54.35)"><tspan x="0" y="0">+</tspan></text>
+    </g>
+    <text class="cls-7" transform="translate(110.96 78.96)"><tspan x="0" y="0">1</tspan></text>
+  </g>
+</svg>
