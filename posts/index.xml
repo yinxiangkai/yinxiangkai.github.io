@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>All Posts - 豈風</title>
+        <title>所有文章 - 豈風</title>
         <link>https://qifeng.xyz/posts.html</link>
-        <description>All Posts | 豈風</description>
+        <description>所有文章 | 豈風</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yinxkai@gmail.com (豈)</managingEditor>
             <webMaster>yinxkai@gmail.com (豈)</webMaster><atom:link href="https://qifeng.xyz/posts.html" rel="self" type="application/rss+xml" /><item>
     <title>NTT（快速数论变换）</title>

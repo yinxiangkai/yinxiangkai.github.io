@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Categories - Category - 豈風</title>
+        <title>Categories - 分类 - 豈風</title>
         <link>https://qifeng.xyz/categories.html</link>
-        <description>Categories - Category - 豈風</description>
+        <description>Categories - 分类 - 豈風</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yinxkai@gmail.com (豈)</managingEditor>
             <webMaster>yinxkai@gmail.com (豈)</webMaster><atom:link href="https://qifeng.xyz/categories.html" rel="self" type="application/rss+xml" /></channel>
 </rss>
