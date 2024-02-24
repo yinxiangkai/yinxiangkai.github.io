@@ -690,10 +690,11 @@ $$
 P_{k_{r}+k_{c}\cdot R}=\sum_{i_{c}=0}^{C-1}\Bigg[\bigg(\sum_{i_{r}=0}^{R-1}a_{i_{r}\cdot C+i_{c}}\cdot \omega_{R}^{i_{r}k_{r}}\bigg)\omega_{n}^{i_{c}k_{r}} \Bigg] \omega_{C}^{i_{c}k_{c}}
 $$
 
-首先对输入a子序列进行长度为$R$的$DFT$操作，然后对结果乘上旋转因子，最后进行长度为$C$的$DFT$操作。这么看可能不直观，我们将输入写成一个$R \times C$大小的矩阵：
+首先对输入a子序列进行长度为$R$的$DFT$操作，然后对结果乘上旋转因子，最后进行长度为$C$的$DFT$操作。这么看可能不直观，我们将输入写成一个$R \times C$​大小的矩阵：
 
-$$
-a
+<div>
+    $$
+    a
 =
 \left[ \begin{array}{ccccc}
 a_0 & a_1 & a_2 &\ldots & a_{C-1} \\
@@ -702,19 +703,22 @@ a_{2C} & a_{2C+1} & a_{2C+2} & \ldots & a_{2C+(C-1)} \\
 \vdots & \vdots & \vdots & \ddots & \vdots \\
 a_{(R-1)C} & a_{(R-1)C+1} & a_{(R-1)C+2}& \ldots & a_{(R-1)C+(C-1)}
 \end{array} \right]
-$$
+    $$
+</div>
 
-先对对所有列进行DFT运算，然后所有元素乘上相应的转换因子，最后对所有行进行DFT运算。下面是转换转换因子矩阵$T$，注意转换因子矩阵与对列进行DFT的结果进行的是逐点相乘。因为输出是列优先排序，所以需要对结果进行一个转置，从而使得输入与输出保持同一顺序。
+先对对所有列进行DFT运算，然后所有元素乘上相应的转换因子，最后对所有行进行DFT运算。下面是转换转换因子矩阵$T$​，注意转换因子矩阵与对列进行DFT的结果进行的是逐点相乘。因为输出是列优先排序，所以需要对结果进行一个转置，从而使得输入与输出保持同一顺序。
 
-$$
-T=\left[\begin{array}{ccccc}
+<div>
+    $$
+    T=\left[\begin{array}{ccccc}
 1 & 1 & 1 & \ldots & 1\\
 1 & \omega &\omega^2 & \ldots & \omega^{C-1}\\
 1 & \omega ^2 & \omega ^4 &\ldots & \omega^{2(C-1)}\\
 \vdots & \vdots& \vdots & \ddots & \vdots\\ 
 1 & \omega^{R-1}&\omega^{2(R-1)} & \ldots & \omega^{(C-1)(R-1)}
 \end{array}\right]
-$$
+    $$
+</div>
 
 ##### Four-step DFT
 
