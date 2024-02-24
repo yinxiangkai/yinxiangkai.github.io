@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/qifeng.xyz\/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html"
-        },"image": ["https:\/\/qifeng.xyz\/favicon-32x32.png"],"genre": "posts","keywords": "算法, NTT, 基础","wordcount":  5650 ,
+        },"image": ["https:\/\/qifeng.xyz\/favicon-32x32.png"],"genre": "posts","keywords": "算法, NTT, 基础","wordcount":  7031 ,
         "url": "https:\/\/qifeng.xyz\/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html","datePublished": "2024-02-20T16:02:29+08:00","dateModified": "2024-02-20T16:02:29+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -115,8 +115,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">NTT（快速数论变换）</h1><h2 class="single-subtitle">快速数论变换的基础知识学习笔记</h2><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>豈</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%AE%97%E6%B3%95.html"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-20">2024-02-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;5650 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;12 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-20">2024-02-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;7031 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;15 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -211,6 +211,61 @@
           </ul>
         </li>
         <li><a href="#15--cooley-tukey-算法">1.5  Cooley-Tukey 算法</a></li>
+        <li><a href="#15--four-step-算法">1.5  Four-Step 算法</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#four-step-dft">Four-step DFT</a>
+                  <ul>
+                    <li><a href="#six-step-dft">Six-step DFT</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#2-ntt-算法层次设计">2 NTT 算法层次设计</a>
+      <ul>
+        <li><a href="#21-模约简">2.1 模约简</a>
+          <ul>
+            <li><a href="#211-朴素方案">2.1.1 朴素方案</a></li>
+            <li><a href="#212-barrett-约简">2.1.2 Barrett 约简</a></li>
+            <li><a href="#213--montgomery-约简">2.1.3  Montgomery 约简</a></li>
+            <li><a href="#214--大数乘法的资源对比">2.1.4  大数乘法的资源对比</a></li>
+          </ul>
+        </li>
+        <li><a href="#22-素数选择">2.2 素数选择</a></li>
+        <li><a href="#23-原地转置">2.3 原地转置</a></li>
+        <li><a href="#24-可能的合并优化">2.4 可能的合并优化</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-ntt-实现层次的优化">3 NTT 实现层次的优化</a>
+      <ul>
+        <li><a href="#31-流水线设计heax-的实现">3.1 流水线设计（HEAX 的实现）</a></li>
+        <li><a href="#32-root-power-是否预计算">3.2 root power 是否预计算</a></li>
+        <li><a href="#33-ntt-core-的并行度">3.3 NTT core 的并行度</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-four-step-ntt-实现优化">4 Four Step NTT 实现优化</a>
+      <ul>
+        <li><a href="#41-粗粒度流水线">4.1 粗粒度流水线</a>
+          <ul>
+            <li><a href="#411-流水线-1">4.1.1 流水线 1</a></li>
+            <li><a href="#412-流水线-2">4.1.2 流水线 2</a></li>
+          </ul>
+        </li>
+        <li><a href="#43-考虑更细粒度的流水">4.3 考虑更细粒度的流水</a></li>
+        <li><a href="#44-流水线中-ntt-的并行数量与资源消耗">4.4 流水线中 NTT 的并行数量与资源消耗</a></li>
       </ul>
     </li>
     <li><a href="#参考文献">参考文献</a></li>
@@ -779,62 +834,147 @@ $$
 $$
 </div>
 <h3 id="15--cooley-tukey-算法">1.5  Cooley-Tukey 算法</h3>
-<p>现在介绍另外一种算法，这种算法可以更好的并发执行。</p>
-<p>如果 $n=a\cdot b$ 我们可以用 $i_a\in[0,a)$ 和 $i_b \in [0,b)$ 重写$i=i_a+i_b\cdot a$ 。这将创建一个对应 $[0,n) \backsimeq[0,a) \times[0,b)$。另一种对应关系是 $k=k_b+k_a\cdot b$ 。将$i$和$k$带入下式。</p>
+<h3 id="15--four-step-算法">1.5  Four-Step 算法</h3>
+<p>现在介绍另外一种算法，这种算法可以更好的并发执行，这种算法是将输入看作是一个行优先的矩阵进行计算，请注意对于NTT来说实际的输入指的是系数$a_i$。</p>
+<p>如果 $n=R\cdot C$ 我们可以用 $i_r\in[0,R)$ 和 $i_c \in [0,C)$ 重写$i=i_r\cdot C+i_c$ 。这将创建一个对应 $[0,n) \backsimeq[0,R) \times[0,C)$。另一种对应关系是 $k=k_r+k_c\cdot R$ ,注意这里输出的顺序已经变成了列优先了。将$i$和$k$带入下式。</p>
 <p>$$
-P_{k}=P(x_{n}^{k})=\sum_{i=0}^{n-1}a_{i}x_{n}^{ki}\quad k=0,1,\ldots,n-1
+P_{k}=P(\omega_{n}^{k})=\sum_{i=0}^{n-1}a_{i}\omega_{n}^{ki}\quad k=0,1,\ldots,n-1
 $$</p>
-<p>需要提前明确的一点是公式中$x$既可以是原根又可以是单位根,不过为了统一表示省去了原根的取模操作。替换可得：</p>
+<p>需要提前明确的一点是这里公式中$\omega$既可以是原根又可以是单位根,不过为了统一表示省去了原根的取模操作。替换可得：</p>
 <p>$$
-\begin{align}
-P_{k_{b}+k_{a}\cdot b}=\sum_{i_{a}=0}^{a-1}\sum_{i_{b}=0}^{b-1}a_{i_{a}+i_{b}\cdot a} \cdot x_{a\cdot b}^{(k_{b}+k_{a}\cdot b)(i_{a}+i_{b}\cdot a)}
-\end{align}
+\begin{align}P_{k_{r}+k_{c}\cdot R}=\sum_{i_{c}=0}^{C-1}\sum_{i_{r}=0}^{R-1}a_{i_{r}\cdot C+i_{c}}\cdot\omega_{R\cdot C}^{(k_{r}+k_{c}\cdot R)(i_{r}\cdot C+i_{c})}\end{align}
 $$</p>
-<p>将$x$的幂次展开：</p>
-<div>
-$$
+<p>将$\omega$的幂次展开：</p>
+<p>$$
 \begin{align*}
-x_{a\cdot b}^{(k_{b}+k_{a}\cdot b)(i_{a}+i_{b}\cdot a)}&=x_{a\cdot b}^{i_{a}k_{b}+i_{a}k_{a}\cdot b+i_{b}k_{b}\cdot a+i_{b}k_{a}\cdot ab} \\&=x_{a\cdot b}^{i_{a}k_{b}}\cdot x_{a\cdot b}^{i_{a}k_{a}\cdot b}\cdot x_{a\cdot b}^{i_{b}k_{b}\cdot a}\cdot x_{a\cdot b}^{i_{b}k_{a}\cdot ab}
+\omega_{R\cdot C}^{(k_{r}+k_{c}\cdot R)(i_{r}\cdot C+i_{c})}&amp;=\omega_{R\cdot C}^{i_{c}k_{r}+i_{c}k_{c}\cdot R+i_{r}k_{r}\cdot C+i_{r}k_{c}\cdot RC} \&amp;=\omega_{R\cdot C}^{i_{c}k_{r}}\cdot \omega_{R\cdot C}^{i_{c}k_{c}\cdot R}\cdot \omega_{R\cdot C}^{i_{r}k_{r}\cdot C}\cdot \omega_{R\cdot C}^{i_{r}k_{c}\cdot RC}
 \end{align*}
-$$
-</div>
-<p>根据原根的折半性质或者单位根的消去引理$x_{an}^{ak}=x_n^k$，可得：</p>
+$$</p>
+<p>根据原根的折半性质或者单位根的消去引理$\omega_{an}^{ak}=\omega_n^k$，可得：</p>
 <p>$$
-x_{a\cdot b}^{i_{a}k_{b}}\cdot x_{a\cdot b}^{i_{a}k_{a}\cdot b}\cdot x_{a\cdot b}^{i_{b}k_{b}\cdot a}\cdot x_{a\cdot b}^{i_{b}k_{a}\cdot ab}=x_{n}^{i_{a}k_{b}}\cdot x_{a}^{i_{a}k_{a}}\cdot x_{b}^{i_{b}k_{b}}\cdot1
+\omega_{R\cdot C}^{i_{c}k_{r}}\cdot \omega_{R\cdot C}^{i_{c}k_{c}\cdot R}\cdot \omega_{R\cdot C}^{i_{r}k_{r}\cdot C}\cdot \omega_{R\cdot C}^{i_{r}k_{c}\cdot RC}=\omega_{n}^{i_{c}k_{r}}\cdot \omega_{C}^{i_{c}k_{c}}\cdot \omega_{R}^{i_{r}k_{r}}\cdot1
 $$</p>
 <p>则公式(14)变为如下形式：</p>
 <p>$$
-P_{k_{b}+k_{a}\cdot b}=\sum_{i_{a}=0}^{a-1}\sum_{i_{b}=0}^{b-1}a_{i_{a}+i_{b}\cdot a}\cdot x_{n}^{i_{a}k_{b}}\cdot x_{a}^{i_{a}k_{a}}\cdot x_{b}^{i_{b}k_{b}}
+P_{k_{r}+k_{c}\cdot R}=\sum_{i_{c}=0}^{C-1}\sum_{i_{r}=0}^{R-1}a_{i_{r}\cdot C+i_{c}}\cdot \omega_{n}^{i_{c}k_{r}}\cdot \omega_{C}^{i_{c}k_{c}}\cdot \omega_{R}^{i_{r}k_{r}}
 $$</p>
 <p>添加一些括号来确定运算顺序则变成了：</p>
 <p>$$
-P_{k_{b}+k_{a}\cdot b}=\sum_{i_{a}=0}^{a-1}\Bigg[\bigg(\sum_{i_{b}=0}^{b-1}a_{i_{a}+i_{b}\cdot a}\cdot x_{b}^{i_{b}k_{b}}\bigg)x_{n}^{i_{a}k_{b}} \Bigg] x_{a}^{i_{a}k_{a}}
+P_{k_{r}+k_{c}\cdot R}=\sum_{i_{c}=0}^{C-1}\Bigg[\bigg(\sum_{i_{r}=0}^{R-1}a_{i_{r}\cdot C+i_{c}}\cdot \omega_{R}^{i_{r}k_{r}}\bigg)\omega_{n}^{i_{c}k_{r}} \Bigg] \omega_{C}^{i_{c}k_{c}}
 $$</p>
-<p>首先是做了一个长度为$b$的$DFT$操作，对结果乘上一个旋转因子后，对结果又做了一个长度为$a$的$DFT$操作。</p>
+<p>首先对输入a子序列进行长度为$R$的$DFT$操作，然后对结果乘上旋转因子，最后进行长度为$C$的$DFT$操作。这么看可能不直观，我们将输入写成一个$R \times C$大小的矩阵：</p>
+<h1 id="a">$$
+a</h1>
+<p>\left[ \begin{array}{ccccc}
+a_0 &amp; a_1 &amp; a_2 &amp;\ldots &amp; a_{C-1} \
+a_C &amp; a_{C+1} &amp; a_{C+2} &amp; \ldots &amp; a_{C+(C-1)} \
+a_{2C} &amp; a_{2C+1} &amp; a_{2C+2} &amp; \ldots &amp; a_{2C+(C-1)} \
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \
+a_{(R-1)C} &amp; a_{(R-1)C+1} &amp; a_{(R-1)C+2}&amp; \ldots &amp; a_{(R-1)C+(C-1)}
+\end{array} \right]
+$$</p>
+<p>先对对所有列进行DFT运算，然后所有元素乘上相应的转换因子，最后对所有行进行DFT运算。下面是转换转换因子矩阵$T$，注意转换因子矩阵与对列进行DFT的结果进行的是逐点相乘。因为输出是列优先排序，所以需要对结果进行一个转置，从而使得输入与输出保持同一顺序。</p>
+<p>$$
+T=\left[\begin{array}{ccccc}
+1 &amp; 1 &amp; 1 &amp; \ldots &amp; 1\
+1 &amp; \omega &amp;\omega^2 &amp; \ldots &amp; \omega^{C-1}\
+1 &amp; \omega ^2 &amp; \omega ^4 &amp;\ldots &amp; \omega^{2(C-1)}\
+\vdots &amp; \vdots&amp; \vdots &amp; \ddots &amp; \vdots\
+1 &amp; \omega^{R-1}&amp;\omega^{2(R-1)} &amp; \ldots &amp; \omega^{(C-1)(R-1)}
+\end{array}\right]
+$$</p>
+<h5 id="four-step-dft">Four-step DFT</h5>
+<p>对上面的算法进行一个总结就是所谓的四步DFT算法,$[R \times C]$，表示为大小为$R\times C$的行优先矩阵：</p>
+<p><strong>DFT:</strong></p>
+<ol>
+<li>$[R \times C]$,对每一列进行长度为R的DFT运算。</li>
+<li>$[R \times C]$,所有元素乘上对应的转换因子$\omega^{ik}$。</li>
+<li>$[R \times C]$,对每一行进行长度为C的DFT运算。</li>
+<li>$[R \times C]$,将矩阵进行转置。</li>
+</ol>
+<p><strong>IDFT:</strong></p>
+<ol>
+<li>$[C \times R]$,将矩阵进行转置。</li>
+<li>$[R \times C]$,对每一行进行长度为C的DFT运算。</li>
+<li>$[R \times C]$,所有元素乘上对应的转换因子$\omega^{-ik}$。</li>
+<li>$[R \times C]$,对每一列进行长度为R的DFT运算。</li>
+</ol>
+<h6 id="six-step-dft">Six-step DFT</h6>
+<p>对列进行操作，无法读取连续的内存会影响计算效率，可以增加转置操作，于是获得六步DFT算法：</p>
+<p><strong>DFT:</strong></p>
+<ol>
+<li>$[R \times C]$,将矩阵进行转置。</li>
+<li>$[C \times R]$,对每一行进行长度为R的DFT运算。</li>
+<li>$[C \times R]$,将矩阵进行转置。</li>
+<li>$[R \times C]$,所有元素乘上对应的转换因子$\omega^{ik}$。</li>
+<li>$[R \times C]$,对每一行进行长度为C的DFT运算。</li>
+<li>$[R \times C]$,将矩阵进行转置。</li>
+</ol>
+<p><strong>IDFT:</strong></p>
+<ol>
+<li>$[C \times R]$,将矩阵进行转置。</li>
+<li>$[R \times C]$,对每一行进行长度为C的DFT运算。</li>
+<li>$[R \times C]$,所有元素乘上对应的转换因子$\omega^{-ik}$。</li>
+<li>$[R \times C]$,将矩阵进行转置。</li>
+<li>$[C \times R]$,对每一行进行长度为R的DFT运算。</li>
+<li>$[C \times R]$,将矩阵进行转置。</li>
+</ol>
+<h2 id="2-ntt-算法层次设计">2 NTT 算法层次设计</h2>
+<p>本节主要是介绍在算法层次进行的设计，例如素数的选择、模约简方案以及转置优化。最后探讨有哪些可以进行的合并计算。</p>
+<h3 id="21-模约简">2.1 模约简</h3>
+<h4 id="211-朴素方案">2.1.1 朴素方案</h4>
+<p>在模数约简的朴素方法中，如果硬件支持的话，会使用一个硬件指令将两个字（word）长度的被除数除以一个字长度的除数，得到一个字长度的商和一个字长度的余数。如果硬件不支持这种指令，那么就需要在软件中模拟这种指令。</p>
+<p>这样的指令在x86和x86-64架构中是存在的。对于软件模拟，GNU GCC和Clang编译器在32位平台上提供了uint64_t类型，在64位平台上提供了unsigned __int128类型，并且这些类型都支持除法操作。</p>
+<h4 id="212-barrett-约简">2.1.2 Barrett 约简</h4>
+<p>‍</p>
+<h4 id="213--montgomery-约简">2.1.3  Montgomery 约简</h4>
+<p>‍</p>
+<h4 id="214--大数乘法的资源对比">2.1.4  大数乘法的资源对比</h4>
+<p>‍</p>
+<h3 id="22-素数选择">2.2 素数选择</h3>
+<p>‍</p>
+<h3 id="23-原地转置">2.3 原地转置</h3>
+<p>‍</p>
+<h3 id="24-可能的合并优化">2.4 可能的合并优化</h3>
+<p>‍</p>
+<h2 id="3-ntt-实现层次的优化">3 NTT 实现层次的优化</h2>
+<h3 id="31-流水线设计heax-的实现">3.1 流水线设计（HEAX 的实现）</h3>
+<h3 id="32-root-power-是否预计算">3.2 root power 是否预计算</h3>
+<h3 id="33-ntt-core-的并行度">3.3 NTT core 的并行度</h3>
+<h2 id="4-four-step-ntt-实现优化">4 Four Step NTT 实现优化</h2>
+<h3 id="41-粗粒度流水线">4.1 粗粒度流水线</h3>
+<h4 id="411-流水线-1">4.1.1 流水线 1</h4>
+<p>读取列并 bit reversed 存储，计算 NTT，乘 twiddle factor 并写回</p>
+<h4 id="412-流水线-2">4.1.2 流水线 2</h4>
+<p>读取行并 bit reversed 存储，计算 NTT，计算转置索引并写回</p>
+<h3 id="43-考虑更细粒度的流水">4.3 考虑更细粒度的流水</h3>
+<p>行 NTT 的前几轮可以提前开始</p>
+<h3 id="44-流水线中-ntt-的并行数量与资源消耗">4.4 流水线中 NTT 的并行数量与资源消耗</h3>
+<p>流水线中 NTT 的并行数量 对应的 端口数量、读写位宽、存储、计算资源使用量，瓶颈资 源是什么</p>
 <p>‍</p>
 <p>‍</p>
 <h2 id="参考文献">参考文献</h2>
-<p>‍[1]七海. 基础知识：FFT - 简单入门[EB/OL]//七海の参考書. (2021-03-29)[2024-01-21]. <a href="https://shiraha.cn/2021/The-concept-of-fft-introducing-edition/" target="_blank" rel="noopener noreffer ">https://shiraha.cn/2021/The-concept-of-fft-introducing-edition/</a>.</p>
+<p>[1]七海. 基础知识：FFT - 简单入门[EB/OL]//七海の参考書. (2021-03-29)[2024-01-21]. <a href="https://shiraha.cn/2021/The-concept-of-fft-introducing-edition/" target="_blank" rel="noopener noreffer ">https://shiraha.cn/2021/The-concept-of-fft-introducing-edition/</a>.</p>
 <p>[2]快速数论变换（NTT）及蝴蝶操作构造详解[EB/OL]//知乎专栏. [2024-01-21]. <a href="https://zhuanlan.zhihu.com/p/80297169" target="_blank" rel="noopener noreffer ">https://zhuanlan.zhihu.com/p/80297169</a>.</p>
 <p>[3]蒙哥马利算法(Montgomery Algorithm)|蒙哥马利约简、模乘、模幂_montgomery算法-CSDN博客[EB/OL]. [2024-01-28]. <a href="https://blog.csdn.net/weixin_46395886/article/details/112988136" target="_blank" rel="noopener noreffer ">https://blog.csdn.net/weixin_46395886/article/details/112988136</a>.</p>
 <p>[4]蒙哥马利算法详解_蒙德马利法-CSDN博客[EB/OL]. [2024-01-28]. <a href="https://blog.csdn.net/zgzczzw/article/details/52712980" target="_blank" rel="noopener noreffer ">https://blog.csdn.net/zgzczzw/article/details/52712980</a>.</p>
 <p>[5]COOLEY J W, TUKEY J W. An Algorithm for the Machine Calculation of Complex Fourier Series[J].</p>
-<p>[6]TOM NURKKALA. Cache-Friendly Matrix Transpose[Z/OL]. (2020-05-05)[2024-01-30]. <a href="https://www.youtube.com/watch?v=huz6hJPl_cU" target="_blank" rel="noopener noreffer ">https://www.youtube.com/watch?v=huz6hJPl_cU</a>.</p>
-<p>[7]BAILEY D H. FFTs in external of hierarchical memory[C/OL]//Proceedings of the 1989 ACM/IEEE conference on Supercomputing  - Supercomputing ’89. Reno, Nevada, United States: ACM Press, 1989: 234-242[2024-01-30]. <a href="http://portal.acm.org/citation.cfm?doid=76263.76288" target="_blank" rel="noopener noreffer ">http://portal.acm.org/citation.cfm?doid=76263.76288</a>. DOI:<a href="https://doi.org/10.1145/76263.76288" target="_blank" rel="noopener noreffer ">10.1145/76263.76288</a>.</p>
-<p>[8]Finite Field Implementations[Z/OL]. [2024-01-26]. <a href="https://docs.google.com/presentation/d/1I5QS58LtA3iiiPiVHHcN7oufCoo8sIDh9UvnJHWjA2Q" target="_blank" rel="noopener noreffer ">https://docs.google.com/presentation/d/1I5QS58LtA3iiiPiVHHcN7oufCoo8sIDh9UvnJHWjA2Q</a>.</p>
-<p>[9]RISC ZERO. Finite Field Implementations: Barrett &amp; Montgomery[Z/OL]. (2023-02-17)[2024-01-26]. <a href="https://www.youtube.com/watch?v=hUl8ZB6hpUM" target="_blank" rel="noopener noreffer ">https://www.youtube.com/watch?v=hUl8ZB6hpUM</a>.</p>
-<p>[10]AGARWAL R C, COOLEY J W. Fourier transform and convolution subroutines for the IBM 3090 Vector Facility[J/OL]. IBM Journal of Research and Development, 1986, 30(2): 145-161. DOI:<a href="https://doi.org/10.1147/rd.302.0145" target="_blank" rel="noopener noreffer ">10.1147/rd.302.0145</a>.</p>
-<p>[11]董晓算法. G41 快速傅里叶变换 FFT算法 多项式乘法_哔哩哔哩_bilibili[EB/OL]. [2024-01-21]. <a href="https://www.bilibili.com/video/BV1Le4y1V78D/" target="_blank" rel="noopener noreffer ">https://www.bilibili.com/video/BV1Le4y1V78D/</a>.</p>
-<p>[12]董晓算法. G43 快速数论变换 NTT算法_哔哩哔哩_bilibili[EB/OL]. [2024-01-21]. <a href="https://www.bilibili.com/video/BV1a3411Z7vL/" target="_blank" rel="noopener noreffer ">https://www.bilibili.com/video/BV1a3411Z7vL/</a>.</p>
-<p>[13]HEIDEMAN M, JOHNSON D, BURRUS C. Gauss and the history of the fast fourier transform[J/OL]. IEEE ASSP Magazine, 1984, 1(4): 14-21. DOI:<a href="https://doi.org/10.1109/MASSP.1984.1162257" target="_blank" rel="noopener noreffer ">10.1109/MASSP.1984.1162257</a>.</p>
-<p>[14]Hardcaml Zprize[EB/OL]. [2024-01-30]. <a href="https://zprize.hardcaml.com/ntt-top-level.html" target="_blank" rel="noopener noreffer ">https://zprize.hardcaml.com/ntt-top-level.html</a>.</p>
-<p>[15]BURRUS C. Index mappings for multidimensional formulation of the DFT and convolution[J/OL]. IEEE Transactions on Acoustics, Speech, and Signal Processing, 1977, 25(3): 239-242. DOI:<a href="https://doi.org/10.1109/TASSP.1977.1162938" target="_blank" rel="noopener noreffer ">10.1109/TASSP.1977.1162938</a>.</p>
-<p>[16]MONTGOMERY P L. Modular Multiplication Without Trial Division[J].</p>
-<p>[17]LIANG Z, ZHAO Y. Number Theoretic Transform and Its Applications in Lattice-based Cryptosystems: A Survey[M/OL]. arXiv, 2022[2024-01-30]. <a href="http://arxiv.org/abs/2211.13546" target="_blank" rel="noopener noreffer ">http://arxiv.org/abs/2211.13546</a>.</p>
-<p>[18]KNAUTH C, ADAS B, WHITFIELD D, 等. Practically efficient methods for performing bit-reversed permutation in C++11 on the x86-64 architecture[M/OL]. arXiv, 2017[2024-01-29]. <a href="http://arxiv.org/abs/1708.01873" target="_blank" rel="noopener noreffer ">http://arxiv.org/abs/1708.01873</a>.</p>
-<p>[19]KRAPIVENSKY V. Speeding up decimal multiplication[M/OL]. arXiv, 2020[2024-01-21]. <a href="http://arxiv.org/abs/2011.11524" target="_blank" rel="noopener noreffer ">http://arxiv.org/abs/2011.11524</a>. DOI:<a href="https://doi.org/10.48550/arXiv.2011.11524" target="_blank" rel="noopener noreffer ">10.48550/arXiv.2011.11524</a>.</p>
-<p>[20]LONGA P, NAEHRIG M. Speeding up the Number Theoretic Transform for Faster Ideal Lattice-Based Cryptography[A/OL]. (2016)[2024-01-30]. <a href="https://eprint.iacr.org/2016/504" target="_blank" rel="noopener noreffer ">https://eprint.iacr.org/2016/504</a>.</p>
-<p>[21]REDUCIBLE. The Fast Fourier Transform (FFT): Most Ingenious Algorithm Ever?[Z/OL]. (2020-11-15)[2024-01-21]. <a href="https://www.youtube.com/watch?v=h7apO7q16V0" target="_blank" rel="noopener noreffer ">https://www.youtube.com/watch?v=h7apO7q16V0</a>.</p>
+<p>[6]BAILEY D H. FFTs in external of hierarchical memory[C/OL]//Proceedings of the 1989 ACM/IEEE conference on Supercomputing  - Supercomputing ’89. Reno, Nevada, United States: ACM Press, 1989: 234-242[2024-01-30]. <a href="http://portal.acm.org/citation.cfm?doid=76263.76288" target="_blank" rel="noopener noreffer ">http://portal.acm.org/citation.cfm?doid=76263.76288</a>. DOI:<a href="https://doi.org/10.1145/76263.76288" target="_blank" rel="noopener noreffer ">10.1145/76263.76288</a>.</p>
+<p>[7]Finite Field Implementations[Z/OL]. [2024-01-26]. <a href="https://docs.google.com/presentation/d/1I5QS58LtA3iiiPiVHHcN7oufCoo8sIDh9UvnJHWjA2Q" target="_blank" rel="noopener noreffer ">https://docs.google.com/presentation/d/1I5QS58LtA3iiiPiVHHcN7oufCoo8sIDh9UvnJHWjA2Q</a>.</p>
+<p>[8]RISC ZERO. Finite Field Implementations: Barrett &amp; Montgomery[Z/OL]. (2023-02-17)[2024-01-26]. <a href="https://www.youtube.com/watch?v=hUl8ZB6hpUM" target="_blank" rel="noopener noreffer ">https://www.youtube.com/watch?v=hUl8ZB6hpUM</a>.</p>
+<p>[9]AGARWAL R C, COOLEY J W. Fourier transform and convolution subroutines for the IBM 3090 Vector Facility[J/OL]. IBM Journal of Research and Development, 1986, 30(2): 145-161. DOI:<a href="https://doi.org/10.1147/rd.302.0145" target="_blank" rel="noopener noreffer ">10.1147/rd.302.0145</a>.</p>
+<p>[10]董晓算法. G41 快速傅里叶变换 FFT算法 多项式乘法_哔哩哔哩_bilibili[EB/OL]. [2024-01-21]. <a href="https://www.bilibili.com/video/BV1Le4y1V78D/" target="_blank" rel="noopener noreffer ">https://www.bilibili.com/video/BV1Le4y1V78D/</a>.</p>
+<p>[11]董晓算法. G43 快速数论变换 NTT算法_哔哩哔哩_bilibili[EB/OL]. [2024-01-21]. <a href="https://www.bilibili.com/video/BV1a3411Z7vL/" target="_blank" rel="noopener noreffer ">https://www.bilibili.com/video/BV1a3411Z7vL/</a>.</p>
+<p>[12] HEIDEMAN M, JOHNSON D, BURRUS C. Gauss and the history of the fast fourier transform[J/OL]. IEEE ASSP Magazine, 1984, 1(4): 14-21. DOI:<a href="https://doi.org/10.1109/MASSP.1984.1162257" target="_blank" rel="noopener noreffer ">10.1109/ MASSP.1984.1162257</a>.</p>
+<p>[13]Hardcaml Zprize[EB/OL]. [2024-01-30]. <a href="https://zprize.hardcaml.com/ntt-top-level.html" target="_blank" rel="noopener noreffer ">https://zprize.hardcaml.com/ntt-top-level.html</a>.</p>
+<p>[14]Math &amp; Engineering[EB/OL]. [2024-02-22]. <a href="https://xn--2-umb.com/" target="_blank" rel="noopener noreffer ">https://xn&ndash;2-umb.com/</a>.</p>
+<p>[15]MONTGOMERY P L. Modular multiplication without trial division[J/OL]. Mathematics of Computation, 1985, 44(170): 519-521. DOI:<a href="https://doi.org/10.1090/S0025-5718-1985-0777282-X" target="_blank" rel="noopener noreffer ">10.1090/S0025-5718-1985-0777282-X</a>.</p>
+<p>[16]LIANG Z, ZHAO Y. Number Theoretic Transform and Its Applications in Lattice-based Cryptosystems: A Survey[M/OL]. arXiv, 2022[2024-01-30]. <a href="http://arxiv.org/abs/2211.13546" target="_blank" rel="noopener noreffer ">http://arxiv.org/abs/2211.13546</a>.</p>
+<p>[17]KNAUTH C, ADAS B, WHITFIELD D, 等. Practically efficient methods for performing bit-reversed permutation in C++11 on the x86-64 architecture[M/OL]. arXiv, 2017[2024-01-29]. <a href="http://arxiv.org/abs/1708.01873" target="_blank" rel="noopener noreffer ">http://arxiv.org/abs/1708.01873</a>.</p>
+<p>[18]KRAPIVENSKY V. Speeding up decimal multiplication[M/OL]. arXiv, 2020[2024-01-21]. <a href="http://arxiv.org/abs/2011.11524" target="_blank" rel="noopener noreffer ">http://arxiv.org/abs/2011.11524</a>. DOI:<a href="https://doi.org/10.48550/arXiv.2011.11524" target="_blank" rel="noopener noreffer ">10.48550/arXiv.2011.11524</a>.</p>
+<p>[19]LONGA P, NAEHRIG M. Speeding up the Number Theoretic Transform for Faster Ideal Lattice-Based Cryptography[A/OL]. (2016)[2024-01-30]. <a href="https://eprint.iacr.org/2016/504" target="_blank" rel="noopener noreffer ">https://eprint.iacr.org/2016/504</a>.</p>
+<p>[20]REDUCIBLE. The Fast Fourier Transform (FFT): Most Ingenious Algorithm Ever?[Z/OL]. (2020-11-15)[2024-01-21]. <a href="https://www.youtube.com/watch?v=h7apO7q16V0" target="_blank" rel="noopener noreffer ">https://www.youtube.com/watch?v=h7apO7q16V0</a>.</p>
+<p>‍</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -864,7 +1004,7 @@ $$</p>
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.2">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
                 </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">豈</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

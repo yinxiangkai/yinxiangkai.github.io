@@ -648,55 +648,177 @@ $$
 
 ### 1.5  Cooley-Tukey 算法
 
-现在介绍另外一种算法，这种算法可以更好的并发执行。
+### 1.5  Four-Step 算法
 
-如果 $n=a\cdot b$ 我们可以用 $i_a\in[0,a)$ 和 $i_b \in [0,b)$ 重写$i=i_a+i_b\cdot a$ 。这将创建一个对应 $[0,n) \backsimeq[0,a) \times[0,b)$。另一种对应关系是 $k=k_b+k_a\cdot b$ 。将$i$和$k$带入下式。
+现在介绍另外一种算法，这种算法可以更好的并发执行，这种算法是将输入看作是一个行优先的矩阵进行计算，请注意对于NTT来说实际的输入指的是系数$a_i$。
 
-$$
-P_{k}=P(x_{n}^{k})=\sum_{i=0}^{n-1}a_{i}x_{n}^{ki}\quad k=0,1,\ldots,n-1
-$$
-
-需要提前明确的一点是公式中$x$既可以是原根又可以是单位根,不过为了统一表示省去了原根的取模操作。替换可得：
+如果 $n=R\cdot C$ 我们可以用 $i_r\in[0,R)$ 和 $i_c \in [0,C)$ 重写$i=i_r\cdot C+i_c$ 。这将创建一个对应 $[0,n) \backsimeq[0,R) \times[0,C)$。另一种对应关系是 $k=k_r+k_c\cdot R$ ,注意这里输出的顺序已经变成了列优先了。将$i$和$k$带入下式。
 
 $$
-\begin{align}
-P_{k_{b}+k_{a}\cdot b}=\sum_{i_{a}=0}^{a-1}\sum_{i_{b}=0}^{b-1}a_{i_{a}+i_{b}\cdot a} \cdot x_{a\cdot b}^{(k_{b}+k_{a}\cdot b)(i_{a}+i_{b}\cdot a)}
-\end{align}
+P_{k}=P(\omega_{n}^{k})=\sum_{i=0}^{n-1}a_{i}\omega_{n}^{ki}\quad k=0,1,\ldots,n-1
 $$
 
-将$x$的幂次展开：
+需要提前明确的一点是这里公式中$\omega$既可以是原根又可以是单位根,不过为了统一表示省去了原根的取模操作。替换可得：
 
-<div>
+$$
+\begin{align}P_{k_{r}+k_{c}\cdot R}=\sum_{i_{c}=0}^{C-1}\sum_{i_{r}=0}^{R-1}a_{i_{r}\cdot C+i_{c}}\cdot\omega_{R\cdot C}^{(k_{r}+k_{c}\cdot R)(i_{r}\cdot C+i_{c})}\end{align}
+$$
+
+将$\omega$的幂次展开：
+
 $$
 \begin{align*}
-x_{a\cdot b}^{(k_{b}+k_{a}\cdot b)(i_{a}+i_{b}\cdot a)}&=x_{a\cdot b}^{i_{a}k_{b}+i_{a}k_{a}\cdot b+i_{b}k_{b}\cdot a+i_{b}k_{a}\cdot ab} \\&=x_{a\cdot b}^{i_{a}k_{b}}\cdot x_{a\cdot b}^{i_{a}k_{a}\cdot b}\cdot x_{a\cdot b}^{i_{b}k_{b}\cdot a}\cdot x_{a\cdot b}^{i_{b}k_{a}\cdot ab}
+\omega_{R\cdot C}^{(k_{r}+k_{c}\cdot R)(i_{r}\cdot C+i_{c})}&=\omega_{R\cdot C}^{i_{c}k_{r}+i_{c}k_{c}\cdot R+i_{r}k_{r}\cdot C+i_{r}k_{c}\cdot RC} \\&=\omega_{R\cdot C}^{i_{c}k_{r}}\cdot \omega_{R\cdot C}^{i_{c}k_{c}\cdot R}\cdot \omega_{R\cdot C}^{i_{r}k_{r}\cdot C}\cdot \omega_{R\cdot C}^{i_{r}k_{c}\cdot RC}
 \end{align*}
 $$
-</div>
 
-
-
-根据原根的折半性质或者单位根的消去引理$x_{an}^{ak}=x_n^k$，可得：
+根据原根的折半性质或者单位根的消去引理$\omega_{an}^{ak}=\omega_n^k$，可得：
 
 $$
-x_{a\cdot b}^{i_{a}k_{b}}\cdot x_{a\cdot b}^{i_{a}k_{a}\cdot b}\cdot x_{a\cdot b}^{i_{b}k_{b}\cdot a}\cdot x_{a\cdot b}^{i_{b}k_{a}\cdot ab}=x_{n}^{i_{a}k_{b}}\cdot x_{a}^{i_{a}k_{a}}\cdot x_{b}^{i_{b}k_{b}}\cdot1
+\omega_{R\cdot C}^{i_{c}k_{r}}\cdot \omega_{R\cdot C}^{i_{c}k_{c}\cdot R}\cdot \omega_{R\cdot C}^{i_{r}k_{r}\cdot C}\cdot \omega_{R\cdot C}^{i_{r}k_{c}\cdot RC}=\omega_{n}^{i_{c}k_{r}}\cdot \omega_{C}^{i_{c}k_{c}}\cdot \omega_{R}^{i_{r}k_{r}}\cdot1
 $$
 
 则公式(14)变为如下形式：
 
 $$
-P_{k_{b}+k_{a}\cdot b}=\sum_{i_{a}=0}^{a-1}\sum_{i_{b}=0}^{b-1}a_{i_{a}+i_{b}\cdot a}\cdot x_{n}^{i_{a}k_{b}}\cdot x_{a}^{i_{a}k_{a}}\cdot x_{b}^{i_{b}k_{b}}
+P_{k_{r}+k_{c}\cdot R}=\sum_{i_{c}=0}^{C-1}\sum_{i_{r}=0}^{R-1}a_{i_{r}\cdot C+i_{c}}\cdot \omega_{n}^{i_{c}k_{r}}\cdot \omega_{C}^{i_{c}k_{c}}\cdot \omega_{R}^{i_{r}k_{r}}
 $$
 
 添加一些括号来确定运算顺序则变成了：
 
 $$
-P_{k_{b}+k_{a}\cdot b}=\sum_{i_{a}=0}^{a-1}\Bigg[\bigg(\sum_{i_{b}=0}^{b-1}a_{i_{a}+i_{b}\cdot a}\cdot x_{b}^{i_{b}k_{b}}\bigg)x_{n}^{i_{a}k_{b}} \Bigg] x_{a}^{i_{a}k_{a}}
+P_{k_{r}+k_{c}\cdot R}=\sum_{i_{c}=0}^{C-1}\Bigg[\bigg(\sum_{i_{r}=0}^{R-1}a_{i_{r}\cdot C+i_{c}}\cdot \omega_{R}^{i_{r}k_{r}}\bigg)\omega_{n}^{i_{c}k_{r}} \Bigg] \omega_{C}^{i_{c}k_{c}}
 $$
 
-首先是做了一个长度为$b$的$DFT$操作，对结果乘上一个旋转因子后，对结果又做了一个长度为$a$的$DFT$操作。
+首先对输入a子序列进行长度为$R$的$DFT$操作，然后对结果乘上旋转因子，最后进行长度为$C$的$DFT$操作。这么看可能不直观，我们将输入写成一个$R \times C$大小的矩阵：
 
+$$
+a
+=
+\left[ \begin{array}{ccccc}
+a_0 & a_1 & a_2 &\ldots & a_{C-1} \\
+a_C & a_{C+1} & a_{C+2} & \ldots & a_{C+(C-1)} \\
+a_{2C} & a_{2C+1} & a_{2C+2} & \ldots & a_{2C+(C-1)} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+a_{(R-1)C} & a_{(R-1)C+1} & a_{(R-1)C+2}& \ldots & a_{(R-1)C+(C-1)}
+\end{array} \right]
+$$
 
+先对对所有列进行DFT运算，然后所有元素乘上相应的转换因子，最后对所有行进行DFT运算。下面是转换转换因子矩阵$T$，注意转换因子矩阵与对列进行DFT的结果进行的是逐点相乘。因为输出是列优先排序，所以需要对结果进行一个转置，从而使得输入与输出保持同一顺序。
+
+$$
+T=\left[\begin{array}{ccccc}
+1 & 1 & 1 & \ldots & 1\\
+1 & \omega &\omega^2 & \ldots & \omega^{C-1}\\
+1 & \omega ^2 & \omega ^4 &\ldots & \omega^{2(C-1)}\\
+\vdots & \vdots& \vdots & \ddots & \vdots\\ 
+1 & \omega^{R-1}&\omega^{2(R-1)} & \ldots & \omega^{(C-1)(R-1)}
+\end{array}\right]
+$$
+
+##### Four-step DFT
+
+对上面的算法进行一个总结就是所谓的四步DFT算法,$[R \times C]$，表示为大小为$R\times C$的行优先矩阵：
+
+**DFT:**
+
+1. $[R \times C]$,对每一列进行长度为R的DFT运算。
+2. $[R \times C]$,所有元素乘上对应的转换因子$\omega^{ik}$。
+3. $[R \times C]$,对每一行进行长度为C的DFT运算。
+4. $[R \times C]$,将矩阵进行转置。
+
+**IDFT:**
+
+1. $[C \times R]$,将矩阵进行转置。
+2. $[R \times C]$,对每一行进行长度为C的DFT运算。
+3. $[R \times C]$,所有元素乘上对应的转换因子$\omega^{-ik}$。
+4. $[R \times C]$,对每一列进行长度为R的DFT运算。
+
+###### Six-step DFT
+
+对列进行操作，无法读取连续的内存会影响计算效率，可以增加转置操作，于是获得六步DFT算法：
+
+**DFT:**
+
+1. $[R \times C]$,将矩阵进行转置。
+2. $[C \times R]$,对每一行进行长度为R的DFT运算。
+3. $[C \times R]$,将矩阵进行转置。
+4. $[R \times C]$,所有元素乘上对应的转换因子$\omega^{ik}$。
+5. $[R \times C]$,对每一行进行长度为C的DFT运算。
+6. $[R \times C]$,将矩阵进行转置。
+
+**IDFT:**
+
+1. $[C \times R]$,将矩阵进行转置。
+2. $[R \times C]$,对每一行进行长度为C的DFT运算。
+3. $[R \times C]$,所有元素乘上对应的转换因子$\omega^{-ik}$。
+4. $[R \times C]$,将矩阵进行转置。
+5. $[C \times R]$,对每一行进行长度为R的DFT运算。
+6. $[C \times R]$,将矩阵进行转置。
+
+## 2 NTT 算法层次设计
+
+本节主要是介绍在算法层次进行的设计，例如素数的选择、模约简方案以及转置优化。最后探讨有哪些可以进行的合并计算。
+
+### 2.1 模约简
+
+#### 2.1.1 朴素方案
+
+在模数约简的朴素方法中，如果硬件支持的话，会使用一个硬件指令将两个字（word）长度的被除数除以一个字长度的除数，得到一个字长度的商和一个字长度的余数。如果硬件不支持这种指令，那么就需要在软件中模拟这种指令。
+
+这样的指令在x86和x86-64架构中是存在的。对于软件模拟，GNU GCC和Clang编译器在32位平台上提供了uint64_t类型，在64位平台上提供了unsigned __int128类型，并且这些类型都支持除法操作。
+
+#### 2.1.2 Barrett 约简
+
+‍
+
+#### 2.1.3  Montgomery 约简
+
+‍
+
+#### 2.1.4  大数乘法的资源对比
+
+‍
+
+### 2.2 素数选择
+
+‍
+
+### 2.3 原地转置
+
+‍
+
+### 2.4 可能的合并优化
+
+‍
+
+## 3 NTT 实现层次的优化
+
+### 3.1 流水线设计（HEAX 的实现）
+
+### 3.2 root power 是否预计算
+
+### 3.3 NTT core 的并行度
+
+## 4 Four Step NTT 实现优化
+
+### 4.1 粗粒度流水线
+
+#### 4.1.1 流水线 1
+
+读取列并 bit reversed 存储，计算 NTT，乘 twiddle factor 并写回
+
+#### 4.1.2 流水线 2
+
+读取行并 bit reversed 存储，计算 NTT，计算转置索引并写回
+
+### 4.3 考虑更细粒度的流水
+
+行 NTT 的前几轮可以提前开始
+
+### 4.4 流水线中 NTT 的并行数量与资源消耗
+
+流水线中 NTT 的并行数量 对应的 端口数量、读写位宽、存储、计算资源使用量，瓶颈资 源是什么
 
 ‍
 
@@ -704,45 +826,45 @@ $$
 
 ## 参考文献
 
-‍[1]七海. 基础知识：FFT - 简单入门[EB/OL]//七海の参考書. (2021-03-29)[2024-01-21]. https://shiraha.cn/2021/The-concept-of-fft-introducing-edition/.
+[1]七海. 基础知识：FFT - 简单入门[EB/OL]//七海の参考書. (2021-03-29)[2024-01-21]. [https://shiraha.cn/2021/The-concept-of-fft-introducing-edition/](https://shiraha.cn/2021/The-concept-of-fft-introducing-edition/).
 
-[2]快速数论变换（NTT）及蝴蝶操作构造详解[EB/OL]//知乎专栏. [2024-01-21]. https://zhuanlan.zhihu.com/p/80297169.
+[2]快速数论变换（NTT）及蝴蝶操作构造详解[EB/OL]//知乎专栏. [2024-01-21]. [https://zhuanlan.zhihu.com/p/80297169](https://zhuanlan.zhihu.com/p/80297169).
 
-[3]蒙哥马利算法(Montgomery Algorithm)|蒙哥马利约简、模乘、模幂_montgomery算法-CSDN博客[EB/OL]. [2024-01-28]. https://blog.csdn.net/weixin_46395886/article/details/112988136.
+[3]蒙哥马利算法(Montgomery Algorithm)|蒙哥马利约简、模乘、模幂_montgomery算法-CSDN博客[EB/OL]. [2024-01-28]. [https://blog.csdn.net/weixin_46395886/article/details/112988136](https://blog.csdn.net/weixin_46395886/article/details/112988136).
 
-[4]蒙哥马利算法详解_蒙德马利法-CSDN博客[EB/OL]. [2024-01-28]. https://blog.csdn.net/zgzczzw/article/details/52712980.
+[4]蒙哥马利算法详解_蒙德马利法-CSDN博客[EB/OL]. [2024-01-28]. [https://blog.csdn.net/zgzczzw/article/details/52712980](https://blog.csdn.net/zgzczzw/article/details/52712980).
 
 [5]COOLEY J W, TUKEY J W. An Algorithm for the Machine Calculation of Complex Fourier Series[J].
 
-[6]TOM NURKKALA. Cache-Friendly Matrix Transpose[Z/OL]. (2020-05-05)[2024-01-30]. https://www.youtube.com/watch?v=huz6hJPl_cU.
+[6]BAILEY D H. FFTs in external of hierarchical memory[C/OL]//Proceedings of the 1989 ACM/IEEE conference on Supercomputing  - Supercomputing ’89. Reno, Nevada, United States: ACM Press, 1989: 234-242[2024-01-30]. [http://portal.acm.org/citation.cfm?doid=76263.76288](http://portal.acm.org/citation.cfm?doid=76263.76288). DOI:[10.1145/76263.76288](https://doi.org/10.1145/76263.76288).
 
-[7]BAILEY D H. FFTs in external of hierarchical memory[C/OL]//Proceedings of the 1989 ACM/IEEE conference on Supercomputing  - Supercomputing ’89. Reno, Nevada, United States: ACM Press, 1989: 234-242[2024-01-30]. http://portal.acm.org/citation.cfm?doid=76263.76288. DOI:[10.1145/76263.76288](https://doi.org/10.1145/76263.76288).
+[7]Finite Field Implementations[Z/OL]. [2024-01-26]. [https://docs.google.com/presentation/d/1I5QS58LtA3iiiPiVHHcN7oufCoo8sIDh9UvnJHWjA2Q](https://docs.google.com/presentation/d/1I5QS58LtA3iiiPiVHHcN7oufCoo8sIDh9UvnJHWjA2Q).
 
-[8]Finite Field Implementations[Z/OL]. [2024-01-26]. https://docs.google.com/presentation/d/1I5QS58LtA3iiiPiVHHcN7oufCoo8sIDh9UvnJHWjA2Q.
+[8]RISC ZERO. Finite Field Implementations: Barrett & Montgomery[Z/OL]. (2023-02-17)[2024-01-26]. [https://www.youtube.com/watch?v=hUl8ZB6hpUM](https://www.youtube.com/watch?v=hUl8ZB6hpUM).
 
-[9]RISC ZERO. Finite Field Implementations: Barrett & Montgomery[Z/OL]. (2023-02-17)[2024-01-26]. https://www.youtube.com/watch?v=hUl8ZB6hpUM.
+[9]AGARWAL R C, COOLEY J W. Fourier transform and convolution subroutines for the IBM 3090 Vector Facility[J/OL]. IBM Journal of Research and Development, 1986, 30(2): 145-161. DOI:[10.1147/rd.302.0145](https://doi.org/10.1147/rd.302.0145).
 
-[10]AGARWAL R C, COOLEY J W. Fourier transform and convolution subroutines for the IBM 3090 Vector Facility[J/OL]. IBM Journal of Research and Development, 1986, 30(2): 145-161. DOI:[10.1147/rd.302.0145](https://doi.org/10.1147/rd.302.0145).
+[10]董晓算法. G41 快速傅里叶变换 FFT算法 多项式乘法_哔哩哔哩_bilibili[EB/OL]. [2024-01-21]. [https://www.bilibili.com/video/BV1Le4y1V78D/](https://www.bilibili.com/video/BV1Le4y1V78D/).
 
-[11]董晓算法. G41 快速傅里叶变换 FFT算法 多项式乘法_哔哩哔哩_bilibili[EB/OL]. [2024-01-21]. https://www.bilibili.com/video/BV1Le4y1V78D/.
+[11]董晓算法. G43 快速数论变换 NTT算法_哔哩哔哩_bilibili[EB/OL]. [2024-01-21]. [https://www.bilibili.com/video/BV1a3411Z7vL/](https://www.bilibili.com/video/BV1a3411Z7vL/).
 
-[12]董晓算法. G43 快速数论变换 NTT算法_哔哩哔哩_bilibili[EB/OL]. [2024-01-21]. https://www.bilibili.com/video/BV1a3411Z7vL/.
+[12] HEIDEMAN M, JOHNSON D, BURRUS C. Gauss and the history of the fast fourier transform[J/OL]. IEEE ASSP Magazine, 1984, 1(4): 14-21. DOI:[10.1109/ MASSP.1984.1162257](https://doi.org/10.1109/MASSP.1984.1162257).
 
-[13]HEIDEMAN M, JOHNSON D, BURRUS C. Gauss and the history of the fast fourier transform[J/OL]. IEEE ASSP Magazine, 1984, 1(4): 14-21. DOI:[10.1109/MASSP.1984.1162257](https://doi.org/10.1109/MASSP.1984.1162257).
+[13]Hardcaml Zprize[EB/OL]. [2024-01-30]. [https://zprize.hardcaml.com/ntt-top-level.html](https://zprize.hardcaml.com/ntt-top-level.html).
 
-[14]Hardcaml Zprize[EB/OL]. [2024-01-30]. https://zprize.hardcaml.com/ntt-top-level.html.
+[14]Math & Engineering[EB/OL]. [2024-02-22]. [https://xn--2-umb.com/](https://xn--2-umb.com/).
 
-[15]BURRUS C. Index mappings for multidimensional formulation of the DFT and convolution[J/OL]. IEEE Transactions on Acoustics, Speech, and Signal Processing, 1977, 25(3): 239-242. DOI:[10.1109/TASSP.1977.1162938](https://doi.org/10.1109/TASSP.1977.1162938).
+[15]MONTGOMERY P L. Modular multiplication without trial division[J/OL]. Mathematics of Computation, 1985, 44(170): 519-521. DOI:[10.1090/S0025-5718-1985-0777282-X](https://doi.org/10.1090/S0025-5718-1985-0777282-X).
 
-[16]MONTGOMERY P L. Modular Multiplication Without Trial Division[J].
+[16]LIANG Z, ZHAO Y. Number Theoretic Transform and Its Applications in Lattice-based Cryptosystems: A Survey[M/OL]. arXiv, 2022[2024-01-30]. [http://arxiv.org/abs/2211.13546](http://arxiv.org/abs/2211.13546).
 
-[17]LIANG Z, ZHAO Y. Number Theoretic Transform and Its Applications in Lattice-based Cryptosystems: A Survey[M/OL]. arXiv, 2022[2024-01-30]. http://arxiv.org/abs/2211.13546.
+[17]KNAUTH C, ADAS B, WHITFIELD D, 等. Practically efficient methods for performing bit-reversed permutation in C++11 on the x86-64 architecture[M/OL]. arXiv, 2017[2024-01-29]. [http://arxiv.org/abs/1708.01873](http://arxiv.org/abs/1708.01873).
 
-[18]KNAUTH C, ADAS B, WHITFIELD D, 等. Practically efficient methods for performing bit-reversed permutation in C++11 on the x86-64 architecture[M/OL]. arXiv, 2017[2024-01-29]. http://arxiv.org/abs/1708.01873.
+[18]KRAPIVENSKY V. Speeding up decimal multiplication[M/OL]. arXiv, 2020[2024-01-21]. [http://arxiv.org/abs/2011.11524](http://arxiv.org/abs/2011.11524). DOI:[10.48550/arXiv.2011.11524](https://doi.org/10.48550/arXiv.2011.11524).
 
-[19]KRAPIVENSKY V. Speeding up decimal multiplication[M/OL]. arXiv, 2020[2024-01-21]. http://arxiv.org/abs/2011.11524. DOI:[10.48550/arXiv.2011.11524](https://doi.org/10.48550/arXiv.2011.11524).
+[19]LONGA P, NAEHRIG M. Speeding up the Number Theoretic Transform for Faster Ideal Lattice-Based Cryptography[A/OL]. (2016)[2024-01-30]. [https://eprint.iacr.org/2016/504](https://eprint.iacr.org/2016/504).
 
-[20]LONGA P, NAEHRIG M. Speeding up the Number Theoretic Transform for Faster Ideal Lattice-Based Cryptography[A/OL]. (2016)[2024-01-30]. https://eprint.iacr.org/2016/504.
+[20]REDUCIBLE. The Fast Fourier Transform (FFT): Most Ingenious Algorithm Ever?[Z/OL]. (2020-11-15)[2024-01-21]. [https://www.youtube.com/watch?v=h7apO7q16V0](https://www.youtube.com/watch?v=h7apO7q16V0).
 
-[21]REDUCIBLE. The Fast Fourier Transform (FFT): Most Ingenious Algorithm Ever?[Z/OL]. (2020-11-15)[2024-01-21]. https://www.youtube.com/watch?v=h7apO7q16V0.
+‍
 
