@@ -670,11 +670,13 @@ $$
 
 将$\omega$的幂次展开：
 
-$$
-\begin{align*}
+<div>
+    $$
+    \begin{align*}
 \omega_{R\cdot C}^{(k_{r}+k_{c}\cdot R)(i_{r}\cdot C+i_{c})}&=\omega_{R\cdot C}^{i_{c}k_{r}+i_{c}k_{c}\cdot R+i_{r}k_{r}\cdot C+i_{r}k_{c}\cdot RC} \\&=\omega_{R\cdot C}^{i_{c}k_{r}}\cdot \omega_{R\cdot C}^{i_{c}k_{c}\cdot R}\cdot \omega_{R\cdot C}^{i_{r}k_{r}\cdot C}\cdot \omega_{R\cdot C}^{i_{r}k_{c}\cdot RC}
 \end{align*}
-$$
+    $$
+</div>
 
 根据原根的折半性质或者单位根的消去引理$\omega_{an}^{ak}=\omega_n^k$，可得：
 
