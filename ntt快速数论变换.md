@@ -778,7 +778,128 @@ a_{(R-1)C} & a_{(R-1)C+1} & a_{(R-1)C+2}& \ldots & a_{(R-1)C+(C-1)}
 
 #### 2.1.2 Barrett 约简
 
-‍
+‍巴雷特约简的思路很简单，将计算$z =a \mod p$，转换为$z=a- tp,t=\lfloor ap^{-1}\rfloor$ 。于是问题就从模运算转换为了求取$p^{-1}$的近似值,也就是$t$的近似值。
+
+对$t$进行进行变换：
+
+<div>
+    $$
+    t=\lfloor \frac{a}{p} \rfloor=\lfloor \frac{\frac{a}{b^{k-1}}\frac{b^{2k}}{p}}{b^{k+1}} \rfloor
+    $$
+</div>
+
+其中$b$是基底，计算机系统中通常使用二进制表示，即$b=2$，$k$是模数相对于基底的位宽$k=\log_{b}p+1$，之所以是$b^{2k}$是因为通常运用模约简的场景是模乘，因此$a\in[0,p^2)$。经过变换，我们发现分离出来一个一个仅和模数有关的量:$\alpha = \frac{b^{2k}}{p}$，这意味着对同一模数的约简可以提前计算$\alpha$，其他部分可以通过右移和乘法完成，乘法运算效率显著高于除法运算，位移效率更快，计算速度提升了很多。
+
+为了避免浮点数计算，令$\beta=\lfloor \frac{b^{2k}}{p} \rfloor$,替换掉$\alpha$,得到$t$的近似$\hat{t}$​：
+
+<div>
+    $$
+    \hat{t}=\lfloor \frac{\lfloor\frac{a}{b^{k-1}}\rfloor \beta}{b^{k+1}} \rfloor=\lfloor \frac{\lfloor\frac{a}{b^{k-1}}\rfloor \lfloor \frac{b^{2k}}{p} \rfloor}{b^{k+1}} \rfloor
+    $$
+</div>
+
+现在考虑$t$与$\hat{t}$的误差：
+
+<div>
+    $$
+    \lambda = \frac{a}{b^{k-1}} - \lfloor \frac{a}{b^{k-1}} \rfloor \\
+    \mu = \frac{b^{2k}}{p} - \lfloor \frac{b^{2k}}{p} \rfloor
+    $$
+</div>
+
+且$0 \le \lambda \lt 1$,$0 \le \mu \lt 1$​，此外还有：
+
+<div>
+    $$
+    t=\lfloor\frac{a}{b^{k-1}}\cdot\frac{b^{2k}}{p}\cdot\frac{1}{b^{k+1}}\rfloor=\lfloor\frac{(\lfloor\frac{a}{b^{k-1}}\rfloor+\lambda)(\lfloor\frac{b^{2k}}{p}\rfloor+\mu)}{b^{k+1}}\rfloor\leq\lfloor\hat{t}+\frac{\lfloor\frac{a}{b^{k-1}}\rfloor+\lfloor\frac{b^{2k}}{p}\rfloor+1}{b^{k+1}}\rfloor
+    $$
+</div>
+
+因为$a\lt b^{2k}$,所以$\lfloor \frac{a}{b^{k-1}} \rfloor \leq b^{k+1}-1$；又因为$p \ge b^{k-1}$,所以$\lfloor \frac{b^{2k}}{p}\rfloor \leq b^{k+1}$​。对上面不等式放缩：
+
+<div>
+    $$
+    t\leq\lfloor\hat{t}+\frac{b^{k+1}-1+b^{k+1}+1}{b^{k+1}}\rfloor=\lfloor\hat{t}+2\rfloor
+    $$
+</div>
+
+又因为$\hat{t} \le t$​,所以可得：
+
+<div>
+    $$
+    t-2 \le \hat{t} \le t
+    $$
+</div>
+
+近似性不错，进一步可得：
+
+<div>
+    $$
+    0 \lt a - \hat{t}p \le a - (t-2)p=a-tp+2p
+    $$
+</div>
+
+又因为$a-tp=z\lt p$​，所以：
+
+<div>
+    $$
+    0 \lt a - \hat{t}p \lt 3p
+    $$
+</div>
+
+不难看出使用近似方法得出得值有可能比p大，但是通过最多两次减法就可以修正误差，下面给出完整的算法：
+
+<div>
+    $$
+    \begin{array}{ll}
+\hline
+\text{\textbf{Algorithm 6}} & \text{Barrett 约简}\\ 
+\hline
+\text{\textbf{Require:}} & a\quad \beta=\lfloor \frac{b^{2k}}{p} \rfloor\quad p\\ 
+\text{\textbf{function}} & z\\  
+& \hat{t} \leftarrow \lfloor \frac{\lfloor\frac{a}{b^{k-1}}\rfloor \beta}{b^{k+1}} \rfloor\\  
+& z_1 \leftarrow a \mod b^{k+1}\\
+& z_2 \leftarrow \hat{t}\cdot p \mod b^{k+1}\\
+& z=z_1-z_2\\
+& \text{if} \ z \lt 0\\  
+& \quad z=z+b^{k+1}\\
+& \text{endif}\\  
+& \text{while} \ z \ge p\\  
+& \quad z=z-p\\
+& \text{endwhile}\\  
+& \text{return}\ z\\
+\text{\textbf{end function}} & \\ 
+\hline
+& \end{array}
+    $$
+</div>
+
+$z_1$和$z_2$的运算可以通过直接去掉k位的高位即可，简化了计算。下面给出$\beta$​的算法：
+
+<div>
+    $$
+    \begin{array}{ll}
+\hline
+\text{\textbf{Algorithm 7}} & \text{计算} \beta\\ 
+\hline
+\text{\textbf{Require:}} & p\quad k \quad b\\ 
+\text{\textbf{function}} & \beta\\  
+& \beta \leftarrow b^k\\  
+& \text{repeat} \\  
+& \quad s \leftarrow \beta \\
+& \quad \beta \leftarrow 2\beta -\lfloor\frac{ p\lfloor \frac{\beta^2}{b^k} \rfloor }{b^k}   \rfloor\\
+& \text{until} \ \beta \le s  \\  
+& t \leftarrow b^{2k}-p\beta\\
+& \text{while} \ t \lt 0\\  
+& \quad \beta \leftarrow \beta -1\\ 
+& \quad t \leftarrow t+p\\ 
+& \text{endwhile}\\  
+& \text{return}\ \beta\\
+\text{\textbf{end function}} & \\ 
+\hline
+& \end{array}
+    $$
+</div>
 
 #### 2.1.3  Montgomery 约简
 

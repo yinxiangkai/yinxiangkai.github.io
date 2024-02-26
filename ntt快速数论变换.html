@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/qifeng.xyz\/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html"
-        },"image": ["https:\/\/qifeng.xyz\/favicon-32x32.png"],"genre": "posts","keywords": "算法, NTT, 基础","wordcount":  7034 ,
+        },"image": ["https:\/\/qifeng.xyz\/favicon-32x32.png"],"genre": "posts","keywords": "算法, NTT, 基础","wordcount":  7933 ,
         "url": "https:\/\/qifeng.xyz\/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html","datePublished": "2024-02-20T16:02:29+08:00","dateModified": "2024-02-20T16:02:29+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -115,8 +115,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">NTT（快速数论变换）</h1><h2 class="single-subtitle">快速数论变换的基础知识学习笔记</h2><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>豈</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%AE%97%E6%B3%95.html"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-20">2024-02-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;7034 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;15 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-20">2024-02-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;7933 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;16 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -925,7 +925,107 @@ a_{(R-1)C} & a_{(R-1)C+1} & a_{(R-1)C+2}& \ldots & a_{(R-1)C+(C-1)}
 <p>在模数约简的朴素方法中，如果硬件支持的话，会使用一个硬件指令将两个字（word）长度的被除数除以一个字长度的除数，得到一个字长度的商和一个字长度的余数。如果硬件不支持这种指令，那么就需要在软件中模拟这种指令。</p>
 <p>这样的指令在x86和x86-64架构中是存在的。对于软件模拟，GNU GCC和Clang编译器在32位平台上提供了uint64_t类型，在64位平台上提供了unsigned __int128类型，并且这些类型都支持除法操作。</p>
 <h4 id="212-barrett-约简">2.1.2 Barrett 约简</h4>
-<p>‍</p>
+<p>‍巴雷特约简的思路很简单，将计算$z =a \mod p$，转换为$z=a- tp,t=\lfloor ap^{-1}\rfloor$ 。于是问题就从模运算转换为了求取$p^{-1}$的近似值,也就是$t$的近似值。</p>
+<p>对$t$进行进行变换：</p>
+<div>
+    $$
+    t=\lfloor \frac{a}{p} \rfloor=\lfloor \frac{\frac{a}{b^{k-1}}\frac{b^{2k}}{p}}{b^{k+1}} \rfloor
+    $$
+</div>
+<p>其中$b$是基底，计算机系统中通常使用二进制表示，即$b=2$，$k$是模数相对于基底的位宽$k=\log_{b}p+1$，之所以是$b^{2k}$是因为通常运用模约简的场景是模乘，因此$a\in[0,p^2)$。经过变换，我们发现分离出来一个一个仅和模数有关的量:$\alpha = \frac{b^{2k}}{p}$，这意味着对同一模数的约简可以提前计算$\alpha$，其他部分可以通过右移和乘法完成，乘法运算效率显著高于除法运算，位移效率更快，计算速度提升了很多。</p>
+<p>为了避免浮点数计算，令$\beta=\lfloor \frac{b^{2k}}{p} \rfloor$,替换掉$\alpha$,得到$t$的近似$\hat{t}$​：</p>
+<div>
+    $$
+    \hat{t}=\lfloor \frac{\lfloor\frac{a}{b^{k-1}}\rfloor \beta}{b^{k+1}} \rfloor=\lfloor \frac{\lfloor\frac{a}{b^{k-1}}\rfloor \lfloor \frac{b^{2k}}{p} \rfloor}{b^{k+1}} \rfloor
+    $$
+</div>
+<p>现在考虑$t$与$\hat{t}$的误差：</p>
+<div>
+    $$
+    \lambda = \frac{a}{b^{k-1}} - \lfloor \frac{a}{b^{k-1}} \rfloor \\
+    \mu = \frac{b^{2k}}{p} - \lfloor \frac{b^{2k}}{p} \rfloor
+    $$
+</div>
+<p>且$0 \le \lambda \lt 1$,$0 \le \mu \lt 1$​，此外还有：</p>
+<div>
+    $$
+    t=\lfloor\frac{a}{b^{k-1}}\cdot\frac{b^{2k}}{p}\cdot\frac{1}{b^{k+1}}\rfloor=\lfloor\frac{(\lfloor\frac{a}{b^{k-1}}\rfloor+\lambda)(\lfloor\frac{b^{2k}}{p}\rfloor+\mu)}{b^{k+1}}\rfloor\leq\lfloor\hat{t}+\frac{\lfloor\frac{a}{b^{k-1}}\rfloor+\lfloor\frac{b^{2k}}{p}\rfloor+1}{b^{k+1}}\rfloor
+    $$
+</div>
+<p>因为$a\lt b^{2k}$,所以$\lfloor \frac{a}{b^{k-1}} \rfloor \leq b^{k+1}-1$；又因为$p \ge b^{k-1}$,所以$\lfloor \frac{b^{2k}}{p}\rfloor \leq b^{k+1}$​。对上面不等式放缩：</p>
+<div>
+    $$
+    t\leq\lfloor\hat{t}+\frac{b^{k+1}-1+b^{k+1}+1}{b^{k+1}}\rfloor=\lfloor\hat{t}+2\rfloor
+    $$
+</div>
+<p>又因为$\hat{t} \le t$​,所以可得：</p>
+<div>
+    $$
+    t-2 \le \hat{t} \le t
+    $$
+</div>
+<p>近似性不错，进一步可得：</p>
+<div>
+    $$
+    0 \lt a - \hat{t}p \le a - (t-2)p=a-tp+2p
+    $$
+</div>
+<p>又因为$a-tp=z\lt p$​，所以：</p>
+<div>
+    $$
+    0 \lt a - \hat{t}p \lt 3p
+    $$
+</div>
+<p>不难看出使用近似方法得出得值有可能比p大，但是通过最多两次减法就可以修正误差，下面给出完整的算法：</p>
+<div>
+    $$
+    \begin{array}{ll}
+\hline
+\text{\textbf{Algorithm 6}} & \text{Barrett 约简}\\ 
+\hline
+\text{\textbf{Require:}} & a\quad \beta=\lfloor \frac{b^{2k}}{p} \rfloor\quad p\\ 
+\text{\textbf{function}} & z\\  
+& \hat{t} \leftarrow \lfloor \frac{\lfloor\frac{a}{b^{k-1}}\rfloor \beta}{b^{k+1}} \rfloor\\  
+& z_1 \leftarrow a \mod b^{k+1}\\
+& z_2 \leftarrow \hat{t}\cdot p \mod b^{k+1}\\
+& z=z_1-z_2\\
+& \text{if} \ z \lt 0\\  
+& \quad z=z+b^{k+1}\\
+& \text{endif}\\  
+& \text{while} \ z \ge p\\  
+& \quad z=z-p\\
+& \text{endwhile}\\  
+& \text{return}\ z\\
+\text{\textbf{end function}} & \\ 
+\hline
+& \end{array}
+    $$
+</div>
+<p>$z_1$和$z_2$的运算可以通过直接去掉k位的高位即可，简化了计算。下面给出$\beta$​的算法：</p>
+<div>
+    $$
+    \begin{array}{ll}
+\hline
+\text{\textbf{Algorithm 7}} & \text{计算} \beta\\ 
+\hline
+\text{\textbf{Require:}} & p\quad k \quad b\\ 
+\text{\textbf{function}} & \beta\\  
+& \beta \leftarrow b^k\\  
+& \text{repeat} \\  
+& \quad s \leftarrow \beta \\
+& \quad \beta \leftarrow 2\beta -\lfloor\frac{ p\lfloor \frac{\beta^2}{b^k} \rfloor }{b^k}   \rfloor\\
+& \text{until} \ \beta \le s  \\  
+& t \leftarrow b^{2k}-p\beta\\
+& \text{while} \ t \lt 0\\  
+& \quad \beta \leftarrow \beta -1\\ 
+& \quad t \leftarrow t+p\\ 
+& \text{endwhile}\\  
+& \text{return}\ \beta\\
+\text{\textbf{end function}} & \\ 
+\hline
+& \end{array}
+    $$
+</div>
 <h4 id="213--montgomery-约简">2.1.3  Montgomery 约简</h4>
 <p>‍</p>
 <h4 id="214--大数乘法的资源对比">2.1.4  大数乘法的资源对比</h4>
