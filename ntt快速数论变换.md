@@ -154,7 +154,7 @@ $$
 
 上面是 $n$ 次单位复数根的推导。当 $k=1$ 时，值 $\omega_n=e^\frac{2\pi i}{n}$ 被成为主 $n$ 次单位复数根，其他的 $n$ 次单位根都是 $\omega_n$ 的幂次。其中 $\theta$ 表示为复平面单位圆上的弧长。因此 $e^\frac{2\pi i}{n}$ 表示将一个单位圆均分 $n$ 份。$n=8$ 时如下图所示。
 
-![资源 14@800x](https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402192044572.webp"图4  8次单位根示意图")
+![资源 14](https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402192044572.webp "图4  8次单位根示意图")
 
 ###### $n$ 次单位根的性质：
 
