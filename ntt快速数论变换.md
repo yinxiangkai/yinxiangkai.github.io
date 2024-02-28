@@ -1,6 +1,9 @@
 # NTT（快速数论变换）
 
 
+# NTT（快速数论变换）
+
+
 ## 1 算法介绍
 
 ### 1.1 多项式乘法引入
@@ -36,6 +39,7 @@ B(x)=\sum^{m}_{i=0}b_ix^i
 $$
 </div>
 
+
 公式（2）和公式（3）相乘得到一个最高为 $n+m$ 次的多项式 $C(x)$。系数向量：$\mathbf{c}=[c_0  ,c_1,\ldots,c_{m+n}]$。
 
 <div>
@@ -45,6 +49,7 @@ C(x)=\sum^{n+m}_{i=0}c_ix^i
 \end{align}
 $$
 </div>
+
 
 ###### 系数乘法：
 
@@ -63,6 +68,7 @@ C_i=\sum^{i}_{j=0}a_jb_{i-j}
 \end{align}
 $$
 </div>
+
 
 ###### 点值乘法：
 
@@ -113,6 +119,7 @@ $$
     $$
 </div>
 
+
 观察公式（7）不难发现，是将是将 $P(x)$ 拆成了两个规模为 $\frac{n}{2}$ 的 $P_e(x)$,$P_o(x）$。自然而然想到了递归执行。但是问题是相反数平方运算后所得结果均为正数，无法构造相反数对，无法实现递归。如果能一直保持相反数点对，那么时间复杂度可以表示为$T(n)=T(2n)+O(n)$​，即时间复杂度为 $O(n\log n)$。
 
 #### 1.1.4 单位根（复平面）
@@ -147,7 +154,7 @@ $$
 
 上面是 $n$ 次单位复数根的推导。当 $k=1$ 时，值 $\omega_n=e^\frac{2\pi i}{n}$ 被成为主 $n$ 次单位复数根，其他的 $n$ 次单位根都是 $\omega_n$ 的幂次。其中 $\theta$ 表示为复平面单位圆上的弧长。因此 $e^\frac{2\pi i}{n}$ 表示将一个单位圆均分 $n$ 份。$n=8$ 时如下图所示。
 
-![资源 14@800x](https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402192044572.webp "图4  8次单位根示意图")
+![资源 14@800x](https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402192044572.webp"图4  8次单位根示意图")
 
 ###### $n$ 次单位根的性质：
 
@@ -176,6 +183,7 @@ n, & k = mn, \ m \in \mathbb{Z}
 \end{cases}
 $$
 </div>
+
 
 
 ###  1.2 DFT 与IDFT
@@ -229,6 +237,7 @@ $$
 
 
 
+
 其中 $V_n$ 是一个范德蒙矩阵，是一个可逆矩阵，因此 $IDFT$：$a=W^{-1}y$。
 
 下面求取:$W_n^{-1}$​。矩阵 $W$可以表示为：$W_{jk}=ω\_ n^{jk}$​。$W_{jk}^{-1}$​的值应该是$W_{jk}$​的共轭除以 $n$。由 $\omega\_n$​的性质，我们知道 $\omega\_n^k$​ 的共轭是 $\omega\_n^{-k}$​。因此 $W\_{jk}^{-1}=\frac{1}{n}ω\_ n^{-jk}$​。所以 $DFT$ 和 $DFT^{-1}$ 的时间复杂一致，甚至计算流程基本一致。
@@ -262,6 +271,7 @@ P(\omega_{n}^{k})&=P_{e}((\omega_{n}^{k})^2)+{\omega_{n}^{k}}P_{o}((\omega_{n}^{
 $$
 </div>
 
+
 <div>
 $$
 \begin{align*}
@@ -273,6 +283,7 @@ P(\omega_{n}^{k+m})&=P_{e}((\omega_{n}^{k+m})^2)+\omega_{n}^{k+m}P_{o}((\omega_{
 $$
 </div>
 
+
 即公式（9-10），这两个式子也被称为 CT(Cooley-Tukey)蝶形操作，$\omega_{n}^{k}$ 被成为转换因子。
 
 <div>
@@ -283,6 +294,7 @@ P(\omega_{n}^{k+m})=P_{e}(\omega_{\frac{n}{2}}^{k})-\omega_{n}^{k}P_{o}(\omega_{
 \end{align}
 $$
 </div>
+
 
 现在给出递归版本得算法：
 
@@ -315,6 +327,7 @@ $$
 </div>
 
 
+
 ###### 蝶形操作：
 
 蝶形操作得名于其数据流图的形状，上面的推导过程出现的是 CT 蝶形变换，还有一种 GS 蝶形变换。
@@ -333,6 +346,7 @@ P(\omega_{n}^{k}) - P(\omega_{n}^{k+m}) = 2\omega_{n}^{k}P_{o}(\omega_{\frac{n}{
 $$
 </div>
 
+
 整理得公式（11-12）不难看出，GS 操作是 CT 操作得逆过程，可以用于 $IFFT$ 中，不过本文介绍的 $IFFT$ 方案没有采用这种思路,当然也可以用在$FFT$中，毕竟两者本质上没啥区别。
 
 <div>
@@ -343,7 +357,6 @@ P_o(\omega_{\frac{n}{2}}^{k}) &= \frac{1}{2\omega_{n}^{k}}(P(\omega_{n}^{k}) - P
 \end{align}
 $$
 </div>
-
 
 
 ![资源 11](https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402191954666.svg "图7 GS蝶形操作")
@@ -388,6 +401,7 @@ $$
 \end{array}
 $$
 </div>
+
 函数 ReverseBits 的实现如下,基本过程就是取原值低位赋值给目标值低位，然后原值右移一位，目标值左移一位，直到循环结束。
 
 <div>
@@ -407,6 +421,7 @@ $$
 \end{array}
 $$
 </div>
+
 
 ###### 迭代算法实现
 
@@ -442,9 +457,14 @@ $$
 & \end{array}
 $$
 </div>
+
 下面是 n=8 时，迭代 $FFT$ 的数据流图。
 
 ![资源 9](https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402191954181.svg "图9 n=8迭代FFT数据流图")
+
+但是也可以不执行位逆序操作，只是需要按照的步长进行蝶形计算，每执行一轮步长减半如下图所示。
+
+![图10  n=8无位逆序迭代FFT数据流图](https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402271927931.svg "图10  n=8无位逆序迭代FFT数据流图")
 
 ### 1.4 快速数论变换（$NTT$）
 
@@ -519,6 +539,7 @@ $$
 
 
 
+
 #### 1.4.2 $NTT$ 的递归实现
 
 将原根带入公式（7）得：
@@ -540,6 +561,7 @@ P(g_{n}^{k})&=P_{e}((g_{n}^{k})^2)+{g_{n}^{k}}P_{o}((g_{n}^{k})^2) \mod p\\
 $$
 </div>
 
+
 <div>
 $$
 \begin{align*}
@@ -551,6 +573,7 @@ P(g_{n}^{k+m})&=P_{e}((g_{n}^{k+m})^2)+g_{n}^{k+m}P_{o}((g_{n}^{k+m})^2) \mod p\
 $$
 </div>
 
+
 简化为：
 
 <div>
@@ -559,6 +582,7 @@ P(g_{n}^{k})=P_{e}(g_{\frac{n}{2}}^{k})+{g_{n}^{k}}P_{o}(g_{\frac{n}{2}}^{k})\\
 P(g_{n}^{k+m})=P_{e}(g_{\frac{n}{2}}^{k})-g_{n}^{k}P_{o}(g_{\frac{n}{2}}^{k})
 $$
 </div>
+
 
 现在给出递归版本得算法,不难发现除了将单位根替换为原根，增加模运算，以及增加了参数 ，原根 $g$，模数 $p $ 外与 $FFT$ 并无太大区别。
 
@@ -589,6 +613,7 @@ $$
 \end{array}
 $$
 </div>
+
 
 > 注意NTT里的$g^{-1}$是取逆元操作，在计算$INTT$时请注意。
 
@@ -629,9 +654,10 @@ $$
 </div>
 
 
+
 ###  1.5 Four-Step 算法
 
-现在介绍另外一种算法，这种算法可以更好的并发执行，这种算法是将输入看作是一个行优先的矩阵进行计算，请注意对于NTT来说实际的输入指的是系数$a_i$。
+现在介绍另外一种算法，可以解决缓存无法驻留一次DFT的数据，这种算法是将输入看作是一个行优先的矩阵进行计算，请注意对于NTT来说实际的输入指的是系数$a_i$。
 
 如果 $n=R\cdot C$ 我们可以用 $i_r\in[0,R)$ 和 $i_c \in [0,C)$ 重写$i=i_r\cdot C+i_c$ 。这将创建一个对应 $[0,n) \backsimeq[0,R) \times[0,C)$。另一种对应关系是 $k=k_r+k_c\cdot R$ ,注意这里输出的顺序已经变成了列优先了。将$i$和$k$带入下式。
 
@@ -654,7 +680,6 @@ $$
 \end{align*}
     $$
 </div>
-
 根据原根的折半性质或者单位根的消去引理$\omega_{an}^{ak}=\omega_n^k$，可得：
 
 $$
@@ -688,7 +713,6 @@ a_{(R-1)C} & a_{(R-1)C+1} & a_{(R-1)C+2}& \ldots & a_{(R-1)C+(C-1)}
 \end{array} \right]
     $$
 </div>
-
 先对对所有列进行DFT运算，然后所有元素乘上相应的转换因子，最后对所有行进行DFT运算。下面是转换转换因子矩阵$T$​，注意转换因子矩阵与对列进行DFT的结果进行的是逐点相乘。因为输出是列优先排序，所以需要对结果进行一个转置，从而使得输入与输出保持同一顺序。
 
 <div>
@@ -703,7 +727,7 @@ a_{(R-1)C} & a_{(R-1)C+1} & a_{(R-1)C+2}& \ldots & a_{(R-1)C+(C-1)}
     $$
 </div>
 
-##### Four-step DFT
+###### Four-step DFT
 
 对上面的算法进行一个总结就是所谓的四步DFT算法,$[R \times C]$，表示为大小为$R\times C$的行优先矩阵：
 
@@ -766,7 +790,6 @@ a_{(R-1)C} & a_{(R-1)C+1} & a_{(R-1)C+2}& \ldots & a_{(R-1)C+(C-1)}
     t=\lfloor \frac{a}{p} \rfloor=\lfloor \frac{\frac{a}{b^{k-1}}\frac{b^{2k}}{p}}{b^{k+1}} \rfloor
     $$
 </div>
-
 其中$b$是基底，计算机系统中通常使用二进制表示，即$b=2$，$k$是模数相对于基底的位宽$k=\log_{b}p+1$，之所以是$b^{2k}$是因为通常运用模约简的场景是模乘，因此$a\in[0,p^2)$。经过变换，我们发现分离出来一个一个仅和模数有关的量:$\alpha = \frac{b^{2k}}{p}$，这意味着对同一模数的约简可以提前计算$\alpha$，其他部分可以通过右移和乘法完成，乘法运算效率显著高于除法运算，位移效率更快，计算速度提升了很多。
 
 为了避免浮点数计算，令$\beta=\lfloor \frac{b^{2k}}{p} \rfloor$,替换掉$\alpha$,得到$t$的近似$\hat{t}$​：
@@ -776,7 +799,6 @@ a_{(R-1)C} & a_{(R-1)C+1} & a_{(R-1)C+2}& \ldots & a_{(R-1)C+(C-1)}
     \hat{t}=\lfloor \frac{\lfloor\frac{a}{b^{k-1}}\rfloor \beta}{b^{k+1}} \rfloor=\lfloor \frac{\lfloor\frac{a}{b^{k-1}}\rfloor \lfloor \frac{b^{2k}}{p} \rfloor}{b^{k+1}} \rfloor
     $$
 </div>
-
 现在考虑$t$与$\hat{t}$的误差：
 
 <div>
@@ -785,7 +807,6 @@ a_{(R-1)C} & a_{(R-1)C+1} & a_{(R-1)C+2}& \ldots & a_{(R-1)C+(C-1)}
     \mu = \frac{b^{2k}}{p} - \lfloor \frac{b^{2k}}{p} \rfloor
     $$
 </div>
-
 且$0 \le \lambda \lt 1$,$0 \le \mu \lt 1$​，此外还有：
 
 <div>
@@ -793,7 +814,6 @@ a_{(R-1)C} & a_{(R-1)C+1} & a_{(R-1)C+2}& \ldots & a_{(R-1)C+(C-1)}
     t=\lfloor\frac{a}{b^{k-1}}\cdot\frac{b^{2k}}{p}\cdot\frac{1}{b^{k+1}}\rfloor=\lfloor\frac{(\lfloor\frac{a}{b^{k-1}}\rfloor+\lambda)(\lfloor\frac{b^{2k}}{p}\rfloor+\mu)}{b^{k+1}}\rfloor\leq\lfloor\hat{t}+\frac{\lfloor\frac{a}{b^{k-1}}\rfloor+\lfloor\frac{b^{2k}}{p}\rfloor+1}{b^{k+1}}\rfloor
     $$
 </div>
-
 因为$a\lt b^{2k}$,所以$\lfloor \frac{a}{b^{k-1}} \rfloor \leq b^{k+1}-1$；又因为$p \ge b^{k-1}$,所以$\lfloor \frac{b^{2k}}{p}\rfloor \leq b^{k+1}$​。对上面不等式放缩：
 
 <div>
@@ -801,7 +821,6 @@ a_{(R-1)C} & a_{(R-1)C+1} & a_{(R-1)C+2}& \ldots & a_{(R-1)C+(C-1)}
     t\leq\lfloor\hat{t}+\frac{b^{k+1}-1+b^{k+1}+1}{b^{k+1}}\rfloor=\lfloor\hat{t}+2\rfloor
     $$
 </div>
-
 又因为$\hat{t} \le t$​,所以可得：
 
 <div>
@@ -809,7 +828,6 @@ a_{(R-1)C} & a_{(R-1)C+1} & a_{(R-1)C+2}& \ldots & a_{(R-1)C+(C-1)}
     t-2 \le \hat{t} \le t
     $$
 </div>
-
 近似性不错，进一步可得：
 
 <div>
@@ -817,7 +835,6 @@ a_{(R-1)C} & a_{(R-1)C+1} & a_{(R-1)C+2}& \ldots & a_{(R-1)C+(C-1)}
     0 \lt a - \hat{t}p \le a - (t-2)p=a-tp+2p
     $$
 </div>
-
 又因为$a-tp=z\lt p$​，所以：
 
 <div>
@@ -825,7 +842,6 @@ a_{(R-1)C} & a_{(R-1)C+1} & a_{(R-1)C+2}& \ldots & a_{(R-1)C+(C-1)}
     0 \lt a - \hat{t}p \lt 3p
     $$
 </div>
-
 不难看出使用近似方法得出得值有可能比p大，但是通过最多两次减法就可以修正误差，下面给出完整的算法：
 
 <div>
@@ -852,7 +868,6 @@ a_{(R-1)C} & a_{(R-1)C+1} & a_{(R-1)C+2}& \ldots & a_{(R-1)C+(C-1)}
 & \end{array}
     $$
 </div>
-
 $z_1$和$z_2$的运算可以通过直接去掉k位的高位即可，简化了计算。下面给出$\beta$​的算法：
 
 <div>
@@ -880,53 +895,157 @@ $z_1$和$z_2$的运算可以通过直接去掉k位的高位即可，简化了计
     $$
 </div>
 
+
 #### 2.1.3  Montgomery 约简
 
-‍
+‍蒙哥马利模乘约减的思路是通过变换，将需要取模的数控制到很小的范围（$[0,(p-1)^2] \rightarrow [0,2p-1]$ ）然后通过少量减法获取最后结果。并通过位运算简化计算，例如：右移除法、位与取模。
 
-#### 2.1.4  大数乘法的资源对比
+###### 蒙哥马利约简
 
-‍
+对于$\forall t \in \Z$且满足$a < r p$，$r\gt p$，$\gcd(r,p)=1$ 。$p$是以$b$为基底,长度为$k$的整数，则r的取值为$b^k$，计算机中$b$为$2$，显然$r\gt p$。但是只有当$\gcd(b,p)=1$时才满足$\gcd(r,p)=1$，因此模数的选择有特殊要求。将在2.2节中详细介绍模数的选择，此处不展开。
 
-### 2.2 素数选择
+由于$r$和$p$互素，所以存在$r',p'  \in[0,p)$使得下式成立，$r'$是$r$在$p$下的逆元 ，$p'$是$p$在$r$下的负逆元。
 
-‍
+$$
+rr'-pp'=1
+$$
+
+于是：
+
+<div>
+    $$
+    \begin{align*}
+ar' &=ar'\frac{r}{r} \\
+&=\frac{arr'}{r} \\
+&=\frac{a(1+pp')}{r}  \\
+&=\frac{a+app'}{r}  \\
+&=\frac{a+(\lfloor \frac{ap'}{r} \rfloor r+(ap' \mod r))p}{r}   \\
+&=\frac{a+(ap' \mod r)p}{r}+\lfloor \frac{ap'}{r} \rfloor p   \\
+&\equiv \frac{a+(ap' \mod r)p}{r} &\pmod{p} \\
+&\equiv \frac{a+((a\mod r)p' \mod r)p}{r} &\pmod{p} \\
+\end{align*}
+    $$
+</div>
+
+其中$\lfloor \frac{ap'}{r} \rfloor r+(ap' \mod r)$是将$ap'$表达为成商乘上除数加余数的形式。上面的推导过程将对$ar'$模$p$转换为了对$\frac{a+((a\mod r)p' \mod r)p}{r}$模$p$操作。显然$((a\mod r)p' \mod r)p \lt rp$又因为$a < r p$所以可得下面的关系，不难发现最多只需一次减法就可以完成取模操作，其中模$r$可以通过位与运算，除$r$可以通过位右移运算完成，之所以做两次模$r$运算是为了降低乘法位宽。
+
+$$
+\frac{t+((t\mod r)p' \mod r)p}{r} \lt 2p
+$$
+
+下面给出相应的算法：
+
+<div>
+    $$
+    \begin{array}{ll}
+\hline
+\text{\textbf{Algorithm 8}} & \text{蒙哥马利约简} \\ 
+\hline
+\text{\textbf{Require:}} & p\quad r \quad p' \quad (pp' \equiv-1\mod r )\quad \\ 
+\text{\textbf{function}} & REDC(a)\\  
+& \beta \leftarrow b^k\\   
+& m \leftarrow (a\mod r)p' \mod r \\
+& t \leftarrow (a+mp) \text{div }r \\
+& \text{if} \ t \gt p\\  
+& \quad  \quad \text{return}\ t-p\\
+& \text{else} \\  
+& \quad  \quad \text{return}\ t\\
+& \text{endif}\\  
+\text{\textbf{end function}}  \\
+\hline
+&\end{array}
+    $$
+</div>
+
+###### 蒙哥马利域
+
+由上面蒙哥马利约简的过程不难发现实际是对$xR^{-1}$(这里的$R^{-1}$就是上面提到的$r'$,只是为了方便区分)进行约简，所以在使用蒙哥马利约简时，首先需要转换到蒙哥马利域中，蒙哥马利域中的形式表示为$\bar{x}$，转换入蒙哥马利域的方式：
+
+$$
+\bar{x} =x \cdot R \pmod p
+$$
+
+显然，转入蒙哥马利域的成本是高昂的，只有在蒙哥马利域内计算值得时才会使用蒙哥马利约简，在蒙哥马利域中加法和减法（结合律）不受影响。
+
+$$
+\bar{x}+\bar{y} = xR+yR=(x+y)R = \overline{x+y} \pmod p
+$$
+
+但是蒙哥马利域上的乘法是不正确的，这里蒙哥马利域中的乘法用 $\times$表示，正常的乘法用$\cdot$表示。我们期望的结果是：
+
+$$
+\bar{x}\times\bar{y}=\overline{x\cdot y}=(x\cdot y) R  \pmod{p}
+$$
+
+但是实际上如果直接相乘获得结果如下：
+
+$$
+\bar{x}\cdot\bar{y}=xR\cdot yR=(x\cdot y) RR  \pmod{p}
+$$
+
+蒙哥马利域上的乘法定义如下：
+
+$$
+\bar{x}\times\bar{y}=(\bar{x}\cdot \bar{y}) R^{-1} =(x\cdot y) R=RECD(\bar{x}\cdot \bar{y})\pmod{p}
+$$
+
+最后就是蒙哥马利域的转出，转出如下所示。
+
+$$
+x = \bar{x}\cdot R^{-1}=RECD(\bar{x}) \pmod p
+$$
+
+###### 蒙哥马利模乘
+
+在执行蒙哥马利乘法本身开销并不高，但是需要完成一些提前计算，这些计算的开销较高。
+
+* 蒙哥马利域的转入
+* $p'$的计算
+* 蒙哥马利域的转出
+
+在约简过程中已经完成了蒙哥马利域的转出。p'的计算可以通过扩展欧几里得算法获得。对于转入还存在另一种策略：
+
+$$
+\bar{x} =x \cdot R \mod{p} =x \times R^2  =REDC(x\cdot (R^2 \mod p))
+$$
+
+第二种策略策略是省去模p的运算，但是失去了乘R位运算优势，取而代之的是乘上$R^2 \mod p$，可以提前计算，并需要执行约简操作，因为取模开销很大，大概率第二种策略效率更高一点。于是蒙哥马利模乘可以表示如下：
+
+<div>
+    $$
+    \begin{align*}
+z&=x\cdot y \mod p=REDC(REDC(\bar{x}\cdot \bar{y}))\\
+\bar{x}&=REDC(x\cdot (RR \mod p))\\
+\bar{y}&=REDC(y\cdot (RR \mod p))\\
+\end{align*}
+    $$
+</div>
+
+
+
+#### 2.1.4  小结
+
+上面介绍了三种模约简方法，模约简主要用于模乘中，这里主要对比分析一下巴雷特和蒙哥马利，至于朴素方案效率太低就不分析了。在FPGA上当一次处理位宽大于$16$-bit时蒙哥马利更具有优势，反之巴列特算法有优势[IEEE Comparison of Montgomery and Barrett   modular multipliers on FPGAs](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=4176858)。对CPU或者GPU版本没有看到相应的资料，不过从两种算法从时间复杂度上是类似的[Efficient Randomized Regular Modular Exponentiation  using Combined Montgomery and Barrett  Multiplications](https://hal.science/hal-01330898/document)。连续模乘可能蒙哥马利的优势更大。
+
+![image-20240228205344246](https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402282053440.png)
+
+### 2.2 模数选择
+
+因为NTT中涉及连续模乘，因此暂时采用蒙哥马利模乘，本节讨论为了满足蒙哥马利方案应该如何进行模数选择。
 
 ### 2.3 原地转置
 
 ‍
 
-### 2.4 可能的合并优化
+### 2.4  root power 是否预计算
 
 ‍
 
-## 3 NTT 实现层次的优化
+### 2.5  可能的合并优化
 
-### 3.1 流水线设计（HEAX 的实现）
+‍
 
-### 3.2 root power 是否预计算
-
-### 3.3 NTT core 的并行度
-
-## 4 Four Step NTT 实现优化
-
-### 4.1 粗粒度流水线
-
-#### 4.1.1 流水线 1
-
-读取列并 bit reversed 存储，计算 NTT，乘 twiddle factor 并写回
-
-#### 4.1.2 流水线 2
-
-读取行并 bit reversed 存储，计算 NTT，计算转置索引并写回
-
-### 4.3 考虑更细粒度的流水
-
-行 NTT 的前几轮可以提前开始
-
-### 4.4 流水线中 NTT 的并行数量与资源消耗
-
-流水线中 NTT 的并行数量 对应的 端口数量、读写位宽、存储、计算资源使用量，瓶颈资 源是什么
+### 
 
 ‍
 
@@ -938,41 +1057,42 @@ $z_1$和$z_2$的运算可以通过直接去掉k位的高位即可，简化了计
 
 [2]快速数论变换（NTT）及蝴蝶操作构造详解[EB/OL]//知乎专栏. [2024-01-21]. [https://zhuanlan.zhihu.com/p/80297169](https://zhuanlan.zhihu.com/p/80297169).
 
-[3]蒙哥马利算法(Montgomery Algorithm)|蒙哥马利约简、模乘、模幂_montgomery算法-CSDN博客[EB/OL]. [2024-01-28]. [https://blog.csdn.net/weixin_46395886/article/details/112988136](https://blog.csdn.net/weixin_46395886/article/details/112988136).
+[3]COOLEY J W, TUKEY J W. An Algorithm for the Machine Calculation of Complex Fourier Series[J].
 
-[4]蒙哥马利算法详解_蒙德马利法-CSDN博客[EB/OL]. [2024-01-28]. [https://blog.csdn.net/zgzczzw/article/details/52712980](https://blog.csdn.net/zgzczzw/article/details/52712980).
+[4]LESAVOUREY A, NEGRE C, PLANTARD T. Efficient Randomized Regular Modular Exponentiation using Combined Montgomery and Barrett Multiplications[C/OL]//ICETE: International Joint Conference on e-Business and Telecommunications: 4 [SECRYPT]. Lisbon, Portugal, 2016: 368-375[2024-02-28]. [https://hal.science/hal-01330898](https://hal.science/hal-01330898). DOI:[10.5220/0005998503680375](https://doi.org/10.5220/0005998503680375).
 
-[5]COOLEY J W, TUKEY J W. An Algorithm for the Machine Calculation of Complex Fourier Series[J].
+[5]Finite Field Implementations[Z/OL]. [2024-01-26]. [https://docs.google.com/presentation/d/1I5QS58LtA3iiiPiVHHcN7oufCoo8sIDh9UvnJHWjA2Q](https://docs.google.com/presentation/d/1I5QS58LtA3iiiPiVHHcN7oufCoo8sIDh9UvnJHWjA2Q).
 
-[6]BAILEY D H. FFTs in external of hierarchical memory[C/OL]//Proceedings of the 1989 ACM/IEEE conference on Supercomputing  - Supercomputing ’89. Reno, Nevada, United States: ACM Press, 1989: 234-242[2024-01-30]. [http://portal.acm.org/citation.cfm?doid=76263.76288](http://portal.acm.org/citation.cfm?doid=76263.76288). DOI:[10.1145/76263.76288](https://doi.org/10.1145/76263.76288).
+[6]RISC ZERO. Finite Field Implementations: Barrett & Montgomery[Z/OL]. (2023-02-17)[2024-01-26]. [https://www.youtube.com/watch?v=hUl8ZB6hpUM](https://www.youtube.com/watch?v=hUl8ZB6hpUM).
 
-[7]Finite Field Implementations[Z/OL]. [2024-01-26]. [https://docs.google.com/presentation/d/1I5QS58LtA3iiiPiVHHcN7oufCoo8sIDh9UvnJHWjA2Q](https://docs.google.com/presentation/d/1I5QS58LtA3iiiPiVHHcN7oufCoo8sIDh9UvnJHWjA2Q).
+[7]AGARWAL R C, COOLEY J W. Fourier transform and convolution subroutines for the IBM 3090 Vector Facility[J/OL]. IBM Journal of Research and Development, 1986, 30(2): 145-161. DOI:[10.1147/rd.302.0145](https://doi.org/10.1147/rd.302.0145).
 
-[8]RISC ZERO. Finite Field Implementations: Barrett & Montgomery[Z/OL]. (2023-02-17)[2024-01-26]. [https://www.youtube.com/watch?v=hUl8ZB6hpUM](https://www.youtube.com/watch?v=hUl8ZB6hpUM).
+[8]董晓算法. G41 快速傅里叶变换 FFT算法 多项式乘法_哔哩哔哩_bilibili[EB/OL]. [2024-01-21]. [https://www.bilibili.com/video/BV1Le4y1V78D/](https://www.bilibili.com/video/BV1Le4y1V78D/).
 
-[9]AGARWAL R C, COOLEY J W. Fourier transform and convolution subroutines for the IBM 3090 Vector Facility[J/OL]. IBM Journal of Research and Development, 1986, 30(2): 145-161. DOI:[10.1147/rd.302.0145](https://doi.org/10.1147/rd.302.0145).
+[9]董晓算法. G43 快速数论变换 NTT算法_哔哩哔哩_bilibili[EB/OL]. [2024-01-21]. [https://www.bilibili.com/video/BV1a3411Z7vL/](https://www.bilibili.com/video/BV1a3411Z7vL/).
 
-[10]董晓算法. G41 快速傅里叶变换 FFT算法 多项式乘法_哔哩哔哩_bilibili[EB/OL]. [2024-01-21]. [https://www.bilibili.com/video/BV1Le4y1V78D/](https://www.bilibili.com/video/BV1Le4y1V78D/).
+[10]HEIDEAN M, JOHNSON D, BURRUS C. Gauss and the history of the fast fourier transform[J/OL]. IEEE ASSP Magazine, 1984, 1(4): 14-21. DOI:[10.1109/MASSP.1984.1162257](https://doi.org/10.1109/MASSP.1984.1162257).
 
-[11]董晓算法. G43 快速数论变换 NTT算法_哔哩哔哩_bilibili[EB/OL]. [2024-01-21]. [https://www.bilibili.com/video/BV1a3411Z7vL/](https://www.bilibili.com/video/BV1a3411Z7vL/).
+[11]COHEN H, FREY G, AVANZI R, 等. Handbook of Elliptic and Hyperelliptic Curve Cryptography[M/OL]. 0 版. Chapman and Hall/CRC, 2005[2024-02-26]. [https://www.taylorfrancis.com/books/9781420034981](https://www.taylorfrancis.com/books/9781420034981). DOI:[10.1201/9781420034981](https://doi.org/10.1201/9781420034981).
 
-[12] HEIDEMAN M, JOHNSON D, BURRUS C. Gauss and the history of the fast fourier transform[J/OL]. IEEE ASSP Magazine, 1984, 1(4): 14-21. DOI:[10.1109/ MASSP.1984.1162257](https://doi.org/10.1109/MASSP.1984.1162257).
+[12]Hardcaml Zprize[EB/OL]. [2024-01-30]. [https://zprize.hardcaml.com/ntt-top-level.html](https://zprize.hardcaml.com/ntt-top-level.html).
 
-[13]Hardcaml Zprize[EB/OL]. [2024-01-30]. [https://zprize.hardcaml.com/ntt-top-level.html](https://zprize.hardcaml.com/ntt-top-level.html).
+[13]IEEE Xplore Full-Text PDF:[EB/OL]. [2024-02-28]. [https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=4176858](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=4176858).
 
 [14]Math & Engineering[EB/OL]. [2024-02-22]. [https://xn--2-umb.com/](https://xn--2-umb.com/).
 
-[15]MONTGOMERY P L. Modular multiplication without trial division[J/OL]. Mathematics of Computation, 1985, 44(170): 519-521. DOI:[10.1090/S0025-5718-1985-0777282-X](https://doi.org/10.1090/S0025-5718-1985-0777282-X).
+[15]LIANG Z, ZHAO Y. Number Theoretic Transform and Its Applications in Lattice-based Cryptosystems: A Survey[M/OL]. arXiv, 2022[2024-01-30]. [http://arxiv.org/abs/2211.13546](http://arxiv.org/abs/2211.13546).
 
-[16]LIANG Z, ZHAO Y. Number Theoretic Transform and Its Applications in Lattice-based Cryptosystems: A Survey[M/OL]. arXiv, 2022[2024-01-30]. [http://arxiv.org/abs/2211.13546](http://arxiv.org/abs/2211.13546).
+[16]KNAUTH C, ADAS B, WHITFIELD D, 等. Practically efficient methods for performing bit-reversed permutation in C++11 on the x86-64 architecture[M/OL]. arXiv, 2017[2024-01-29]. [http://arxiv.org/abs/1708.01873](http://arxiv.org/abs/1708.01873).
 
-[17]KNAUTH C, ADAS B, WHITFIELD D, 等. Practically efficient methods for performing bit-reversed permutation in C++11 on the x86-64 architecture[M/OL]. arXiv, 2017[2024-01-29]. [http://arxiv.org/abs/1708.01873](http://arxiv.org/abs/1708.01873).
+[17]DUPAQUIS V, VENELLI A. Redundant Modular Reduction Algorithms[C/OL]//PROUFF E. Smart Card Research and Advanced Applications. Berlin, Heidelberg: Springer, 2011: 102-114. DOI:[10.1007/978-3-642-27257-8_7](https://doi.org/10.1007/978-3-642-27257-8_7).
 
-[18]KRAPIVENSKY V. Speeding up decimal multiplication[M/OL]. arXiv, 2020[2024-01-21]. [http://arxiv.org/abs/2011.11524](http://arxiv.org/abs/2011.11524). DOI:[10.48550/arXiv.2011.11524](https://doi.org/10.48550/arXiv.2011.11524).
+[18]KNEZˇEVIC M, VERBAUWHEDE I. Speeding Up Barrett and Montgomery Modular Multiplications[J].
 
-[19]LONGA P, NAEHRIG M. Speeding up the Number Theoretic Transform for Faster Ideal Lattice-Based Cryptography[A/OL]. (2016)[2024-01-30]. [https://eprint.iacr.org/2016/504](https://eprint.iacr.org/2016/504).
+[19]KRAPIVENSKY V. Speeding up decimal multiplication[M/OL]. arXiv, 2020[2024-01-21]. [http://arxiv.org/abs/2011.11524](http://arxiv.org/abs/2011.11524). DOI:[10.48550/arXiv.2011.11524](https://doi.org/10.48550/arXiv.2011.11524).
 
-[20]REDUCIBLE. The Fast Fourier Transform (FFT): Most Ingenious Algorithm Ever?[Z/OL]. (2020-11-15)[2024-01-21]. [https://www.youtube.com/watch?v=h7apO7q16V0](https://www.youtube.com/watch?v=h7apO7q16V0).
+[20]LONGA P, NAEHRIG M. Speeding up the Number Theoretic Transform for Faster Ideal Lattice-Based Cryptography[A/OL]. (2016)[2024-01-30]. [https://eprint.iacr.org/2016/504](https://eprint.iacr.org/2016/504).
 
-‍
+[21]REDUCIBLE. The Fast Fourier Transform (FFT): Most Ingenious Algorithm Ever?[Z/OL]. (2020-11-15)[2024-01-21]. [https://www.youtube.com/watch?v=h7apO7q16V0](https://www.youtube.com/watch?v=h7apO7q16V0).
+
 
