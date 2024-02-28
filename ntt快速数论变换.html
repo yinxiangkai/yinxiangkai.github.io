@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/qifeng.xyz\/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html"
-        },"image": ["https:\/\/qifeng.xyz\/favicon-32x32.png"],"genre": "posts","keywords": "算法, NTT, 基础","wordcount":  9394 ,
+        },"image": ["https:\/\/qifeng.xyz\/favicon-32x32.png"],"genre": "posts","keywords": "算法, NTT, 基础","wordcount":  9398 ,
         "url": "https:\/\/qifeng.xyz\/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html","datePublished": "2024-02-20T16:02:29+08:00","dateModified": "2024-02-20T16:02:29+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -115,7 +115,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">NTT（快速数论变换）</h1><h2 class="single-subtitle">快速数论变换的基础知识学习笔记</h2><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>豈</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%AE%97%E6%B3%95.html"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-20">2024-02-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;9394 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-20">2024-02-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;9398 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;19 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -210,7 +210,7 @@
             <li><a href="#143-ntt-的迭代实现">1.4.3 $NTT$ 的迭代实现</a></li>
           </ul>
         </li>
-        <li><a href="#15-four-step-算法">1.5 Four-Step 算法</a>
+        <li><a href="#15-矩阵dft算法">1.5 矩阵DFT算法</a>
           <ul>
             <li>
               <ul>
@@ -832,7 +832,7 @@ $$
 \end{array}
 $$
 </div>
-<h3 id="15-four-step-算法">1.5 Four-Step 算法</h3>
+<h3 id="15-矩阵dft算法">1.5 矩阵DFT算法</h3>
 <p>现在介绍另外一种算法，可以解决缓存无法驻留一次DFT的数据，这种算法是将输入看作是一个行优先的矩阵进行计算，请注意对于NTT来说实际的输入指的是系数$a_i$。</p>
 <p>如果 $n=R\cdot C$ 我们可以用 $i_r\in[0,R)$ 和 $i_c \in [0,C)$ 重写$i=i_r\cdot C+i_c$ 。这将创建一个对应 $[0,n) \backsimeq[0,R) \times[0,C)$。另一种对应关系是 $k=k_r+k_c\cdot R$ ,注意这里输出的顺序已经变成了列优先了。将$i$和$k$带入下式。</p>
 <p>$$
