@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/qifeng.xyz\/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html"
-        },"image": ["https:\/\/qifeng.xyz\/favicon-32x32.png"],"genre": "posts","keywords": "算法, NTT, 基础","wordcount":  9460 ,
+        },"image": ["https:\/\/qifeng.xyz\/favicon-32x32.png"],"genre": "posts","keywords": "算法, NTT, 基础","wordcount":  11413 ,
         "url": "https:\/\/qifeng.xyz\/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html","datePublished": "2024-02-20T16:02:29+08:00","dateModified": "2024-02-20T16:02:29+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -115,8 +115,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">NTT（快速数论变换）</h1><h2 class="single-subtitle">快速数论变换的基础知识学习笔记</h2><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>豈</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%AE%97%E6%B3%95.html"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-20">2024-02-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;9460 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;19 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-20">2024-02-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;11413 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;23 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -246,11 +246,15 @@
             <li><a href="#214--小结">2.1.4  小结</a></li>
           </ul>
         </li>
-        <li><a href="#heading"></a></li>
         <li><a href="#22--root-power-预计算">2.2  root power 预计算</a></li>
-        <li><a href="#23-原地转置">2.3 原地转置</a></li>
-        <li><a href="#24--可能的合并优化">2.4  可能的合并优化</a></li>
-        <li><a href="#heading-1"></a></li>
+        <li><a href="#23-转置优化">2.3 转置优化</a></li>
+        <li><a href="#24--可能的优化">2.4  可能的优化</a>
+          <ul>
+            <li><a href="#241-位逆序省略">2.4.1 位逆序省略</a></li>
+            <li><a href="#242-省略转置">2.4.2 省略转置</a></li>
+            <li><a href="#243-合并">2.4.3 合并</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#参考文献">参考文献</a></li>
@@ -440,12 +444,12 @@ a_{n-1} \\
 \end{array} \right]
 $$</div>
 <p>其中 $V_n$ 是一个范德蒙矩阵，是一个可逆矩阵，因此 $IDFT$：$a=W^{-1}y$。</p>
-<p>下面求取:$W_n^{-1}$。矩阵 $W$ 可以表示为：$W_{jk}=ω_ n^{jk}$。$W_{jk}^{-1}$ 的值应该是 $W_{jk}$ 的共轭除以 $n$。由 $\omega _n$ 的性质，我们知道 $\omega _n^k$ 的共轭是 $\omega _n^{-k}$。因此 $W_{jk}^{-1}=\frac{1}{n}ω_ n^{-jk}$。所以 $DFT$ 和 $DFT^{-1}$ 的时间复杂一致，甚至计算流程基本一致。</p>
+<p>下面求取:$W_n^{-1}$。矩阵 $W$ 可以表示为：$W_{jk}=ω_ n^{jk}$。$W_{jk}^{-1}$ 的值应该是 $W_{jk}$ 的共轭除以 $n$。由 $\omega _n$ 的性质，我们知道 $\omega _n^k$ 的共轭是 $\omega _n^{-k}$。因此 $W_{jk}^{-1}=\frac{1}{n}ω_ n^{-jk}$。所以 $DFT$ 和 $IDFT$ 的时间复杂一致，甚至计算流程基本一致。</p>
 <div>$$
 a_j= \frac{1}{n}\sum_{j=0}^{n-1} y_j ω_ n^{-jk} \quad  k = 0, 1, \ldots, n-1
 $$</div>
 <h3 id="13-快速傅里叶变化fft">1.3 快速傅里叶变化（$FFT$）</h3>
-<p>其实 $FFT$ 的思路在 1.1.3 节中进行介绍只是并不是很完善，下面进行一个较为细致的描述。详细介绍 FFT 的递归实现和迭代实现。$IFFT$ 与 $FFT$ 区别不大不再详细介绍了。</p>
+<p>其实 $FFT$ 的思路在 1.1.3 节中进行了介绍只是并不是很完善，下面进行一个较为细致的描述。详细介绍 FFT 的递归实现和迭代实现。</p>
 <h4 id="131-fft-递归实现">1.3.1 $FFT$ 递归实现</h4>
 <p>将单位根带入公式（7）得：</p>
 <div>$$
@@ -529,7 +533,7 @@ P(\omega_{n}^{k}) + P(\omega_{n}^{k+m}) = 2P_{e}(\omega_{\frac{n}{2}}^{k})
 \\
 P(\omega_{n}^{k}) - P(\omega_{n}^{k+m}) = 2\omega_{n}^{k}P_{o}(\omega_{\frac{n}{2}}^{k})
 $$</div>
-<p>整理得公式（11-12）不难看出，GS 操作是 CT 操作得逆过程，可以用于 $IFFT$ 中，不过本文介绍的 $IFFT$ 方案没有采用这种思路,当然也可以用在$FFT$中，毕竟两者本质上没啥区别。</p>
+<p>整理得公式（11-12）不难看出，GS 操作是 CT 操作的逆过程，可以用于 $IFFT$ 中,当然也可以用在$FFT$中，通常CT方法也叫$DIT$（时域抽取）操作，GS操作也叫$DIF$（频域抽取）操作。</p>
 <div>$$
 \begin{align}
 P_e(\omega_{\frac{n}{2}}^{k}) &= \frac{1}{2}(P(\omega_{n}^{k}) + P(\omega_{n}^{k+m})) \\
@@ -597,35 +601,62 @@ $$</div>
 \end{array}
 $$</div>
 <h6 id="迭代算法实现">迭代算法实现</h6>
-<p>算法 3 是迭代版版本的 $FFT$ 实现。$s $ 可以看作是合并轮数。$m$ 是当前合并次数下每个单元的规模。其中$\hat{1}$是乘法单位元这里是$\omega_n^0$。</p>
+<p>算法 3 是$DIT$实现，算法4是$DIF$实现。$s $ 可以看作是合并轮数。$m$ 是当前合并次数下每个单元的规模。其中$\hat{1}$是乘法单位元都是$\omega_n^0$。这里的$\omega_n=﻿e^{\pm2\pi i  / n}$,在进行$FFT$操作时取正，$IFFT$操作时取负。当然IFFT还需要乘上$n^{-1}$。</p>
 <div>$$
-\begin{array}{ll}\hline\text{\textbf{Algorithm 3}} & \text{Iteration FFT}\\ 
+\begin{array}{ll}\hline\text{\textbf{Algorithm 3}} & \text{DIT}\\ 
 \hline
-\text{\textbf{Require:}} & P=[p_0,p_1,\ldots,p_{n-1}]\quad n=2^{a},a\in\mathbb{N}\\ \text{\textbf{function}} & \text{FFT\_I}(P)\\  
-& n\leftarrow len(P)\\  
-& A\leftarrow BitReverseCopy(P)\\
+\text{\textbf{Require:}} & A=[a_0,a_1,\ldots,a_{n-1}]\quad n=2^{x},x\in\mathbb{N}\\ \text{\textbf{function}} & \text{DIT}(A)\\  
+& n\leftarrow len(A)\\  
+& P\leftarrow BitReverseCopy(A)\\
 & \text{for}\quad s=1\quad\text{to}\quad \log_2n\\  
 & \quad m=2^s\\
 & \quad \omega_m=\omega_n^{\frac{n}{m}}\\
 & \quad\text{for}\quad k=0\quad \text{to} \quad n-1 \quad \text{by}\quad m\\  
 & \quad\quad \varphi=\hat{1}\\
 & \quad\quad\text{for}\quad j=0\quad\text{to} \quad \frac{m}{2}-1\\  
-& \quad\quad\quad t=\varphi A[k+j+\frac{m}{2}]\\
-& \quad\quad\quad u= A[k+j]\\
-& \quad\quad\quad A[k+j]= u+t\\
-& \quad\quad\quad A[k+j+\frac{m}{2}]= u-t\\
+& \quad\quad\quad t=\varphi P[k+j+\frac{m}{2}]\\
+& \quad\quad\quad u= P[k+j]\\
+& \quad\quad\quad P[k+j]= u+t\\
+& \quad\quad\quad P[k+j+\frac{m}{2}]= u-t\\
 & \quad\quad\quad \varphi=\varphi \omega_m\\
 & \quad\quad\text{endfor}\\ 
 & \quad\text{endfor}\\ 
 & \text{endfor}\\  
-& \text{return}\quad A\\
+& \text{return}\quad P\\
  \text{\textbf{end function}} 
 & \\ 
 \hline 
 & \end{array}
 $$</div>
-<p>下面是 n=8 时，迭代 $FFT$ 的数据流图。</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402291729252.svg" title="图9 n=8迭代FFT数据流图" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402291729252.svg" data-sub-html="<h2>图9 n=8迭代FFT数据流图</h2><p>图9 n=8迭代FFT数据流图</p>">
+<div>$$
+\begin{array}{ll}\hline\text{\textbf{Algorithm 4}} & \text{DIF}\\ 
+\hline
+\text{\textbf{Require:}} & A=[a_0,a_1,\ldots,a_{n-1}]\quad n=2^{x},x\in\mathbb{N}\\ \text{\textbf{function}} & \text{DIF}(P)\\  
+& n\leftarrow len(A)\\  
+& P\leftarrow A\\
+& \text{for}\quad s=\log_2n \quad\text{to}\quad 1\\  
+& \quad m=2^s\\
+& \quad \omega_m=\omega_n^{\frac{n}{m}}\\
+& \quad\text{for}\quad k=0\quad \text{to} \quad n-1 \quad \text{by}\quad m\\  
+& \quad\quad \varphi=\hat{1}\\
+& \quad\quad\text{for}\quad j=0\quad\text{to} \quad \frac{m}{2}-1\\  
+& \quad\quad\quad t= P[k+j+\frac{m}{2}]\\
+& \quad\quad\quad u= P[k+j]\\
+& \quad\quad\quad P[k+j]= u+t\\
+& \quad\quad\quad P[k+j+\frac{m}{2}]= \varphi(u-t)\\
+& \quad\quad\quad \varphi=\varphi \omega_m\\
+& \quad\quad\text{endfor}\\ 
+& \quad\text{endfor}\\ 
+& \text{endfor}\\  
+& P\leftarrow BitReverseCopy(P)\\
+& \text{return}\quad P\\
+ \text{\textbf{end function}} 
+& \\ 
+\hline 
+& \end{array}
+$$</div>
+<p>下面是 n=8 时，$DIT$迭代 $FFT$ 的数据流图。</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402291729252.svg" title="图9 n=8迭代DIT数据流图" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402291729252.svg" data-sub-html="<h2>图9 n=8迭代DIT数据流图</h2><p>图9 n=8迭代DIT数据流图</p>">
         <img
             class="lazyload"
             src="/svg/loading.min.svg"
@@ -633,18 +664,7 @@ $$</div>
             data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402291729252.svg, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402291729252.svg 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402291729252.svg 2x"
             data-sizes="auto"
             alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402291729252.svg" />
-    </a><figcaption class="image-caption">图9 n=8迭代FFT数据流图</figcaption>
-    </figure></p>
-<p>但是也可以不执行位逆序操作，只是需要按照$\frac{n}{2}$的步长进行蝶形计算，每执行一轮步长减半如下图所示。</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402292001754.svg" title="图10  n=8无位逆序迭代FFT数据流图" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402292001754.svg" data-sub-html="<h2>图10  n=8无位逆序迭代FFT数据流图</h2><p>图10  n=8无位逆序迭代FFT数据流图</p>">
-        <img
-            class="lazyload"
-            src="/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402292001754.svg"
-            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402292001754.svg, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402292001754.svg 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402292001754.svg 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402292001754.svg" />
-    </a><figcaption class="image-caption">图10  n=8无位逆序迭代FFT数据流图</figcaption>
+    </a><figcaption class="image-caption">图9 n=8迭代DIT数据流图</figcaption>
     </figure></p>
 <h3 id="14-快速数论变换ntt">1.4 快速数论变换（$NTT$）</h3>
 <p>$FFT$ 存一些问题。首先 FFT 是在复数域上的表示，而计算机系统中表示复数，需要比实数花费更多的资源，且复数运算也比实数运算更加复杂。此外 FFT 涉及大量的正余弦运算，对于精度有影响。于是我们期望在实数域内寻找类似单位根性质的数学概念。有限域上的原根满足相应的要求。</p>
@@ -717,7 +737,7 @@ $$</div>
 <div>$$
 \begin{array}{ll}
 \hline
-\text{\textbf{Algorithm 4}} & \text{ Recursion Number Theoretic Transform (NTT)}\\ 
+\text{\textbf{Algorithm 5}} & \text{ Recursion Number Theoretic Transform (NTT)}\\ 
 \hline
 \textbf{Require:} & A=[a_0,a_1,\ldots,a_{n-1}],\quad n=2^{k},\quad g ,\quad p \\
 \text{\textbf{function}} & \text{NTT\_R}(A, g, p)\\ 
@@ -747,34 +767,34 @@ $$</div>
 <div>$$
 \begin{array}{ll}
 \hline
-\text{\textbf{Algorithm 5}} & \text{Iteration NTT}\\ 
+\text{\textbf{Algorithm 6}} & \text{Iteration NTT}\\ 
 \hline
 \text{\textbf{Require:}} & A=[a_0,a_1,\ldots,a_{n-1}],\ n=2^{k},\quad  g, \quad p\\ 
 \text{\textbf{function}} & \text{NTT\_I}(A, g, p)\\  
 & n \leftarrow \text{len}(A)\\  
-& A \leftarrow \text{BitReverseCopy}(A)\\
+& P \leftarrow \text{BitReverseCopy}(A)\\
 & \text{for}\ s=1\ \text{to}\ \log{n}\\  
 & \quad m=2^s\\
 & \quad g_m=g^{\frac{n}{m}} \pmod p\\
 & \quad \text{for}\ k=0\ \text{to}\ n-1\ \text{by}\ m\\  
 & \quad\quad \varphi=\hat{1}\\
 & \quad\quad \text{for}\ j=0\ \text{to}\ \frac{m}{2}-1\\  
-& \quad\quad\quad t=\varphi A[k+j+\frac{m}{2}] \pmod p\\
-& \quad\quad\quad u= A[k+j] \pmod p\\
-& \quad\quad\quad A[k+j]= (u+t) \pmod p\\
-& \quad\quad\quad A[k+j+\frac{m}{2}]= (u-t) \pmod p\\
+& \quad\quad\quad t=\varphi P[k+j+\frac{m}{2}] \pmod p\\
+& \quad\quad\quad u= P[k+j] \pmod p\\
+& \quad\quad\quad P[k+j]= (u+t) \pmod p\\
+& \quad\quad\quad P[k+j+\frac{m}{2}]= (u-t) \pmod p\\
 & \quad\quad\quad \varphi=(\varphi \cdot g_m) \pmod p\\
 & \quad\quad \text{endfor}\\ 
 & \quad \text{endfor}\\ 
 & \text{endfor}\\  
-& \text{return}\ A\\
+& \text{return}\ P\\
 \text{\textbf{end function}} & \\ 
 \hline
 & 
 \end{array}
 $$</div>
 <h3 id="15--矩阵dft算法">1.5  矩阵DFT​算法</h3>
-<p>现在介绍另外一种算法，这种算法可以解决数据过大缓存无法一次性驻留一次DFT的数据，这种算法是将输入看作是一个行优先的矩阵进行计算，请注意对于NTT来说实际的输入指的是系数$a_i$。</p>
+<p>现在介绍另外一种算法，这种算法提高缓存命中率，从而提高执行效率。这种算法是将输入看作是一个行优先的矩阵进行计算，请注意对于NTT来说实际的输入指的是系数$a_i$。</p>
 <p>如果 $n=R\cdot C$ 我们可以用 $i_r\in[0,R)$ 和 $i_c \in [0,C)$ 重写$i=i_r\cdot C+i_c$ 。这将创建一个对应 $[0,n) \backsimeq[0,R) \times[0,C)$。另一种对应关系是 $k=k_r+k_c\cdot R$ ,注意这里输出的顺序已经变成了列优先了。将$i$和$k$带入下式。</p>
 <div>$$
 P_{k}=P(\omega_{n}^{k})=\sum_{i=0}^{n-1}a_{i}\omega_{n}^{ki}\quad k=0,1,\ldots,n-1
@@ -824,43 +844,46 @@ T=\left[\begin{array}{ccccc}
 \end{array}\right]
 $$</div>
 <h6 id="four-step-dft">Four-step DFT</h6>
-<p>对上面的算法进行一个总结就是所谓的四步DFT算法,$[R \times C]$，表示为大小为$R\times C$的行优先矩阵：</p>
+<p>对上面的算法进行一个总结就是所谓的四步DFT算法,$[R \times C]$，表示为大小为$R\times C$的行优先矩阵。</p>
+<blockquote>
+<p>$IDFT*$是省略乘上$n^{-1}$的$IDFT$，所以最后需要补上$n^{-1}$。</p>
+</blockquote>
 <p><strong>DFT:</strong></p>
 <ol>
-<li>$[R \times C]$,对每一列进行长度为R的DFT运算。</li>
+<li>$[R \times C]$,对每一列进行长度为$R$的$DFT$运算。</li>
 <li>$[R \times C]$,所有元素乘上对应的转换因子$\omega^{ik}$。</li>
-<li>$[R \times C]$,对每一行进行长度为C的DFT运算。</li>
+<li>$[R \times C]$,对每一行进行长度为$C$的$DFT$运算。</li>
 <li>$[R \times C]$,将矩阵进行转置。</li>
 </ol>
-<p><strong>IDFT:</strong></p>
+<p><em><em>IDFT</em>：</em>*</p>
 <ol>
 <li>$[C \times R]$,将矩阵进行转置。</li>
-<li>$[R \times C]$,对每一行进行长度为C的DFT运算。</li>
+<li>$[R \times C]$,对每一行进行长度为$C$的$IDFT*$运算。</li>
 <li>$[R \times C]$,所有元素乘上对应的转换因子$\omega^{-ik}$。</li>
-<li>$[R \times C]$,对每一列进行长度为R的DFT运算。</li>
+<li>$[R \times C]$,对每一列进行长度为$R$的$IDFT*$运算。</li>
 </ol>
 <h6 id="six-step-dft">Six-step DFT</h6>
 <p>对列进行操作，无法读取连续的内存会影响计算效率，可以增加转置操作，于是获得六步DFT算法：</p>
 <p><strong>DFT:</strong></p>
 <ol>
 <li>$[R \times C]$,将矩阵进行转置。</li>
-<li>$[C \times R]$,对每一行进行长度为R的DFT运算。</li>
+<li>$[C \times R]$,对每一行进行长度为$R$的$DFT$运算。</li>
 <li>$[C \times R]$,将矩阵进行转置。</li>
 <li>$[R \times C]$,所有元素乘上对应的转换因子$\omega^{ik}$。</li>
-<li>$[R \times C]$,对每一行进行长度为C的DFT运算。</li>
+<li>$[R \times C]$,对每一行进行长度为$C$的$DFT$运算。</li>
 <li>$[R \times C]$,将矩阵进行转置。</li>
 </ol>
-<p><strong>IDFT:</strong></p>
+<p><em><em>IDFT</em>:</em>*</p>
 <ol>
 <li>$[C \times R]$,将矩阵进行转置。</li>
-<li>$[R \times C]$,对每一行进行长度为C的DFT运算。</li>
+<li>$[R \times C]$,对每一行进行长度为$C$的$IDFT*$运算。</li>
 <li>$[R \times C]$,所有元素乘上对应的转换因子$\omega^{-ik}$。</li>
 <li>$[R \times C]$,将矩阵进行转置。</li>
-<li>$[C \times R]$,对每一行进行长度为R的DFT运算。</li>
+<li>$[C \times R]$,对每一行进行长度为$R$的$IDFT*$运算。</li>
 <li>$[C \times R]$,将矩阵进行转置。</li>
 </ol>
 <h2 id="2-ntt-设计">2 NTT 设计</h2>
-<p>本节主要是介绍对NTT的设计，例如模约简方案、转置优化以及预计算。最后探讨有哪些可以进行的合并计算。</p>
+<p>本节主要是介绍对NTT的设计，例如模约简方案、转置优化以及预计算。最后探讨有哪些可以进行的优化。</p>
 <h3 id="21-模约简">2.1 模约简</h3>
 <h4 id="211-朴素方案">2.1.1 朴素方案</h4>
 <p>在模数约简的朴素方法中，如果硬件支持的话，会使用一个硬件指令将两个字（word）长度的被除数除以一个字长度的除数，得到一个字长度的商和一个字长度的余数。如果硬件不支持这种指令，那么就需要在软件中模拟这种指令。</p>
@@ -907,7 +930,7 @@ $$</div>
 <div>$$
 \begin{array}{ll}
 \hline
-\text{\textbf{Algorithm 6}} & \text{Barrett 约简}\\ 
+\text{\textbf{Algorithm 7}} & \text{Barrett 约简}\\ 
 \hline
 \text{\textbf{Require:}} & a\quad \beta=\lfloor \frac{b^{2k}}{p} \rfloor\quad p\\ 
 \text{\textbf{function}} & Barrett(a,\beta,p)\\  
@@ -931,7 +954,7 @@ $$</div>
 <div>$$
 \begin{array}{ll}
 \hline
-\text{\textbf{Algorithm 7}} & \text{计算} \beta\\ 
+\text{\textbf{Algorithm 8}} & \text{计算} \beta\\ 
 \hline
 \text{\textbf{Require:}} & p\quad k \quad b\\ 
 \text{\textbf{function}} & get\beta(p,k,b)\\  
@@ -965,13 +988,13 @@ ar' &=ar'\frac{r}{r} \\
 &=\frac{arr'}{r} \\
 &=\frac{a(1+pp')}{r}  \\
 &=\frac{a+app'}{r}  \\
-&=\frac{a+(\lfloor \frac{ap'}{r} \rfloor r+(ap' \mod r))p}{r}   \\
-&=\frac{a+(ap' \mod r)p}{r}+\lfloor \frac{ap'}{r} \rfloor p   \\
-&\equiv \frac{a+(ap' \mod r)p}{r} &\pmod{p} \\
-&\equiv \frac{a+((a\mod r)p' \mod r)p}{r} &\pmod{p} \\
+&=\frac{a+(\lfloor \frac{ap'}{r} \rfloor r+(ap' \bmod r))p}{r}   \\
+&=\frac{a+(ap' \bmod r)p}{r}+\lfloor \frac{ap'}{r} \rfloor p   \\
+&\equiv \frac{a+(ap' \bmod r)p}{r} &\pmod{p} \\
+&\equiv \frac{a+((a\bmod r)p' \mod r)p}{r} &\pmod{p} \\
 \end{align*}
 $$</div>
-<p>其中$\lfloor \frac{ap&rsquo;}{r} \rfloor r+(ap&rsquo; \mod r)$是将$ap&rsquo;$表达为成商乘上除数加余数的形式。上面的推导过程将对$ar&rsquo;$模$p$转换为了对$\frac{a+((a\mod r)p&rsquo; \mod r)p}{r}$模$p$操作。显然$((a\mod r)p&rsquo; \mod r)p \lt rp$又因为$a &lt; r p$所以可得下面的关系，不难发现最多只需一次减法就可以完成取模操作，其中模$r$可以通过位与运算，除$r$可以通过位右移运算完成，之所以做两次模$r$运算是为了降低乘法位宽。</p>
+<p>其中$\lfloor \frac{ap&rsquo;}{r} \rfloor r+(ap&rsquo; \bmod r)$是将$ap&rsquo;$表达为成商乘上除数加余数的形式。上面的推导过程将对$ar&rsquo;$模$p$转换为了对$\frac{a+((a\bmod r)p&rsquo; \bmod r)p}{r}$模$p$操作。显然$((a\mod r)p&rsquo; \mod r)p \lt rp$又因为$a &lt; r p$所以可得下面的关系，不难发现最多只需一次减法就可以完成取模操作，其中模$r$可以通过位与运算，除$r$可以通过位右移运算完成，之所以做两次模$r$运算是为了降低乘法位宽。</p>
 <div>$$
 \frac{t+((t\mod r)p' \mod r)p}{r} \lt 2p
 $$</div>
@@ -984,7 +1007,7 @@ $$</div>
 \text{\textbf{Require:}} & p\quad r \quad p' \quad (pp' \equiv-1\mod r )\quad \\ 
 \text{\textbf{function}} & REDC(a)\\  
 & \beta \leftarrow b^k\\   
-& m \leftarrow (a\mod r)p' \mod r \\
+& m \leftarrow (a\bmod r)p' \bmod r \\
 & t \leftarrow (a+mp) \text{div }r \\
 & \text{if} \ t \gt p\\  
 & \quad  \quad \text{return}\ t-p\\
@@ -1035,13 +1058,13 @@ $$</div>
 <div>$$
 \begin{align*}
 z&=x\cdot y \mod p=REDC(REDC(\bar{x}\cdot \bar{y}))\\
-\bar{x}&=REDC(x\cdot (RR \mod p))\\
-\bar{y}&=REDC(y\cdot (RR \mod p))\\
+\bar{x}&=REDC(x\cdot (RR \bmod p))\\
+\bar{y}&=REDC(y\cdot (RR \bmod p))\\
 \end{align*}
 $$</div>
 <h4 id="214--小结">2.1.4  小结</h4>
 <p>上面介绍了三种模约简方法，模约简主要用于模乘中，这里主要对比分析一下巴雷特和蒙哥马利，至于朴素方案效率太低就不分析了。在FPGA上当一次处理位宽大于$16$-bit时蒙哥马利更具有优势，反之巴列特算法有优势<a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=4176858" target="_blank" rel="noopener noreffer ">IEEE Comparison of Montgomery and Barrett   modular multipliers on FPGAs</a>。对CPU或者GPU版本没有看到相应的资料，不过从两种算法从时间复杂度上是类似的<a href="https://hal.science/hal-01330898/document" target="_blank" rel="noopener noreffer ">Efficient Randomized Regular Modular Exponentiation  using Combined Montgomery and Barrett  Multiplications</a>。连续模乘可能蒙哥马利的优势更大。</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402282053440.png" title="图 11 FPGA蒙哥马利与巴雷特对比" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402282053440.png" data-sub-html="<h2>图 11 FPGA蒙哥马利与巴雷特对比</h2><p>图 11 FPGA蒙哥马利与巴雷特对比</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402282053440.png" title="图 10 FPGA蒙哥马利与巴雷特对比" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402282053440.png" data-sub-html="<h2>图 10 FPGA蒙哥马利与巴雷特对比</h2><p>图 10 FPGA蒙哥马利与巴雷特对比</p>">
         <img
             class="lazyload"
             src="/svg/loading.min.svg"
@@ -1049,23 +1072,110 @@ $$</div>
             data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402282053440.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402282053440.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402282053440.png 2x"
             data-sizes="auto"
             alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402282053440.png" />
-    </a><figcaption class="image-caption">图 11 FPGA蒙哥马利与巴雷特对比</figcaption>
+    </a><figcaption class="image-caption">图 10 FPGA蒙哥马利与巴雷特对比</figcaption>
     </figure></p>
-<h3 id="heading"></h3>
 <h3 id="22--root-power-预计算">2.2  root power 预计算</h3>
-<p>算法3中需要反复执行$\omega=\omega \omega_m$，这里的m是当前合并轮次下每个单元的数据规模或者是蝶形运算的步长，$s $ 可以看作是当前合并轮数，$n$是输入规模，$l$是总的轮数。</p>
-<h3 id="23-原地转置">2.3 原地转置</h3>
-<p>‍</p>
-<p>‍</p>
-<h3 id="24--可能的合并优化">2.4  可能的合并优化</h3>
-<p>‍</p>
-<h3 id="heading-1"></h3>
-<p>‍</p>
-<p>‍</p>
+<p>算法3中需要反复执行$\varphi=\varphi \omega_m$，这里的m是当前合并轮次下每个单元的数据规模或者是蝶形运算的步长，$s $ 可以看作是当前合并轮数，$n$是输入规模，$l$是总的轮数。$\omega_m=\omega^{2^{n-s}}$,$s=\log_2m$。一共具有两种预计算方案</p>
+<p><strong>方案一：</strong> 预计算$\omega$的幂到一个root power表$t$中，即$t[i]=\omega^i ,i\in[0,\frac{n}{2})$。对于给定的$j$和$m=2^s$，我们可以表示旋转因子$\varphi =t[j\cdot 2^{\alpha }], \alpha =n-s,j\in [0,2^{s-1})$。</p>
+<p><strong>方案二：</strong> 计算每个粒度$s\in[1,n]$,单独的root power表：</p>
+<div>$$
+T_s[i]=t[i\cdot 2^{n-s}]=(\omega^{2^{n-s}})^i, i\in [0,2^{s-1})
+$$</div>
+<p>记$T_n=t$，$\sum_{s=1}^n|T_s|=\sum_{s=1}^n 2^{s-1}=2^n-1$。对于给定的$j$和$m=2^s$，我们可以表示旋转因子$\varphi =T[j]$。然后我们将将所有的$T_s$组成一个大的表$T$。</p>
+<div>$$
+T_s[i]=T[(2^0+2^1+2^2+ \cdots +2^{s-2})+i]=T[2^{s-1}-1+i]
+$$</div>
+<p>对于给定的$j$和$m=2^s$，我们可以表示旋转因子$\varphi =T[\beta + j],\beta=2^{s-1}-1=\frac{m}{2}-1$。</p>
+<p>两种方式$T[\beta+j]$ 和$t[j \cdot 2^\alpha ]$，内层索引都是相同的，$\alpha$ 和 $\beta$表示循环中不变的表达式，在循环开始前计算一次。但是$T$，可以使用指针指向$T[\beta]$,</p>
+<p>一步解引用。而$t$需要先位移后解引用。</p>
+<p><strong>Four-step算法：</strong> 因为要用到所有的幂次，所以直接预计算所有的幂次，构建幂次表$T_<em>$即可。需要设计合适的索引。我的想法是利用折半引理，在对行或是对列的NTT中索引格式只需要在方案二的基础上进行细微改动即可，只需要乘上总规模$N$除当前NTT规模$n$的商即可，$T_</em>[(\beta+j)\frac{N}{n}]=T_*[\beta \mu+j\mu]$,只是这种方法会使得方案本一步完成的解引用，需要两步而且增加的是开销较高的乘法。至于列运算结束后的旋转因子矩阵直接按照输入索引去查询即可，因为输入矩阵和旋转因子因子矩阵是一一对应的。</p>
+<h3 id="23-转置优化">2.3 转置优化</h3>
+<p>矩阵的转置有两种方式一种是out-place,一种是in-place。前者需要申请一块同等大小的空间，从而完成转置，即空间复杂度$O(R\times C)$。后一种，空间复杂度远小于$O(R\times C)$。这里主要讨论in-place转置方案，对于方阵很简单只需要交换$&lt;i,j&gt;$与$&lt;j,i&gt;$处的元素即可。</p>
+<p>下面讨论$n\times cn$形式的矩阵转置，为了方便表示不妨取$c=2$。将一个$n\times 2n$的矩阵$M$拆分成两个$n\times n$的方阵$A$和$B$:</p>
+<div>$$
+M=[A \quad B]
+$$</div>
+<p>则转置表达为：</p>
+<div>$$
+M^T=[A \quad B]^T=
+\begin{bmatrix}
+A^T\\\
+B^T
+\end{bmatrix}
+$$</div>
+<p>定义$\phi(M)$:</p>
+<div>$$
+\phi(M)=[A^T\quad B^T]
+$$</div>
+<p>现在将两个子矩阵$A^T$，$B^T$的行用向量表示：</p>
+<div>$$
+\phi(M)=[A^T\quad B^T]=
+\begin{bmatrix}
+\alpha_1 & \beta_1\\\
+\cdots &\cdots \\\
+\alpha_n & \beta_n
+\end{bmatrix}
+\longleftrightarrow<\alpha_1,\beta_1,\alpha_2,\beta_2,\cdots,\alpha_n,\beta_n >
+$$</div>
+<div>$$
+M^T=
+\begin{bmatrix}
+A^T\\\
+B^T
+\end{bmatrix}
+=
+\begin{bmatrix}
+\alpha_1 \\\
+\cdots \\\
+\alpha_n \\\  
+\beta_1 \\\
+\cdots\\\  
+\beta_n
+\end{bmatrix}
+\longleftrightarrow <\alpha_1,\alpha_2,\cdots,\alpha_n,\beta_1,\beta_2,\cdots,\beta_n>
+$$</div>
+<p>所以我们可以通过某种方法$\rho$重新排列$\phi(M)$的索引，使其等于$M^T=\rho \phi(M)$，对于索引$i$的目标位置$j$满足：</p>
+<div>$$
+j=\rho (i)=n \cdot  (i \bmod 2) + (i / 2) \quad i\in[0,2n)
+$$</div>
+<p>下面探究对于列排布能否实现同样的作用， 首先我们定义对方阵的行进行索引重排为$\rho_r$,对其列进行索引成排为$\rho_c$。很明显对于一个矩阵A,满足一下关系：</p>
+<div>$$
+(\rho_cX)^T=\rho_rX^T
+$$</div>
+<p>我们已经证明:</p>
+<div>$$
+M^T=\rho_r \phi(M)
+$$</div>
+<p>现在令$M=\rho_c N$,即可获得：</p>
+<div>$$
+\rho_r \phi(\rho_cN)=(\rho_cN)^T
+$$</div>
+<div>$$
+\rho_r \phi(\rho_cN)=\rho_r(N)^T
+$$</div>
+<div>$$
+\phi(\rho_cN)=N^T
+$$</div>
+<p>现在证明对列进行排布同样可以完成相应的操作，只不过要现在哎方阵转置前进行列排布。对列进行排布对那内存更友好，需要$O(2n)$的额外空间。</p>
+<p>对于$cn\times n$形式的矩阵，只需要对列执行$\rho^{-1}$然后对方阵转置就行。</p>
+<h3 id="24--可能的优化">2.4  可能的优化</h3>
+<h4 id="241-位逆序省略">2.4.1 位逆序省略</h4>
+<p>我们回到最开始，我们引入DFT是为了进行多项式乘法：</p>
+<div>$$
+A(x)\cdot B(x)=IDFT(DFT(A)\cdot DFT(B))
+$$</div>
+<p>如果使用$DIF$完成$DFT$，使用$DIT$完成$IDFT$，我们就可以省略$DIF$最后的位逆序，以及$DIT$最开始的位逆序，紧挨着的两个位逆序可以省略。</p>
+<h4 id="242-省略转置">2.4.2 省略转置</h4>
+<p>矩阵算法省略转置的原理与位逆序省略的原理相同，如果连续做$DFT$和$IDFT$，我们可以省略$DFT$最后的转置以及$IDFT$最开始的转置。</p>
+<h4 id="243-合并">2.4.3 合并</h4>
+<ol>
+<li>可以将对列之后乘旋转因子的操作合并到对列操作或者对行操作中，这样可以减少内存读写的次数。</li>
+<li>对于$IDFT$可以将乘以$n^{-1}$,合并到四步$IDFT*$中，例如乘旋转因子的过程中。</li>
+</ol>
 <h2 id="参考文献">参考文献</h2>
 <p>[1]七海. 基础知识：FFT - 简单入门[EB/OL]//七海の参考書. (2021-03-29)[2024-01-21]. <a href="https://shiraha.cn/2021/The-concept-of-fft-introducing-edition/" target="_blank" rel="noopener noreffer ">https://shiraha.cn/2021/The-concept-of-fft-introducing-edition/</a>.</p>
 <p>[2]快速数论变换（NTT）及蝴蝶操作构造详解[EB/OL]//知乎专栏. [2024-01-21]. <a href="https://zhuanlan.zhihu.com/p/80297169" target="_blank" rel="noopener noreffer ">https://zhuanlan.zhihu.com/p/80297169</a>.</p>
-<p>[3]COOLEY J W, TUKEY J W. An Algorithm for the Machine Calculation of Complex Fourier Series[J].</p>
+<p>[3]Frigo M, Leiserson C E, Prokop H, et al. Cache-oblivious algorithms[J]. ACM Transactions on Algorithms (TALG), 2012, 8(1): 1-22. <a href="https://doi.org/10.1145/2071379.2071383" target="_blank" rel="noopener noreffer ">https://doi.org/10.1145/2071379.2071383</a>.</p>
 <p>[4]LESAVOUREY A, NEGRE C, PLANTARD T. Efficient Randomized Regular Modular Exponentiation using Combined Montgomery and Barrett Multiplications[C/OL]//ICETE: International Joint Conference on e-Business and Telecommunications: 4 [SECRYPT]. Lisbon, Portugal, 2016: 368-375[2024-02-28]. <a href="https://hal.science/hal-01330898" target="_blank" rel="noopener noreffer ">https://hal.science/hal-01330898</a>. DOI:<a href="https://doi.org/10.5220/0005998503680375" target="_blank" rel="noopener noreffer ">10.5220/0005998503680375</a>.</p>
 <p>[5]Finite Field Implementations[Z/OL]. [2024-01-26]. <a href="https://docs.google.com/presentation/d/1I5QS58LtA3iiiPiVHHcN7oufCoo8sIDh9UvnJHWjA2Q" target="_blank" rel="noopener noreffer ">https://docs.google.com/presentation/d/1I5QS58LtA3iiiPiVHHcN7oufCoo8sIDh9UvnJHWjA2Q</a>.</p>
 <p>[6]RISC ZERO. Finite Field Implementations: Barrett &amp; Montgomery[Z/OL]. (2023-02-17)[2024-01-26]. <a href="https://www.youtube.com/watch?v=hUl8ZB6hpUM" target="_blank" rel="noopener noreffer ">https://www.youtube.com/watch?v=hUl8ZB6hpUM</a>.</p>
@@ -1080,10 +1190,12 @@ $$</div>
 <p>[15]LIANG Z, ZHAO Y. Number Theoretic Transform and Its Applications in Lattice-based Cryptosystems: A Survey[M/OL]. arXiv, 2022[2024-01-30]. <a href="http://arxiv.org/abs/2211.13546" target="_blank" rel="noopener noreffer ">http://arxiv.org/abs/2211.13546</a>.</p>
 <p>[16]KNAUTH C, ADAS B, WHITFIELD D, 等. Practically efficient methods for performing bit-reversed permutation in C++11 on the x86-64 architecture[M/OL]. arXiv, 2017[2024-01-29]. <a href="http://arxiv.org/abs/1708.01873" target="_blank" rel="noopener noreffer ">http://arxiv.org/abs/1708.01873</a>.</p>
 <p>[17]DUPAQUIS V, VENELLI A. Redundant Modular Reduction Algorithms[C/OL]//PROUFF E. Smart Card Research and Advanced Applications. Berlin, Heidelberg: Springer, 2011: 102-114. DOI:<a href="https://doi.org/10.1007/978-3-642-27257-8_7" target="_blank" rel="noopener noreffer ">10.1007/978-3-642-27257-8_7</a>.</p>
-<p>[18]KNEZˇEVIC M, VERBAUWHEDE I. Speeding Up Barrett and Montgomery Modular Multiplications[J].</p>
+<p>[18]Knezevic M, Vercauteren F, Verbauwhede I. Speeding up Barrett and Montgomery modular multiplications[J]. IEEE Transactions on Comput, 2009, 2.<a href="https://homes.esat.kuleuven.be/~fvercaut/papers/bar_mont.pdf" target="_blank" rel="noopener noreffer ">bar_mont.pdf (kuleuven.be)</a></p>
 <p>[19]KRAPIVENSKY V. Speeding up decimal multiplication[M/OL]. arXiv, 2020[2024-01-21]. <a href="http://arxiv.org/abs/2011.11524" target="_blank" rel="noopener noreffer ">http://arxiv.org/abs/2011.11524</a>. DOI:<a href="https://doi.org/10.48550/arXiv.2011.11524" target="_blank" rel="noopener noreffer ">10.48550/arXiv.2011.11524</a>.</p>
 <p>[20]LONGA P, NAEHRIG M. Speeding up the Number Theoretic Transform for Faster Ideal Lattice-Based Cryptography[A/OL]. (2016)[2024-01-30]. <a href="https://eprint.iacr.org/2016/504" target="_blank" rel="noopener noreffer ">https://eprint.iacr.org/2016/504</a>.</p>
 <p>[21]REDUCIBLE. The Fast Fourier Transform (FFT): Most Ingenious Algorithm Ever?[Z/OL]. (2020-11-15)[2024-01-21]. <a href="https://www.youtube.com/watch?v=h7apO7q16V0" target="_blank" rel="noopener noreffer ">https://www.youtube.com/watch?v=h7apO7q16V0</a>.</p>
+<p>‍</p>
+<p>‍</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -1113,7 +1225,7 @@ $$</div>
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.6">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.7">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
                 </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">豈</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
