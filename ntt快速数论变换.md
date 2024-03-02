@@ -1,9 +1,11 @@
 # NTT（快速数论变换）
 
 
-![图9 n=8迭代DIT数据流图](https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402291729252.svg "图9 n=8迭代DIT数据流图")
+本篇文章主要介绍了有关于NTT算法的基本概念，以及一些简单的优化策略。
 
-本篇文章主要介绍了有关于NTT算法的基本概念，以及一些简单的优化策略
+
+
+
 
 # NTT（快速数论变换）
 

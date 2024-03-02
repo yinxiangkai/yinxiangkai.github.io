@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>NTT（快速数论变换） - 豈風</title><meta name="Description" content="记录自己的学习笔记，用于督促自己。"><meta property="og:title" content="NTT（快速数论变换）" />
-<meta property="og:description" content="图9 n=8迭代DIT数据流图 本篇文章主要介绍了有关于NTT算法的基本概念，以及一些简单的优化策略 NTT（快速数论变换） 1 算法介绍 1.1 多项式乘法" />
+<meta property="og:description" content="本篇文章主要介绍了有关于NTT算法的基本概念，以及一些简单的优化策略。 NTT（快速数论变换） 1 算法介绍 1.1 多项式乘法引入 1.1.1 多项式的两种表示方法" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://qifeng.xyz/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html" /><meta property="og:image" content="https://qifeng.xyz/favicon-32x32.png" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-02-20T16:02:29+08:00" />
@@ -13,7 +13,7 @@
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://qifeng.xyz/favicon-32x32.png" /><meta name="twitter:title" content="NTT（快速数论变换）"/>
-<meta name="twitter:description" content="图9 n=8迭代DIT数据流图 本篇文章主要介绍了有关于NTT算法的基本概念，以及一些简单的优化策略 NTT（快速数论变换） 1 算法介绍 1.1 多项式乘法"/>
+<meta name="twitter:description" content="本篇文章主要介绍了有关于NTT算法的基本概念，以及一些简单的优化策略。 NTT（快速数论变换） 1 算法介绍 1.1 多项式乘法引入 1.1.1 多项式的两种表示方法"/>
 <meta name="twitter:site" content="@LeYong33223778"/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://qifeng.xyz/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html" /><link rel="stylesheet" href="/css/style.min.cf6878db51c51b2d04ae155284a4403dbee8db33e16c066f954c95279c271fcd.css" integrity="sha256-z2h421HFGy0ErhVShKRAPb7o2zPhbAZvlUyVJ5wnH80="><link rel="preload" href="/lib/fontawesome-free/all.min.0df5a33710e433de1f5415b1d47e4130ca7466aee5b81955f1045c4844bbb3ed.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/qifeng.xyz\/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html"
-        },"image": ["https:\/\/qifeng.xyz\/favicon-32x32.png"],"genre": "posts","keywords": "算法, NTT, 基础","wordcount":  11461 ,
+        },"image": ["https:\/\/qifeng.xyz\/favicon-32x32.png"],"genre": "posts","keywords": "算法, NTT, 基础","wordcount":  11448 ,
         "url": "https:\/\/qifeng.xyz\/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html","datePublished": "2024-02-20T16:02:29+08:00","dateModified": "2024-02-20T16:02:29+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -115,7 +115,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">NTT（快速数论变换）</h1><h2 class="single-subtitle">快速数论变换的基础知识学习笔记</h2><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>豈</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%AE%97%E6%B3%95.html"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-20">2024-02-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;11461 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-20">2024-02-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;11448 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;23 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -260,17 +260,7 @@
     <li><a href="#参考文献">参考文献</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402291729252.svg" title="图9 n=8迭代DIT数据流图" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402291729252.svg" data-sub-html="<h2>图9 n=8迭代DIT数据流图</h2><p>图9 n=8迭代DIT数据流图</p>">
-        <img
-            class="lazyload"
-            src="/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402291729252.svg"
-            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402291729252.svg, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402291729252.svg 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402291729252.svg 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402291729252.svg" />
-    </a><figcaption class="image-caption">图9 n=8迭代DIT数据流图</figcaption>
-    </figure></p>
-<p>本篇文章主要介绍了有关于NTT算法的基本概念，以及一些简单的优化策略</p>
+            </div><div class="content" id="content"><p>本篇文章主要介绍了有关于NTT算法的基本概念，以及一些简单的优化策略。</p>
 <h1 id="ntt快速数论变换">NTT（快速数论变换）</h1>
 <h2 id="1-算法介绍">1 算法介绍</h2>
 <h3 id="11-多项式乘法引入">1.1 多项式乘法引入</h3>
