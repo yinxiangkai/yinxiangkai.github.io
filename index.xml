@@ -12,7 +12,7 @@
     <pubDate>Tue, 20 Feb 2024 16:02:29 &#43;0800</pubDate>
     <author>豈</author>
     <guid>https://qifeng.xyz/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html</guid>
-    <description><![CDATA[本篇文章主要介绍了有关于NTT算法的基本概念，通过多项式乘法引入，并从FFT开始入手介绍DIT和DIF算法，最后引入NTT以及矩阵算法。同时]]></description>
+    <description><![CDATA[本文章介绍有关于NTT算法的基本概念，通过多项式乘法引入，从FFT开始入手介绍DIT和DIF算法，最后介绍NTT与矩阵算法。同时介绍简单的优]]></description>
 </item>
 </channel>
 </rss>
