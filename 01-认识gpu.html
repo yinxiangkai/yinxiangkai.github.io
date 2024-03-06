@@ -240,14 +240,14 @@
 <h4 id="123-线程机制">1.2.3 线程机制：</h4>
 <p><strong>Warp：</strong>  线程束。逻辑上，所有Thread是并行；但是，从硬件的角度来说，并不是所有的 Thread能够在同一时刻执行，这里就需要Warp的引入。</p>
 <p>Warp 是 SM 基本执行单元，一个 Warp 包含32个并行 Thread，这32个 Thread 执行于 SIMT模式。也就是说所有 Thread 以锁步的方式执行同一条指令，但每个 Thread 会使用各自的 Data 执行指令分支。如果在 Warp 中没有32个 Thread 需要工作，那么 Warp 虽然还是作为一个整体运行，但这部分 Thread 是处于非激活状态的</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg%20" title="A100 SM示意图" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg%20" data-sub-html="<h2>A100 SM示意图</h2><p>A100 SM示意图</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg" title="A100 SM示意图" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg" data-sub-html="<h2>A100 SM示意图</h2><p>A100 SM示意图</p>">
         <img
             class="lazyload"
             src="/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg%20"
-            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg%20, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg%20 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg%20 2x"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg 2x"
             data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg%20" />
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg" />
     </a><figcaption class="image-caption">A100 SM示意图</figcaption>
     </figure></p>
 <h2 id="2-nvidia-gpu-介绍">2 Nvidia GPU 介绍</h2>
