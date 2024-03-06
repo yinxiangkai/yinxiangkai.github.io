@@ -4,9 +4,17 @@
         <link>https://qifeng.xyz/</link>
         <description>记录自己的学习笔记，用于督促自己。</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yinxkai@gmail.com (豈)</managingEditor>
-            <webMaster>yinxkai@gmail.com (豈)</webMaster><lastBuildDate>Tue, 20 Feb 2024 16:02:29 &#43;0800</lastBuildDate>
+            <webMaster>yinxkai@gmail.com (豈)</webMaster><lastBuildDate>Wed, 06 Mar 2024 16:02:29 &#43;0800</lastBuildDate>
             <atom:link href="https://qifeng.xyz/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>01-认识GPU</title>
+    <link>https://qifeng.xyz/01-%E8%AE%A4%E8%AF%86gpu.html</link>
+    <pubDate>Wed, 06 Mar 2024 16:02:29 &#43;0800</pubDate>
+    <author>豈</author>
+    <guid>https://qifeng.xyz/01-%E8%AE%A4%E8%AF%86gpu.html</guid>
+    <description><![CDATA[本文主要是梳理一下GPU有关的基础知识，梳理一下从Fermi架构到Hopper架构的一些信息。帮助自己将cuda编程层次概念与简单硬件抽象对]]></description>
+</item>
+<item>
     <title>NTT（快速数论变换）</title>
     <link>https://qifeng.xyz/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html</link>
     <pubDate>Tue, 20 Feb 2024 16:02:29 &#43;0800</pubDate>

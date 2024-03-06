@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>01-认识GPU - 豈風</title><meta name="Description" content="记录自己的学习笔记，用于督促自己。"><meta property="og:title" content="01-认识GPU" />
+<meta property="og:description" content="本文主要是梳理一下GPU有关的基础知识，梳理一下从Fermi架构到Hopper架构的一些信息。帮助自己将cuda编程层次概念与简单硬件抽象对" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://qifeng.xyz/01-%E8%AE%A4%E8%AF%86gpu.html" /><meta property="og:image" content="https://qifeng.xyz/favicon-32x32.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-06T16:02:29+08:00" />
+<meta property="article:modified_time" content="2024-03-06T16:02:29+08:00" /><meta property="og:site_name" content="豈風" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://qifeng.xyz/favicon-32x32.png" /><meta name="twitter:title" content="01-认识GPU"/>
+<meta name="twitter:description" content="本文主要是梳理一下GPU有关的基础知识，梳理一下从Fermi架构到Hopper架构的一些信息。帮助自己将cuda编程层次概念与简单硬件抽象对"/>
+<meta name="twitter:site" content="@LeYong33223778"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://qifeng.xyz/01-%E8%AE%A4%E8%AF%86gpu.html" /><link rel="prev" href="https://qifeng.xyz/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html" /><link rel="stylesheet" href="/css/style.min.cf6878db51c51b2d04ae155284a4403dbee8db33e16c066f954c95279c271fcd.css" integrity="sha256-z2h421HFGy0ErhVShKRAPb7o2zPhbAZvlUyVJ5wnH80="><link rel="preload" href="/lib/fontawesome-free/all.min.0df5a33710e433de1f5415b1d47e4130ca7466aee5b81955f1045c4844bbb3ed.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.0df5a33710e433de1f5415b1d47e4130ca7466aee5b81955f1045c4844bbb3ed.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0="></noscript><link rel="preload" href="/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css" integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8=" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css" integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8="></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "01-认识GPU",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/qifeng.xyz\/01-%E8%AE%A4%E8%AF%86gpu.html"
+        },"image": ["https:\/\/qifeng.xyz\/favicon-32x32.png"],"genre": "posts","keywords": "Cuda","wordcount":  7076 ,
+        "url": "https:\/\/qifeng.xyz\/01-%E8%AE%A4%E8%AF%86gpu.html","datePublished": "2024-03-06T16:02:29+08:00","dateModified": "2024-03-06T16:02:29+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "豈"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="豈風"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/favicon.ico"
+        data-srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x"
+        data-sizes="auto"
+        alt="/favicon.ico"
+        title="/favicon.ico" />豈風</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 笔记 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="豈風"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/favicon.ico"
+        data-srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x"
+        data-sizes="auto"
+        alt="/favicon.ico"
+        title="/favicon.ico" />豈風</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">笔记</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">01-认识GPU</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>豈</a></span>&nbsp;<span class="post-category">included in <a href="/categories/cuda%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Cuda学习笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-06">2024-03-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;7076 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;15 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-gpu简单介绍">1 GPU简单介绍</a></li>
+    <li><a href="#11-gpu的发展阶段">1.1 GPU的发展阶段</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#111-硬件加速阶段">1.1.1 硬件加速阶段</a></li>
+            <li><a href="#112有限编程阶段">1.1.2有限编程阶段</a></li>
+            <li><a href="#113-软件可编程阶段">1.1.3 软件可编程阶段</a></li>
+          </ul>
+        </li>
+        <li><a href="#12-gpu工作原理">1.2 GPU工作原理</a>
+          <ul>
+            <li><a href="#121基本概念解释">1.2.1基本概念解释</a></li>
+            <li><a href="#122-缓存机制">1.2.2 缓存机制</a></li>
+            <li><a href="#123-线程机制">1.2.3 线程机制：</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#2-nvidia-gpu-介绍">2 Nvidia GPU 介绍</a>
+      <ul>
+        <li><a href="#21-基础概念">2.1 基础概念</a>
+          <ul>
+            <li><a href="#211-cuda线程层次结构">2.1.1 CUDA线程层次结构</a></li>
+            <li><a href="#212-cuda-内存层次结构">2.1.2 CUDA 内存层次结构</a></li>
+            <li><a href="#214-计算性能">2.1.4 计算性能</a></li>
+          </ul>
+        </li>
+        <li><a href="#22-nvidia架构">2.2 Nvidia架构</a>
+          <ul>
+            <li><a href="#221-fermi-费米架构">2.2.1 Fermi 费米架构</a></li>
+            <li><a href="#222-kepler-开普勒架构">2.2.2 Kepler 开普勒架构</a></li>
+            <li><a href="#223-maxwell-麦克斯韦架构">2.2.3 Maxwell 麦克斯韦架构</a></li>
+            <li><a href="#224-pascal-帕斯卡架构">2.2.4 Pascal 帕斯卡架构</a></li>
+            <li><a href="#225-volta-伏特架构">2.2.5 Volta 伏特架构</a></li>
+            <li><a href="#226-turing-图灵架构">2.2.6 Turing 图灵架构</a></li>
+            <li><a href="#227-ampere-安培架构">2.2.7 Ampere 安培架构</a></li>
+            <li><a href="#228-hopper-赫柏架构">2.2.8 Hopper 赫柏架构</a></li>
+          </ul>
+        </li>
+        <li><a href="#23-tensorcore">2.3 TensorCore</a></li>
+        <li><a href="#24-nvlink">2.4 NVlink</a></li>
+      </ul>
+    </li>
+    <li><a href="#资料来源">资料来源</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本文主要是梳理一下GPU有关的基础知识，梳理一下从Fermi架构到Hopper架构的一些信息。帮助自己将cuda编程层次概念与简单硬件抽象对应。</p>
+<h2 id="1-gpu简单介绍">1 GPU简单介绍</h2>
+<p>GPU(Graphics Processing Unit)也叫做图形处理单元，是一种专用电子电路，最初设计使用来加速计算机图形处理，但后续因其并行结构非常适合与并行计算领域。GPU一共经历了三个历史发展阶段。下面是显卡示意图，主要由GPU和显存组成。<figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061543299.png" title="GPU示意图" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061543299.png" data-sub-html="<h2>GPU示意图</h2><p>GPU示意图</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061543299.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061543299.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061543299.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061543299.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061543299.png" />
+    </a><figcaption class="image-caption">GPU示意图</figcaption>
+    </figure></p>
+<h2 id="11-gpu的发展阶段">1.1 GPU的发展阶段</h2>
+<h4 id="111-硬件加速阶段">1.1.1 硬件加速阶段</h4>
+<p>在1999年以前，将CPU的部分功能剥离出来，形成单独的硬件，实现对图像的硬件加速，只起到3D图像处理的加速作用，不具备软件编程特征。</p>
+<h4 id="112有限编程阶段">1.1.2有限编程阶段</h4>
+<p>1999-2005年，进一步的硬件加速，但是出现了有限编程性。</p>
+<p>1999年，Nvidia发布了专为执行复杂的数学和几何计算的GeForce256图像处理芯片，不同于CPU将晶体管主要用作控制单元和缓存，更多的作为执行单元,将图形变换以及照明等功能从CPU剥离出来，通过变换引擎和照明引擎实现了图形的快速变换以及光照计算，成为GPU出现的标志。</p>
+<p>2000-2005，GPU技术快速发展，运算速度迅速超过GPU。Nvidia和ATI（被AMD收购）分别推出的GeForce3和Radeon 8500 ,出现顶点可编程性和像素级可编程性，但是总体上编程性十分有限。</p>
+<h4 id="113-软件可编程阶段">1.1.3 软件可编程阶段</h4>
+<p>2006年，Nvidia和ATI分别推出了CUDA（Compute United Device Architecture)和CTM（Close To Metal)编程环境，使得GPU打破图形语言的局限成为真正的额并行数据处理超级加速器。</p>
+<p>2008年，苹果提出通用的并行计算编程平台OpenCL,与具体平台无关，迅速成为移动端GPU的编程环境业界标准。<figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544076.webp" title="Nvidia软件生态.png" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544076.webp" data-sub-html="<h2>Nvidia软件生态.png</h2><p>Nvidia软件生态.png</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544076.webp"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544076.webp, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544076.webp 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544076.webp 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544076.webp" />
+    </a><figcaption class="image-caption">Nvidia软件生态.png</figcaption>
+    </figure></p>
+<h3 id="12-gpu工作原理">1.2 GPU工作原理</h3>
+<h4 id="121基本概念解释">1.2.1基本概念解释</h4>
+<p>GPU的设计目标是最大化吞吐量（Throughout）和并行度（Parallelism）。而CPU更关心延迟（Latency）和并发（concurrency）。于是GPU采用了SIMT架构，单核CPU通常采用SIMD架构，多核CPU则通常采用MIMD架构。</p>
+<p>CPU旨在以尽可能快的速度执行线程，并且可以并行执行几十个这些线程。而GPU试图通过并行执行数千个线程从而分摊时延以实现更高的吞吐量。 GPU专门用于高度并行计算，因此设计时更多的晶体管用于数据处理而不是数据缓存和流程控制。</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544221.svg" title="多核CPU和GPU" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544221.svg" data-sub-html="<h2>多核CPU和GPU</h2><p>多核CPU和GPU</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544221.svg"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544221.svg, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544221.svg 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544221.svg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544221.svg" />
+    </a><figcaption class="image-caption">多核CPU和GPU</figcaption>
+    </figure>​​<strong>吞吐量：</strong> 单位时间内能够完成的操作。</p>
+<p><strong>延迟：</strong> 完成单项任务所消耗的时间。</p>
+<p><strong>并行：</strong> 同时处理多个任务，任务之间存在干扰。</p>
+<p><strong>并发：</strong> 一段时间内处理多个任务，任务之间可能互相干扰。</p>
+<p><strong>SIMD：</strong> SIMD(单指令多数据流)是从SISD（单指令单数据流）发展出来的。想要执行并行需要通过堆叠多个核心从而实现并行，每个核心执行一个线程，即MIMD（多指令多数据流）。而SIMD的想法是通过给每个核心中增加计算单元和寄存器，减少硬件开销。然后增加指令的操作数个数，使得一条指令可以驱动多个计算元件同时执行多个数据运算。</p>
+<p><strong>SIMT：</strong> SIMD看起来很好，但是对于高级语言的支持并不好。SIMT（单指令多线程）从本质上还是一套控制单元带多个计算单元，但是从一条指令控制多个计算单元和寄存器，变为将一条指令分发给多组计算单元和寄存器，从而优化高级语言的支持。</p>
+<h4 id="122-缓存机制">1.2.2 缓存机制</h4>
+<p>CPU中的缓存是为了存储下一步要计算的数据，从而减少访问数据的时延，提高线程的执行速度，从而实现高并发。而在GPU中缓存是为Thread提供服务的，缓存会合并线程相同的数据访问，让后从DRAM中访问数据，分发给线程。</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544897.svg" title="A100 内存示意图" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544897.svg" data-sub-html="<h2>A100 内存示意图</h2><p>A100 内存示意图</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544897.svg"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544897.svg, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544897.svg 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544897.svg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544897.svg" />
+    </a><figcaption class="image-caption">A100 内存示意图</figcaption>
+    </figure>​​<strong>SM(Streaming Multiprocessor)</strong>  ：SM是是GPU的主要计算单元，负责执行并行计算任务。每个SM都包含多个流多处理器（CUDA核心），可以同时执行多个线程块中的指令。SM通过分配线程、调度指令和管理内存等操作，实现高效的并行计算。</p>
+<p><strong>HBM：</strong> 高带宽内存，也就是显存。它通过将内存芯片直接堆叠在逻辑芯片上，提供了极高的带宽和更低的能耗，从而实现了高密度和高带宽的数据传输。</p>
+<p><strong>L1 Cache/SMEM</strong>：L1 Cache包含指令缓存(Instruction Cache)和数据缓存（Data Cache），在SM内部存储最常用的指令和数据，每个SM独享一个L1 Cache，提供低延迟和高带宽的访问。</p>
+<p><strong>Register File</strong>: 用于存储临时数据、计算中间结果和变量。离计算单元最近，访问速度非常快。</p>
+<p><strong>带宽（BandWidth）：</strong> 单位时间内传输的数据量，主要有内存频率（Memory Data Rate）以及位宽（Memory Interface）决定的。例如A100的位宽是5210bit，频率是1215MHz,所以带宽为$\frac{(\frac{5210}{8}\times1215\times10^6\times2)}{10^{9}}=1555GB/s$,乘2是因为DDR技术每个时钟周期传输两次数据，计算存储和传输时进制是$10^3$。</p>
+<p><strong>计算强度：</strong> 计算时间/内存读取时间。存储带宽越小计算强度应该越高，从而提高效率。</p>
+<h4 id="123-线程机制">1.2.3 线程机制：</h4>
+<p><strong>Warp：</strong>  线程束。逻辑上，所有Thread是并行；但是，从硬件的角度来说，并不是所有的 Thread能够在同一时刻执行，这里就需要Warp的引入。</p>
+<p>Warp 是 SM 基本执行单元，一个 Warp 包含32个并行 Thread，这32个 Thread 执行于 SIMT模式。也就是说所有 Thread 以锁步的方式执行同一条指令，但每个 Thread 会使用各自的 Data 执行指令分支。如果在 Warp 中没有32个 Thread 需要工作，那么 Warp 虽然还是作为一个整体运行，但这部分 Thread 是处于非激活状态的</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg%20" title="A100 SM示意图" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg%20" data-sub-html="<h2>A100 SM示意图</h2><p>A100 SM示意图</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg%20"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg%20, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg%20 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg%20 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544900.svg%20" />
+    </a><figcaption class="image-caption">A100 SM示意图</figcaption>
+    </figure></p>
+<h2 id="2-nvidia-gpu-介绍">2 Nvidia GPU 介绍</h2>
+<h3 id="21-基础概念">2.1 基础概念</h3>
+<h4 id="211-cuda线程层次结构">2.1.1 CUDA线程层次结构</h4>
+<p>在A100的线程层次中由三层构成，grid（网格）、block（线程块）、thread（线程）。但是在H100中有引入了新的一层Cluster（簇）这里暂且不管。</p>
+<p>这里姑且将在GPU上的任务称为kernel，一个kernel所调用的所有线程组成了grid。网格又可以拆分成拥有相同线程数的block。</p>
+<p><strong>Grid：</strong> 同一个网格上的线程共享相同的全局内存空间。grid是线程结构的第一层次。对应于GPU设备device。</p>
+<p><strong>Block：</strong> Block 间并行执行，并且无法通信，==没有执行顺序==，每个 block 包含共享内存（Shared Memory），可以里面的 Thread 共享。对应由于SM，A100中一个block包含2048个thread。</p>
+<p><strong>Thread：</strong> 同一个 block 中 thread 可以同步，也可以通过 Shared memory 通信,对应于cuda core。</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544578.png" title="Grid-Block-Thread" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544578.png" data-sub-html="<h2>Grid-Block-Thread</h2><p>Grid-Block-Thread</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544578.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544578.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544578.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544578.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544578.png" />
+    </a><figcaption class="image-caption">Grid-Block-Thread</figcaption>
+    </figure></p>
+<h4 id="212-cuda-内存层次结构">2.1.2 CUDA 内存层次结构</h4>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544289.svg" title="CUDA 内存层次" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544289.svg" data-sub-html="<h2>CUDA 内存层次</h2><p>CUDA 内存层次</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544289.svg"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544289.svg, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544289.svg 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544289.svg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544289.svg" />
+    </a><figcaption class="image-caption">CUDA 内存层次</figcaption>
+    </figure></p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544343.svg%20" title="存储结构示意" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544343.svg%20" data-sub-html="<h2>存储结构示意</h2><p>存储结构示意</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544343.svg%20"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544343.svg%20, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544343.svg%20 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544343.svg%20 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544343.svg%20" />
+    </a><figcaption class="image-caption">存储结构示意</figcaption>
+    </figure></p>
+<p><strong>寄存器(Register)：</strong> 寄存器对于每个线程来说都是私有的，一个核函数通常使用寄存器来保存需要频繁访问的线程私有变量。寄存器变量与核函数的生命周期相同。一旦核函数执行完毕，就不能对寄存器变量进行访问了。</p>
+<p><strong>局部内存(Local Memory)：</strong> 局部内存是私有的，只有本线程才能进行读写访问。主要存储超出寄存器存储上线的数据，以及编译器无法静态确定的数据，局部内存在HBM上。</p>
+<p><strong>共享内存(Shared Memory)：</strong> 一个块可以被同一block中的所有线程访问的可读写存储器。访问共享存储器的速度几乎和访问寄存器一样快。是实现线程间通信的延迟最小的方法。</p>
+<p><strong>常量内存(Constant Memory)：</strong> 常量内存（const memory）是只读全局内存，在HBM中，但是其中的数据可以缓存在SM内部的常量缓存中（const cache）只。</p>
+<p><strong>纹理内存(Texture Memory)：</strong> 纹理内存类似于常量缓存，也是一种具有缓存的只读全局内存，与常量内存具有相同的生命周期和作用范围。纹理内存通常比常量内存要大，适合实现图像处理和查找表等操作。</p>
+<p><strong>全局内存(Global Memory)：</strong> 全局内存由于存放在HBM上，是GPU中容量最大、延迟最高的内存，主要作用是给核函数提供数据。GPU内核的所有线程都能对全局内存进行访问，但是访存的开销很大。</p>
+<h4 id="214-计算性能">2.1.4 计算性能</h4>
+<p>$$
+𝑃𝑒𝑎𝑘 \ 𝐹𝐿𝑂𝑃𝑆=𝐹_{𝑐𝑙𝑘}∗𝑁_{𝑆𝑀}∗𝐹_{𝑟𝑒𝑞}
+$$</p>
+<p>$F_{clk}$：为 GPU 时钟周期内指令执行数 (FLOPS/Cycle)。</p>
+<p>$N_{SM}$：为 GPU SM 数量 (Cores)。</p>
+<p>$F_{req}$：为运行频率 (GHz)。</p>
+<h3 id="22-nvidia架构">2.2 Nvidia架构</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544095.svg"
+        data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544095.svg, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544095.svg 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544095.svg 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544095.svg"
+        title="图片1" />​</p>
+<p>注意同同一架构不同型号的GPU存在差异。</p>
+<h4 id="221-fermi-费米架构">2.2.1 Fermi 费米架构</h4>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544844.png" title="Fermi 架构" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544844.png" data-sub-html="<h2>Fermi 架构</h2><p>Fermi 架构</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544844.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544844.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544844.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544844.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544844.png" />
+    </a><figcaption class="image-caption">Fermi 架构</figcaption>
+    </figure>​</p>
+<p>首先从总体角度进行分析：GPU通过HostInterface，接收来自主机的指令与数据。使用一个Giga Thread Engine来管理所有正在进行的工作。GPU被划分成多个Graphics Processing Cluster（图形处理簇），每个GPC拥有多个SM和一个Raster Engine(光栅化引擎)。它们其中有很多的连接，最显著的是Crossbar，它可以实现GPC之间的通信并来连接其它功能性模块（例如ROP或其他子系统）。</p>
+<p>Raster Engine：主要负责将图形管线中的矢量图形数据（如顶点）转换为像素信息（光栅图像）的部分。</p>
+<p>ROP（Raster Operations Pipeline）：光栅操作单元，负责将光栅化引擎生成的像素数据进行最终处理，并将处理后的像素输出到帧缓冲区中，最终生成可在显示设备上显示的图像。</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545043.png" title="Fermi SM" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545043.png" data-sub-html="<h2>Fermi SM</h2><p>Fermi SM</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545043.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545043.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545043.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545043.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545043.png" />
+    </a><figcaption class="image-caption">Fermi SM</figcaption>
+    </figure></p>
+<p>‍</p>
+<p>32 个 CUDA Core（分在两条 lane 上，每条分别是 16 个）, 每个 CUDA Core 里面是 1 个单精浮点单元（FPU）和 1 个整数单元（ALU）。</p>
+<ul>
+<li>每个 cycle 可以跑 16 个双精的 FMA</li>
+</ul>
+<ol>
+<li>
+<p>SM：从 G80 提出的概念，中文称流式多处理器，核心组件包括CUDA核心、共享内存、寄存器等。SM包含许多为线程执行数学运算的Core，是 NVIDA 的核心。</p>
+</li>
+<li>
+<p>CUDA Core：向量运行单元</p>
+<ul>
+<li>SP（Streaming processor）：流式处理器最基本的处理单元，Fermi 架构后，SP被改称为CUDA Core，最后线程具体的指令和任务都是在SP上处理的。GPU进行并行计算，也就是很多个SP同时做处理。一个SP对应一个线程。</li>
+<li>FP32-FPU：单精度浮点数运算单元</li>
+<li>FP64-DPU：双精度浮点数运算单元</li>
+<li>INT32-ALU：整数运算单元</li>
+</ul>
+</li>
+<li>
+<p>Special Function Units：特殊函数单元 SFU，计算超越函数和数学函数，例如余弦函数，但是存在精度损失。</p>
+</li>
+<li>
+<p>Warp Scheduler：线程束调度器，用于将一批批的Warp发送给特定的计算核心SP执行计算。一个Warp由32个线程组成。</p>
+</li>
+<li>
+<p>Dispatch Unit：指令分发单元，Dispatch Units负责将Warp Scheduler的指令送往Core执行（也就是上面的SP）。</p>
+</li>
+<li>
+<p>Load/Store：加载/存储模块。辅助一个Warp（线程组）从Share Memory或显存加载(Load)或存储(Store)数据。这个单元处理操作都是异步的，也就是说其他单元在高速处理指令的时候，如果需要加载或者写回数据，则不会在这里等待LD/ST返回数据，而是跳转执行其他指令，待LD/ST把数据取到或者写回之后，再继续执行需要这些数据的后续指令。</p>
+</li>
+<li>
+<p>Tex Unit：纹理(texture)读取单元,texture指通常理解的1D/2D/3D结构数据，相邻数据之间存在一定关系，或者相邻数据之间需要进行相同的运算。在一个运算周期最多可取4个采样器，这时刚好喂给一个线程束，每个Texture Uint有16K的Texture Cache，并且在往下有L2 Cache的支持。</p>
+</li>
+<li>
+<p>PolyMorph Engine： 负责属性装配（attribute Setup）、顶点拉取（Vertex Fetch）、曲面细分、栅格化（这个模块可以理解专门处理顶点相关的东西）</p>
+<ul>
+<li>Vertex Fetch模块：顶点处理前期的通过三角形索引取出三角形数据。</li>
+<li>Tesselator模块：对应着DX11引入的新特性曲面细分。</li>
+<li>Stream Output模块：对应着DX10引入的新特性Stream Output。</li>
+<li>Viewport Transform模块：对应着顶点的视口变换，三角形会被裁剪准备栅格化。</li>
+<li>Attribute Setup模块：负责顶点的插值运算并输出给后续像素处理阶段使用。</li>
+</ul>
+</li>
+<li>
+<p>Instruction Cache：指令缓存。存放将要执行的指令，通过Dispatch Units填装到每个运算核心（Core）进行运算。</p>
+</li>
+<li>
+<p>Uniform Cache：用于提高对uniform变量访问的效率。Uniform变量是在着色器程序中使用的常量，它们对于一个渲染调用中的所有顶点或片元是相同的。这些变量包括但不限于矩阵（用于变换或投影）、光照参数、或者其他在着色器执行期间不会改变的全局状态信息。后续演化为constant cache。</p>
+</li>
+<li>
+<p>Interconnect Network：是一个关键组件，它负责处理GPU内部各个部分之间的数据传输和通信。这个网络使得多个处理核心（CUDA核心）、内存控制器、缓存系统等可以高效地交换数据，从而提高整体的处理速度和效率。</p>
+</li>
+</ol>
+<h4 id="222-kepler-开普勒架构">2.2.2 Kepler 开普勒架构</h4>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545878.png" title="Kepler架构" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545878.png" data-sub-html="<h2>Kepler架构</h2><p>Kepler架构</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545878.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545878.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545878.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545878.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545878.png" />
+    </a><figcaption class="image-caption">Kepler架构</figcaption>
+    </figure><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545686.png" title="Kepler SMX" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545686.png" data-sub-html="<h2>Kepler SMX</h2><p>Kepler SMX</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545686.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545686.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545686.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545686.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545686.png" />
+    </a><figcaption class="image-caption">Kepler SMX</figcaption>
+    </figure></p>
+<p>相较于Fermi架构的变化不大。</p>
+<ul>
+<li>SM改名成了SMX，但是所代表的概念没有大变化；</li>
+<li>单个SMX的Cuda Core数量从32个增加到了192个（$4\times3\times16$），很奇怪的数字。</li>
+<li>Kepler架构在硬件上直接有双精运算单元的架构；</li>
+<li>提出 GPU Direct 技术，可以绕过 CPU/System Memory，完成与本机其他 GPU 或者其他机器 GPU 的直接数据交换。</li>
+</ul>
+<h4 id="223-maxwell-麦克斯韦架构">2.2.3 Maxwell 麦克斯韦架构</h4>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061549614.jpg" title="Maxwell  电路示意图" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061549614.jpg" data-sub-html="<h2>Maxwell 电路示意图</h2><p>Maxwell  电路示意图</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061549614.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061549614.jpg, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061549614.jpg 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061549614.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061549614.jpg" />
+    </a><figcaption class="image-caption">Maxwell 电路示意图</figcaption>
+    </figure></p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061549757.png%20" title="Maxwell架构" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061549757.png%20" data-sub-html="<h2>Maxwell架构</h2><p>Maxwell架构</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061549757.png%20"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061549757.png%20, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061549757.png%20 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061549757.png%20 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061549757.png%20" />
+    </a><figcaption class="image-caption">Maxwell架构</figcaption>
+    </figure></p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545780.png" title="Maxwll SMM示意图" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545780.png" data-sub-html="<h2>Maxwll SMM示意图</h2><p>Maxwll SMM示意图</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545780.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545780.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545780.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545780.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545780.png" />
+    </a><figcaption class="image-caption">Maxwll SMM示意图</figcaption>
+    </figure></p>
+<p>Kepler架构的SMX过于庞杂，因此Maxwwll 的SMM砍掉了很多元件，将类似于Fermi架构的四个SM（Process Block）拼成了一个SMM。</p>
+<h4 id="224-pascal-帕斯卡架构">2.2.4 Pascal 帕斯卡架构</h4>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061550820.png" title="Pascal架构" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061550820.png" data-sub-html="<h2>Pascal架构</h2><p>Pascal架构</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061550820.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061550820.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061550820.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061550820.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061550820.png" />
+    </a><figcaption class="image-caption">Pascal架构</figcaption>
+    </figure><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545005.png" title="Pascal SM" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545005.png" data-sub-html="<h2>Pascal SM</h2><p>Pascal SM</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545005.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545005.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545005.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545005.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545005.png" />
+    </a><figcaption class="image-caption">Pascal SM</figcaption>
+    </figure>​</p>
+<ul>
+<li>单个SM只有64个FP32 CUDA Cores，相比Maxwell的128和Kepler的192，这个数量要少很多，并且64个CUDA Cores分为了两个区块；</li>
+<li>Register File 保持相同大小，每个线程可以使用更多寄存器，单个SM也可以并发更多 thread/warp/block；</li>
+<li>增加 32个FP64 CUDA Cores (DP Unit)，FP32 CUDA Core 具备处理FP16的能力。</li>
+<li>出现了TPC层次</li>
+<li>引入了NVLink</li>
+</ul>
+<h4 id="225-volta-伏特架构">2.2.5 Volta 伏特架构</h4>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545087.png" title="Volta 架构" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545087.png" data-sub-html="<h2>Volta 架构</h2><p>Volta 架构</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545087.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545087.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545087.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545087.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545087.png" />
+    </a><figcaption class="image-caption">Volta 架构</figcaption>
+    </figure><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545020.png" title="Volta SM" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545020.png" data-sub-html="<h2>Volta SM</h2><p>Volta SM</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545020.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545020.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545020.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545020.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545020.png" />
+    </a><figcaption class="image-caption">Volta SM</figcaption>
+    </figure></p>
+<p>最显著的变化就是cuda core被拆分，整形计算单元和FP32计算单元独立出现在流水线中。可以在一个时钟周期内同时执行整形计算和单精度浮点数运算。同时相对于Pascal每个区块又被一分为二。不难看出在减小每个区块以及每个SM运算单元的数量，同时增加SM的数量。</p>
+<p>最重要的是引入了张量核心(Tensor Core)。</p>
+<h4 id="226-turing-图灵架构">2.2.6 Turing 图灵架构</h4>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061551818.png" title="Turing 架构" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061551818.png" data-sub-html="<h2>Turing 架构</h2><p>Turing 架构</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061551818.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061551818.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061551818.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061551818.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061551818.png" />
+    </a><figcaption class="image-caption">Turing 架构</figcaption>
+    </figure><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545455.png" title="Turing SM" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545455.png" data-sub-html="<h2>Turing SM</h2><p>Turing SM</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545455.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545455.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545455.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545455.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545455.png" />
+    </a><figcaption class="image-caption">Turing SM</figcaption>
+    </figure>除了在Tensor Core中引入int 8 和int4，以及砍掉FP64单元外变动不大，主要集中在渲染管线和新加的这个 RT Core 光线追踪能力上。</p>
+<h4 id="227-ampere-安培架构">2.2.7 Ampere 安培架构</h4>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061552794.png%20" title="Ampere 架构图" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061552794.png%20" data-sub-html="<h2>Ampere 架构图</h2><p>Ampere 架构图</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061552794.png%20"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061552794.png%20, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061552794.png%20 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061552794.png%20 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061552794.png%20" />
+    </a><figcaption class="image-caption">Ampere 架构图</figcaption>
+    </figure></p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061552558.png%20" title="Ampere SM结构" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061552558.png%20" data-sub-html="<h2>Ampere SM结构</h2><p>Ampere SM结构</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061552558.png%20"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061552558.png%20, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061552558.png%20 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061552558.png%20 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061552558.png%20" />
+    </a><figcaption class="image-caption">Ampere SM结构</figcaption>
+    </figure></p>
+<p>增加了FP64单元，Tensor Core变为原来的一半，但是计算能力其实增强了，单个时钟周期吞吐量量提高了，同时引入了结构化稀疏能力。增加了多实例GPU（Multi-Instance GPU），将单个A100GPU划分为多达七个独立GPU，为不同任务提供不同算力。</p>
+<p>引入了TF32 和BF16的支持：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545369.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545369.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545369.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545369.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545369.png"
+        title="image" /></p>
+<h4 id="228-hopper-赫柏架构">2.2.8 Hopper 赫柏架构</h4>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545299.png" title="Hopper 架构" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545299.png" data-sub-html="<h2>Hopper 架构</h2><p>Hopper 架构</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545299.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545299.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545299.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545299.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545299.png" />
+    </a><figcaption class="image-caption">Hopper 架构</figcaption>
+    </figure><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546471.png" title="Hopper SM" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546471.png" data-sub-html="<h2>Hopper SM</h2><p>Hopper SM</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546471.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546471.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546471.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546471.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546471.png" />
+    </a><figcaption class="image-caption">Hopper SM</figcaption>
+    </figure></p>
+<p>​<strong>SM 结构：</strong></p>
+<ul>
+<li>4 个 Warp Scheduler，4 个 Dispatch Unit（与 A100 一致）</li>
+<li>128 个 FP32 Core（4 * 32）（相比 A100 翻倍）</li>
+<li>64 个 INT32 Core（4 * 16）（与 A100 一致）</li>
+<li>64 个 FP64 Core（4 * 16）（相比 A100 翻倍）</li>
+<li>4 个 TensorCore（4 * 1）</li>
+<li>32 个 LD/ST Unit（4 * 8）（与 A100 一致）</li>
+<li>16 个 SFU（4 * 4）（与 A100 一致）</li>
+<li>相比 A100 增加了一个 Tensor Memory Accelerator</li>
+</ul>
+<p><strong>Process Block：</strong></p>
+<ul>
+<li>1 个 Warp Scheduler，1 个 Dispatch Unit（与 A100 一致）</li>
+<li>32 个 FP32 Core（相比 A100 翻倍）</li>
+<li>16 个 INT32 Core（与 A100 一致）</li>
+<li>16 个 FP64 Core（相比 A100 翻倍）</li>
+<li>1 个 TensorCore</li>
+<li>8 个 LD/ST Unit（与 A100 一致）</li>
+<li>4 个 SFU（与 A100 一致）</li>
+</ul>
+<p>引入了线程块簇，簇是一组保证可以并发调度的线程块，支持跨多个 SM 的线程进行高效协作和数据共享。簇还可以更高效地协同驱动Tensor 内存加速器和 Tensor Core 等异步单元。在物理层次上对应的是GPC,可以直接访问同簇内其他SM的共享内存而不用经过显存中转。</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546643.png%20" title="线程层次" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546643.png%20" data-sub-html="<h2>线程层次</h2><p>线程层次</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546643.png%20"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546643.png%20, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546643.png%20 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546643.png%20 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546643.png%20" />
+    </a><figcaption class="image-caption">线程层次</figcaption>
+    </figure><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061553946.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061553946.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061553946.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061553946.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061553946.png"
+        title="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061553946.png" />​</p>
+<h3 id="23-tensorcore">2.3 TensorCore</h3>
+<p>矩阵乘法在进行行列相乘时需要逐元素的相乘累加。这个过程可以使用乘积累加指令FMA（Fused Multiply–accumulate operation）完成。</p>
+<p>所谓的FMA指令就是：$a=a+(b\times c)$下图示例需要$5\times 5\times 5$次FMA 完成。</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546301.png" title="矩阵乘法" data-thumbnail="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546301.png" data-sub-html="<h2>矩阵乘法</h2><p>矩阵乘法</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546301.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546301.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546301.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546301.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546301.png" />
+    </a><figcaption class="image-caption">矩阵乘法</figcaption>
+    </figure></p>
+<p>每个 Tensor Core 每周期能执行 $4\times4\times4$ GEMM，64 个 FMA。执行运算 D=AB+C，其中A、B、C 和 D是$4\times4$ 矩阵。矩阵乘法输入 A 和 B 是 FP16 矩阵，而累加矩阵 C 和 D 可以是 FP16或 FP32 矩阵。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546129.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546129.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546129.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546129.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546129.png"
+        title="image" />​</p>
+<p>Tensor Core执行融合乘法加法，其中两个$4\times4$FP16矩阵相乘，然后将结果添加到$4\times4$ FP16或FP32矩阵中，最终输出新的$4\times4$ FP16或FP32矩阵。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546753.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546753.png, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546753.png 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546753.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546753.png"
+        title="image" />每个 Tensor Core 每个时钟执行 64 个 FP32 FMA 混合精度运算，SM中8个 Tensor Core，每个时钟周期内总共执行 512 个浮点运算。</p>
+<p>因此在 AI 应用中， Volta V100 GPU的吞吐量与Pascal P100 GPU相比，每个 SM 的 AI 吞吐量增加了 8 倍，总共增加了12倍。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546556.gif"
+        data-srcset="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546556.gif, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546556.gif 1.5x, https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546556.gif 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546556.gif"
+        title="图片2" />​</p>
+<h3 id="24-nvlink">2.4 NVlink</h3>
+<p>NVLink：英伟达（NVIDIA）开发并推出的一种总线及其通信协议。NVLink采用点对点结构、串列传输，用于中央处理器（CPU）与图形处理器（GPU）之间的连接，也可用于多个图形处理器（GPU）之间的相互连接。<br>
+NVSwitch：是一种高速互连技术，同时作为一块独立的 NVLink 芯片，其提供了高达18路 NVLink 的接口，可以在多个 GPU 之间实现高速数据传输。</p>
+<p>NCCL / HCCL： GPU/NPU 通信优化库，支持集中式通信。</p>
+<p>‍</p>
+<h2 id="资料来源">资料来源</h2>
+<p>[1] <a href="https://github.com/chenzomi12/DeepLearningSystem" target="_blank" rel="noopener noreffer ">chenzomi12/DeepLearningSystem: Deep Learning System core principles introduction. (github.com)</a></p>
+<p>[2]<a href="https://developer.download.nvidia.com/assets/gamedev/docs/TransformAndLighting.pdf" target="_blank" rel="noopener noreffer ">TransformAndLighting.pdf (nvidia.com)</a></p>
+<p>[3] <a href="https://www.cnblogs.com/timlly/p/11471507.html" target="_blank" rel="noopener noreffer ">深入GPU硬件架构及运行机制 - 0向往0 - 博客园 (cnblogs.com)</a></p>
+<p>[4]<a href="https://zhuanlan.zhihu.com/p/577412348" target="_blank" rel="noopener noreffer ">NVIDIA GPU性能优化基础 - 知乎 (zhihu.com)</a></p>
+<p>[5]<a href="https://arxiv.org/pdf/1509.02308.pdf" target="_blank" rel="noopener noreffer ">1509.02308.pdf (arxiv.org)</a></p>
+<p>[6] <a href="https://developer.nvidia.com/content/life-triangle-nvidias-logical-pipeline" target="_blank" rel="noopener noreffer ">Life of a triangle - NVIDIA's logical pipeline | NVIDIA Developer</a></p>
+<p>[7] <a href="https://zhuanlan.zhihu.com/p/441610596" target="_blank" rel="noopener noreffer ">GPU架构和渲染 - 知乎 (zhihu.com)</a></p>
+<p>[8]<a href="https://jcf94.com/2020/05/24/2020-05-24-nvidia-arch/" target="_blank" rel="noopener noreffer ">NVIDIA GPU 架构演进 | Chenfan Blog (jcf94.com)</a></p>
+<p>‍</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-03-06</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/01-%E8%AE%A4%E8%AF%86gpu.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://qifeng.xyz/01-%E8%AE%A4%E8%AF%86gpu.html" data-title="01-认识GPU" data-via="@LeYong33223778" data-hashtags="Cuda"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://qifeng.xyz/01-%E8%AE%A4%E8%AF%86gpu.html" data-hashtag="Cuda"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://qifeng.xyz/01-%E8%AE%A4%E8%AF%86gpu.html" data-title="01-认识GPU"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://qifeng.xyz/01-%E8%AE%A4%E8%AF%86gpu.html" data-title="01-认识GPU"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://qifeng.xyz/01-%E8%AE%A4%E8%AF%86gpu.html" data-title="01-认识GPU"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/cuda.html">Cuda</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html" class="prev" rel="prev" title="NTT（快速数论变换）"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>NTT（快速数论变换）</a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.7">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">豈</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.e1f973627089fc121272c24d146e7c52e316a203fcb362eb2f648d803fc0d327.css" integrity="sha256-4flzYnCJ/BIScsJNFG58UuMWogP8s2LrL2SNgD/A0yc="><link rel="stylesheet" href="/lib/katex/katex.min.76e39bd605d45b2d1944123c66608b0c8bb9baeb70720b212571531c7cf9bc2a.css" integrity="sha256-duOb1gXUWy0ZRBI8ZmCLDIu5uutwcgshJXFTHHz5vCo="><script type="text/javascript" src="/lib/gitalk/gitalk.min.3e68fce688cb68f396c11b65309c267b307f420f01cef269e5e4f3bd769801f0.js" integrity="sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.ae2da1bd62c6469ee27770ad1cddf2e8296d8a7f6d85b091463e5200c5e320af.js" integrity="sha256-ri2hvWLGRp7id3CtHN3y6Cltin9thbCRRj5SAMXjIK8="></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.dea2f4729cf4238b0f10574de00c14c580228238317ce61f8af3a410026c552b.js" integrity="sha256-3qL0cpz0I4sPEFdN4AwUxYAigjgxfOYfivOkEAJsVSs="></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.3d9120fa621da6d613c1698b7014ec6bdf4620366e8f2b7b547059f4b6f6272b.js" integrity="sha256-PZEg+mIdptYTwWmLcBTsa99GIDZujyt7VHBZ9Lb2Jys="></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.e17a1d816e13c0826e0ed7febfabc3277f45571234bde0bf9120829a7169edc9.js" integrity="sha256-4XodgW4TwIJuDtf+v6vDJ39FVxI0veC/kSCCmnFp7ck="></script><script type="text/javascript" src="/lib/sharer/sharer.min.cc31d902aa4f3fcc8bb8c81aa534a4e2103e9b11f65b9fbd5b7156e089889ceb.js" integrity="sha256-zDHZAqpPP8yLuMgapTSk4hA+mxH2W5+9W3FW4ImInOs="></script><script type="text/javascript" src="/lib/katex/katex.min.eb18207487161674e717087c317db14ac1a62dadaecccb802499ce173bfeb739.js" integrity="sha256-6xggdIcWFnTnFwh8MX2xSsGmLa2uzMuAJJnOFzv+tzk="></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.cb7f4ca60ed5dc3e258415f8c7a3b46d4a93578a52adf83011f18a7f190e7602.js" integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.52ce78fab4860d24ef22128a52ce24ca01368a9034457a565a1d3fccbab0ddbb.js" integrity="sha256-Us54+rSGDSTvIhKKUs4kygE2ipA0RXpWWh0/zLqw3bs="></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.5c0a121a8b490afc85860a522347aeb34fb508c6b23044e5d29f6b2194227b51.js" integrity="sha256-XAoSGotJCvyFhgpSI0eus0+1CMayMETl0p9rIZQie1E="></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"gitalk":{"admin":["yinxiangkai"],"clientID":"cee9a7299c7ed214f720","clientSecret":"b6b040a40001c2d2129236573ac7695d3fec20e3","id":"2024-03-06T16:02:29+08:00","owner":"yinxiangkai","repo":"yinxiangkai.github.io","title":"01-认识GPU"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"MHT5MEZUE6","algoliaIndex":"blog","algoliaSearchKey":"462626f430ff595a97c125945eaac26d","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.d7121d72cd85153ec9d35a888cee3eb28c2700ca763f649a538f6c772d750021.js" integrity="sha256-1xIdcs2FFT7J01qIjO4+sownAMp2P2SaU49sdy11ACE="></script></body>
+</html>
