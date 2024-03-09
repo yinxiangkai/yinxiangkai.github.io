@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/qifeng.xyz\/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html"
-        },"image": ["https:\/\/qifeng.xyz\/favicon-32x32.png"],"genre": "posts","keywords": "算法, NTT, 基础","wordcount":  11437 ,
+        },"image": ["https:\/\/qifeng.xyz\/favicon-32x32.png"],"genre": "posts","keywords": "算法, NTT, 基础","wordcount":  11439 ,
         "url": "https:\/\/qifeng.xyz\/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html","datePublished": "2024-02-20T16:02:29+08:00","dateModified": "2024-02-20T16:02:29+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -115,7 +115,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">NTT（快速数论变换）</h1><h2 class="single-subtitle">快速数论变换的基础知识学习笔记</h2><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>豈</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%AE%97%E6%B3%95.html"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-20">2024-02-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;11437 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-20">2024-02-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;11439 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;23 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -1088,7 +1088,7 @@ $$</div>
 <p>对于给定的$j$和$m=2^s$，我们可以表示旋转因子$\varphi =T[\beta + j],\beta=2^{s-1}-1=\frac{m}{2}-1$。</p>
 <p>两种方式$T[\beta+j]$ 和$t[j \cdot 2^\alpha ]$，内层索引都是相同的，$\alpha$ 和 $\beta$表示循环中不变的表达式，在循环开始前计算一次。但是$T$，可以使用指针指向$T[\beta]$,</p>
 <p>一步解引用。而$t$需要先位移后解引用。</p>
-<p><strong>Four-step算法：</strong> 因为要用到所有的幂次，所以直接预计算所有的幂次，构建幂次表$T_<em>$即可。需要设计合适的索引。我的想法是利用折半引理，在对行或是对列的NTT中索引格式只需要在方案二的基础上进行细微改动即可，只需要乘上总规模$N$除当前NTT规模$n$的商即可，$T_</em>[(\beta+j)\frac{N}{n}]=T_*[\beta \mu+j\mu]$,只是这种方法会使得方案本一步完成的解引用，需要两步而且增加的是开销较高的乘法。至于列运算结束后的旋转因子矩阵直接按照输入索引去查询即可，因为输入矩阵和旋转因子因子矩阵是一一对应的。</p>
+<p><strong>Four-step算法：</strong> 因为要用到所有的幂次，所以直接预计算所有的幂次，构建幂次表$T_*$即可。需要设计合适的索引。我的想法是利用折半引理，在对行或是对列的NTT中索引格式只需要在方案二的基础上进行细微改动即可，只需要乘上总规模$N$除当前NTT规模$n$的商即可，$T_*[(\beta+j)\frac{N}{n}]=T_*[\beta \mu+j\mu]$,只是这种方法会使得方案本一步完成的解引用，需要两步而且增加的是开销较高的乘法。至于列运算结束后的旋转因子矩阵直接按照输入索引去查询即可，因为输入矩阵和旋转因子因子矩阵是一一对应的。</p>
 <h3 id="23-转置优化">2.3 转置优化</h3>
 <p>矩阵的转置有两种方式一种是out-place,一种是in-place。前者需要申请一块同等大小的空间，从而完成转置，即空间复杂度$O(R\times C)$。后一种，空间复杂度远小于$O(R\times C)$。这里主要讨论in-place转置方案，对于方阵很简单只需要交换$&lt;i,j&gt;$与$&lt;j,i&gt;$处的元素即可。</p>
 <p>下面讨论$n\times cn$形式的矩阵转置，为了方便表示不妨取$c=2$。将一个$n\times 2n$的矩阵$M$拆分成两个$n\times n$的方阵$A$和$B$:</p>
@@ -1226,7 +1226,7 @@ $$</div>
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.7">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.8">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
                 </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">豈</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
