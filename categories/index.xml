@@ -1,23 +1,31 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Categories - Category - 豈風</title>
-        <link>https://qifeng.xyz/categories.html</link>
-        <description>Categories - Category - 豈風</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yinxkai@gmail.com (豈)</managingEditor>
-            <webMaster>yinxkai@gmail.com (豈)</webMaster><lastBuildDate>Wed, 06 Mar 2024 16:02:29 &#43;0800</lastBuildDate><atom:link href="https://qifeng.xyz/categories.html" rel="self" type="application/rss+xml" /><item>
+        <title>Categories - Category - </title>
+        <link>https://CATSLAB-SDU.github.io/categories.html</link>
+        <description>Categories - Category - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>catslabsdu@gmail.com (CATS LAB)</managingEditor>
+            <webMaster>catslabsdu@gmail.com (CATS LAB)</webMaster><lastBuildDate>Tue, 26 Mar 2024 17:02:29 &#43;0800</lastBuildDate><atom:link href="https://CATSLAB-SDU.github.io/categories.html" rel="self" type="application/rss+xml" /><item>
+    <title>杂项</title>
+    <link>https://CATSLAB-SDU.github.io/categories/%E6%9D%82%E9%A1%B9.html</link>
+    <pubDate>Tue, 26 Mar 2024 17:02:29 &#43;0800</pubDate>
+    <author>CATS LAB</author>
+    <guid>https://CATSLAB-SDU.github.io/categories/%E6%9D%82%E9%A1%B9.html</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
     <title>Cuda学习笔记</title>
-    <link>https://qifeng.xyz/categories/cuda%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</link>
+    <link>https://CATSLAB-SDU.github.io/categories/cuda%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</link>
     <pubDate>Wed, 06 Mar 2024 16:02:29 &#43;0800</pubDate>
-    <author>豈</author>
-    <guid>https://qifeng.xyz/categories/cuda%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</guid>
+    <author>CATS LAB</author>
+    <guid>https://CATSLAB-SDU.github.io/categories/cuda%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>算法</title>
-    <link>https://qifeng.xyz/categories/%E7%AE%97%E6%B3%95.html</link>
+    <link>https://CATSLAB-SDU.github.io/categories/%E7%AE%97%E6%B3%95.html</link>
     <pubDate>Tue, 20 Feb 2024 16:02:29 &#43;0800</pubDate>
-    <author>豈</author>
-    <guid>https://qifeng.xyz/categories/%E7%AE%97%E6%B3%95.html</guid>
+    <author>CATS LAB</author>
+    <guid>https://CATSLAB-SDU.github.io/categories/%E7%AE%97%E6%B3%95.html</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

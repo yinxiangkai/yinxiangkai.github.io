@@ -106,9 +106,10 @@ $$</div>
 
 <div>$$
 \begin{align}
-P(x)=P_e(x^2)+xP_o(x^2)
+P(x)=P_e(x^2)+x_iP_o(x^2)
 \end{align}
 $$</div>
+
 
 
 则我们可以取 $\frac{n}{2}$ 对相反数点，这样我们只需要计算一半的点值。
