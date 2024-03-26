@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>技能 - Tag - </title>
-        <link>https://CATSLAB-SDU.github.io/tags/%E6%8A%80%E8%83%BD.html</link>
+        <link>https://qifeng.xyz/tags/%E6%8A%80%E8%83%BD.html</link>
         <description>技能 - Tag - </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yinxkai@gmail.com (豈)</managingEditor>
-            <webMaster>yinxkai@gmail.com (豈)</webMaster><lastBuildDate>Tue, 26 Mar 2024 17:02:29 &#43;0800</lastBuildDate><atom:link href="https://CATSLAB-SDU.github.io/tags/%E6%8A%80%E8%83%BD.html" rel="self" type="application/rss+xml" /><item>
+            <webMaster>yinxkai@gmail.com (豈)</webMaster><lastBuildDate>Tue, 26 Mar 2024 17:02:29 &#43;0800</lastBuildDate><atom:link href="https://qifeng.xyz/tags/%E6%8A%80%E8%83%BD.html" rel="self" type="application/rss+xml" /><item>
     <title>Hugo&#43;Github 搭建个人主页</title>
-    <link>https://CATSLAB-SDU.github.io/hugo-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5.html</link>
+    <link>https://qifeng.xyz/hugo-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5.html</link>
     <pubDate>Tue, 26 Mar 2024 17:02:29 &#43;0800</pubDate>
     <author>豈</author>
-    <guid>https://CATSLAB-SDU.github.io/hugo-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5.html</guid>
+    <guid>https://qifeng.xyz/hugo-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5.html</guid>
     <description><![CDATA[1 准备阶段 1.1 安装hugo 这里为了省去环境路径的配置采用如下的cmd命令方式，也可以选择去github下载相应文件。如文档：Hugo中文文档 (gohugo.org)]]></description>
 </item>
 </channel>
