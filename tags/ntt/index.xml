@@ -3,12 +3,12 @@
         <title>NTT - Tag - </title>
         <link>https://CATSLAB-SDU.github.io/tags/ntt.html</link>
         <description>NTT - Tag - </description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>catslabsdu@gmail.com (CATS LAB)</managingEditor>
-            <webMaster>catslabsdu@gmail.com (CATS LAB)</webMaster><lastBuildDate>Tue, 20 Feb 2024 16:02:29 &#43;0800</lastBuildDate><atom:link href="https://CATSLAB-SDU.github.io/tags/ntt.html" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yinxkai@gmail.com (豈)</managingEditor>
+            <webMaster>yinxkai@gmail.com (豈)</webMaster><lastBuildDate>Tue, 20 Feb 2024 16:02:29 &#43;0800</lastBuildDate><atom:link href="https://CATSLAB-SDU.github.io/tags/ntt.html" rel="self" type="application/rss+xml" /><item>
     <title>NTT（快速数论变换）</title>
     <link>https://CATSLAB-SDU.github.io/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html</link>
     <pubDate>Tue, 20 Feb 2024 16:02:29 &#43;0800</pubDate>
-    <author>CATS LAB</author>
+    <author>豈</author>
     <guid>https://CATSLAB-SDU.github.io/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html</guid>
     <description><![CDATA[本文章介绍NTT算法的基本概念，通过多项式乘法引入，从FFT开始入手介绍DIT和DIF算法，最后介绍NTT与矩阵算法。同时介绍简单的优化策略]]></description>
 </item>

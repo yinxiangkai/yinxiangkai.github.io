@@ -2,15 +2,15 @@
     <channel>
         <title></title>
         <link>https://CATSLAB-SDU.github.io/</link>
-        <description>实验室学习资料共享博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>catslabsdu@gmail.com (CATS LAB)</managingEditor>
-            <webMaster>catslabsdu@gmail.com (CATS LAB)</webMaster><lastBuildDate>Tue, 26 Mar 2024 17:02:29 &#43;0800</lastBuildDate>
+        <description>学习资料汇总</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yinxkai@gmail.com (豈)</managingEditor>
+            <webMaster>yinxkai@gmail.com (豈)</webMaster><lastBuildDate>Tue, 26 Mar 2024 17:02:29 &#43;0800</lastBuildDate>
             <atom:link href="https://CATSLAB-SDU.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>Hugo&#43;Github 搭建个人主页</title>
     <link>https://CATSLAB-SDU.github.io/hugo-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5.html</link>
     <pubDate>Tue, 26 Mar 2024 17:02:29 &#43;0800</pubDate>
-    <author>CATS LAB</author>
+    <author>豈</author>
     <guid>https://CATSLAB-SDU.github.io/hugo-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5.html</guid>
     <description><![CDATA[1 准备阶段 1.1 安装hugo 这里为了省去环境路径的配置采用如下的cmd命令方式，也可以选择去github下载相应文件。如文档：Hugo中文文档 (gohugo.org)]]></description>
 </item>
@@ -18,7 +18,7 @@
     <title>01-认识GPU</title>
     <link>https://CATSLAB-SDU.github.io/01-%E8%AE%A4%E8%AF%86gpu.html</link>
     <pubDate>Wed, 06 Mar 2024 16:02:29 &#43;0800</pubDate>
-    <author>CATS LAB</author>
+    <author>豈</author>
     <guid>https://CATSLAB-SDU.github.io/01-%E8%AE%A4%E8%AF%86gpu.html</guid>
     <description><![CDATA[本文主要是梳理一下GPU有关的基础知识，梳理一下从Fermi架构到Hopper架构的一些信息。帮助自己将cuda编程层次概念与简单硬件抽象对]]></description>
 </item>
@@ -26,7 +26,7 @@
     <title>NTT（快速数论变换）</title>
     <link>https://CATSLAB-SDU.github.io/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html</link>
     <pubDate>Tue, 20 Feb 2024 16:02:29 &#43;0800</pubDate>
-    <author>CATS LAB</author>
+    <author>豈</author>
     <guid>https://CATSLAB-SDU.github.io/ntt%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2.html</guid>
     <description><![CDATA[本文章介绍NTT算法的基本概念，通过多项式乘法引入，从FFT开始入手介绍DIT和DIF算法，最后介绍NTT与矩阵算法。同时介绍简单的优化策略]]></description>
 </item>
