@@ -6,7 +6,7 @@
   <link href="http://qifeng.xyz/atom.xml" rel="self"/>
   
   <link href="http://qifeng.xyz/"/>
-  <updated>2024-06-22T11:38:27.284Z</updated>
+  <updated>2024-02-22T11:38:53.000Z</updated>
   <id>http://qifeng.xyz/</id>
   
   <author>
@@ -17,23 +17,21 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="http://qifeng.xyz/2024/06/22/NTT%EF%BC%88%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2%EF%BC%89/"/>
-    <id>http://qifeng.xyz/2024/06/22/NTT%EF%BC%88%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2%EF%BC%89/</id>
-    <published>2024-06-22T11:37:59.126Z</published>
-    <updated>2024-06-22T11:38:27.284Z</updated>
+    <title>NTT（快速数论变换）</title>
+    <link href="http://qifeng.xyz/2024/01/22/NTT%EF%BC%88%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2%EF%BC%89/"/>
+    <id>http://qifeng.xyz/2024/01/22/NTT%EF%BC%88%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2%EF%BC%89/</id>
+    <published>2024-01-22T11:38:53.000Z</published>
+    <updated>2024-02-22T11:38:53.000Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html"></summary>
-        
-      
+    <summary type="html">本文主要是介绍了NTT快速数论变换的一些基本概</summary>
     
     
     
+    <category term="算法" scheme="http://qifeng.xyz/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="NTT" scheme="http://qifeng.xyz/tags/NTT/"/>
     
   </entry>
   

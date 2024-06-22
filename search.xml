@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
-    <url>/2024/06/22/NTT%EF%BC%88%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2%EF%BC%89/</url>
+    <title>NTT（快速数论变换）</title>
+    <url>/2024/01/22/NTT%EF%BC%88%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2%EF%BC%89/</url>
     <content><![CDATA[<h2 id="1-算法介绍"><a href="#1-算法介绍" class="headerlink" title="1 算法介绍"></a>1 算法介绍</h2><h3 id="1-1-多项式乘法引入"><a href="#1-1-多项式乘法引入" class="headerlink" title="1.1 多项式乘法引入"></a>1.1 多项式乘法引入</h3><h4 id="1-1-1-多项式的两种表示方法"><a href="#1-1-1-多项式的两种表示方法" class="headerlink" title="1.1.1 多项式的两种表示方法"></a>1.1.1 多项式的两种表示方法</h4><p>一般 $n$ 次多项式如公式（1）所示。多项式具有两种表示方法分别是系数表示法和点值表示法。</p>
 <script type="math/tex; mode=display">
 \begin{equation}
@@ -623,5 +623,11 @@ A(x)\cdot B(x)=IDFT(DFT(A)\cdot DFT(B))</script><p>如果使用$DIF$完成$DFT$�
 <p>‍</p>
 <p>‍</p>
 ]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>NTT</tag>
+      </tags>
   </entry>
 </search>
