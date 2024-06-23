@@ -1,0 +1,8 @@
+User-agent: Baiduspider
+
+Sitemap: https://qifeng.xyz/baidusitemap.xml
+
+User-agent: *
+Disallow:
+
+Sitemap: https://qifeng.xyz/sitemap.xml
