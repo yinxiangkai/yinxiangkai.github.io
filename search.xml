@@ -153,7 +153,8 @@
 <p><strong>SIMD：</strong> SIMD(单指令多数据流)是从SISD（单指令单数据流）发展出来的。想要执行并行需要通过堆叠多个核心从而实现并行，每个核心执行一个线程，即MIMD（多指令多数据流）。而SIMD的想法是通过给每个核心中增加计算单元和寄存器，减少硬件开销。然后增加指令的操作数个数，使得一条指令可以驱动多个计算元件同时执行多个数据运算。</p>
 <p><strong>SIMT：</strong> SIMD看起来很好，但是对于高级语言的支持并不好。SIMT（单指令多线程）从本质上还是一套控制单元带多个计算单元，但是从一条指令控制多个计算单元和寄存器，变为将一条指令分发给多组计算单元和寄存器，从而优化高级语言的支持。</p>
 <h4 id="1-2-2-缓存机制"><a href="#1-2-2-缓存机制" class="headerlink" title="1.2.2 缓存机制"></a>1.2.2 缓存机制</h4><p>CPU中的缓存是为了存储下一步要计算的数据，从而减少访问数据的时延，提高线程的执行速度，从而实现高并发。而在GPU中缓存是为Thread提供服务的，缓存会合并线程相同的数据访问，让后从DRAM中访问数据，分发给线程。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544897.svg" alt="A100 内存示意图" title="A100 内存示意图">​​<strong>SM(Streaming Multiprocessor)</strong>  ：SM是是GPU的主要计算单元，负责执行并行计算任务。每个SM都包含多个流多处理器（CUDA核心），可以同时执行多个线程块中的指令。SM通过分配线程、调度指令和管理内存等操作，实现高效的并行计算。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544897.svg" alt="A100 内存示意图" title="A100 内存示意图">​</p>
+<p>​<strong>SM(Streaming Multiprocessor)</strong>  ：SM是是GPU的主要计算单元，负责执行并行计算任务。每个SM都包含多个流多处理器（CUDA核心），可以同时执行多个线程块中的指令。SM通过分配线程、调度指令和管理内存等操作，实现高效的并行计算。</p>
 <p><strong>HBM：</strong> 高带宽内存，也就是显存。它通过将内存芯片直接堆叠在逻辑芯片上，提供了极高的带宽和更低的能耗，从而实现了高密度和高带宽的数据传输。</p>
 <p><strong>L1 Cache/SMEM</strong>：L1 Cache包含指令缓存(Instruction Cache)和数据缓存（Data Cache），在SM内部存储最常用的指令和数据，每个SM独享一个L1 Cache，提供低延迟和高带宽的访问。</p>
 <p><strong>Register File</strong>: 用于存储临时数据、计算中间结果和变量。离计算单元最近，访问速度非常快。</p>
@@ -168,7 +169,7 @@
 <p><strong>Thread：</strong> 同一个 block 中 thread 可以同步，也可以通过 Shared memory 通信,对应于cuda core。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544578.png" alt="Grid-Block-Thread" title="Grid-Block-Thread"></p>
 <h4 id="2-1-2-CUDA-内存层次结构"><a href="#2-1-2-CUDA-内存层次结构" class="headerlink" title="2.1.2 CUDA 内存层次结构"></a>2.1.2 CUDA 内存层次结构</h4><p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544289.svg" alt="CUDA 内存层次" title="CUDA 内存层次"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544343.svg%20" alt="存储结构示意" title="存储结构示意"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061544343.svg" alt="存储结构示意" title="存储结构示意"></p>
 <p><strong>寄存器(Register)：</strong> 寄存器对于每个线程来说都是私有的，一个核函数通常使用寄存器来保存需要频繁访问的线程私有变量。寄存器变量与核函数的生命周期相同。一旦核函数执行完毕，就不能对寄存器变量进行访问了。</p>
 <p><strong>局部内存(Local Memory)：</strong> 局部内存是私有的，只有本线程才能进行读写访问。主要存储超出寄存器存储上线的数据，以及编译器无法静态确定的数据，局部内存在HBM上。</p>
 <p><strong>共享内存(Shared Memory)：</strong> 一个块可以被同一block中的所有线程访问的可读写存储器。访问共享存储器的速度几乎和访问寄存器一样快。是实现线程间通信的延迟最小的方法。</p>
@@ -228,7 +229,7 @@
 <li>提出 GPU Direct 技术，可以绕过 CPU/System Memory，完成与本机其他 GPU 或者其他机器 GPU 的直接数据交换。</li>
 </ul>
 <h4 id="2-2-3-Maxwell-麦克斯韦架构"><a href="#2-2-3-Maxwell-麦克斯韦架构" class="headerlink" title="2.2.3 Maxwell 麦克斯韦架构"></a>2.2.3 Maxwell 麦克斯韦架构</h4><p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061549614.jpg" alt="Maxwell  电路示意图" title="Maxwell 电路示意图"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061549757.png%20" alt="Maxwell架构" title="Maxwell架构"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061549757.png" alt="Maxwell架构" title="Maxwell架构"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545780.png" alt="Maxwll SMM示意图" title="Maxwll SMM示意图"></p>
 <p>Kepler架构的SMX过于庞杂，因此Maxwwll 的SMM砍掉了很多元件，将类似于Fermi架构的四个SM（Process Block）拼成了一个SMM。</p>
 <h4 id="2-2-4-Pascal-帕斯卡架构"><a href="#2-2-4-Pascal-帕斯卡架构" class="headerlink" title="2.2.4 Pascal 帕斯卡架构"></a>2.2.4 Pascal 帕斯卡架构</h4><p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061550820.png" alt="Pascal架构" title="Pascal架构"><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545005.png" alt="Pascal SM" title="Pascal SM">​</p>
@@ -243,8 +244,8 @@
 <p>最显著的变化就是cuda core被拆分，整形计算单元和FP32计算单元独立出现在流水线中。可以在一个时钟周期内同时执行整形计算和单精度浮点数运算。同时相对于Pascal每个区块又被一分为二。不难看出在减小每个区块以及每个SM运算单元的数量，同时增加SM的数量。</p>
 <p>最重要的是引入了张量核心(Tensor Core)。</p>
 <h4 id="2-2-6-Turing-图灵架构"><a href="#2-2-6-Turing-图灵架构" class="headerlink" title="2.2.6 Turing 图灵架构"></a>2.2.6 Turing 图灵架构</h4><p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061551818.png" alt="Turing 架构" title="Turing 架构"><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545455.png" alt="Turing SM" title="Turing SM">除了在Tensor Core中引入int 8 和int4，以及砍掉FP64单元外变动不大，主要集中在渲染管线和新加的这个 RT Core 光线追踪能力上。</p>
-<h4 id="2-2-7-Ampere-安培架构"><a href="#2-2-7-Ampere-安培架构" class="headerlink" title="2.2.7 Ampere 安培架构"></a>2.2.7 Ampere 安培架构</h4><p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061552794.png%20" alt="Ampere 架构图" title="Ampere 架构图"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061552558.png%20" alt="Ampere SM结构" title="Ampere SM结构"></p>
+<h4 id="2-2-7-Ampere-安培架构"><a href="#2-2-7-Ampere-安培架构" class="headerlink" title="2.2.7 Ampere 安培架构"></a>2.2.7 Ampere 安培架构</h4><p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061552794.png" alt="Ampere 架构图" title="Ampere 架构图"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061552558.png" alt="Ampere SM结构" title="Ampere SM结构"></p>
 <p>增加了FP64单元，Tensor Core变为原来的一半，但是计算能力其实增强了，单个时钟周期吞吐量量提高了，同时引入了结构化稀疏能力。增加了多实例GPU（Multi-Instance GPU），将单个A100GPU划分为多达七个独立GPU，为不同任务提供不同算力。</p>
 <p>引入了TF32 和BF16的支持：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061545369.png" alt="image"></p>
@@ -271,7 +272,7 @@
 <li>4 个 SFU（与 A100 一致）</li>
 </ul>
 <p>引入了线程块簇，簇是一组保证可以并发调度的线程块，支持跨多个 SM 的线程进行高效协作和数据共享。簇还可以更高效地协同驱动Tensor 内存加速器和 Tensor Core 等异步单元。在物理层次上对应的是GPC,可以直接访问同簇内其他SM的共享内存而不用经过显存中转。</p>
-<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546643.png%20" alt="线程层次" title="线程层次"><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061553946.png" alt="">​</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546643.png" alt="线程层次" title="线程层次"><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061553946.png" alt="">​</p>
 <h3 id="2-3-TensorCore"><a href="#2-3-TensorCore" class="headerlink" title="2.3 TensorCore"></a>2.3 TensorCore</h3><p>矩阵乘法在进行行列相乘时需要逐元素的相乘累加。这个过程可以使用乘积累加指令FMA（Fused Multiply–accumulate operation）完成。</p>
 <p>所谓的FMA指令就是：$a=a+(b\times c)$下图示例需要$5\times 5\times 5$次FMA 完成。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061546301.png" alt="矩阵乘法" title="矩阵乘法"></p>
