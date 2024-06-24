@@ -44,7 +44,9 @@ p {
 .post-content ul {
    font-size: 1.2rem;  /* 设置列表的字号 */
 }
-
+mjx-container {
+  font-size: 1.2rem;
+}
 hr {
   box-sizing: content-box;
   height: 0;
