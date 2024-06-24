@@ -209,20 +209,6 @@
 
   
   <url>
-    <loc>http://qifeng.xyz/tags/Ascend/</loc>
-    <lastmod>2024-06-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://qifeng.xyz/tags/NPU/</loc>
-    <lastmod>2024-06-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://qifeng.xyz/tags/NTT/</loc>
     <lastmod>2024-06-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -231,6 +217,20 @@
   
   <url>
     <loc>http://qifeng.xyz/tags/%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2024-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://qifeng.xyz/tags/Ascend/</loc>
+    <lastmod>2024-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://qifeng.xyz/tags/NPU/</loc>
     <lastmod>2024-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -272,6 +272,13 @@
   </url>
   
   <url>
+    <loc>http://qifeng.xyz/tags/ZKP/</loc>
+    <lastmod>2024-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://qifeng.xyz/tags/Hugo/</loc>
     <lastmod>2024-06-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -306,21 +313,7 @@
     <priority>0.2</priority>
   </url>
   
-  <url>
-    <loc>http://qifeng.xyz/tags/ZKP/</loc>
-    <lastmod>2024-06-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
 
-  
-  <url>
-    <loc>http://qifeng.xyz/categories/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/</loc>
-    <lastmod>2024-06-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
   
   <url>
     <loc>http://qifeng.xyz/categories/%E7%AE%97%E6%B3%95/</loc>
@@ -330,7 +323,21 @@
   </url>
   
   <url>
+    <loc>http://qifeng.xyz/categories/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/</loc>
+    <lastmod>2024-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://qifeng.xyz/categories/debug/</loc>
+    <lastmod>2024-06-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://qifeng.xyz/categories/ZKP/</loc>
     <lastmod>2024-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -352,13 +359,6 @@
   
   <url>
     <loc>http://qifeng.xyz/categories/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/Nvidia/</loc>
-    <lastmod>2024-06-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://qifeng.xyz/categories/ZKP/</loc>
     <lastmod>2024-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
