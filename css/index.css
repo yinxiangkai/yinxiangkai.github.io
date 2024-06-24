@@ -8,13 +8,37 @@ body {
   margin: 0
 }
 
+
 main {
   display: block
 }
 
 h1 {
-  font-size: 2em;
-  margin: .67em 0
+  font-size: 2.2em;
+  margin: .3em 0
+}
+h2 {
+  font-size: 1.9em;
+  margin: .25em 0
+}
+h3 {
+  font-size: 1.7em;
+  margin: .2em 0
+}
+h4 {
+  font-size: 1.5em;
+  margin: .18em 0
+}
+h5 {
+  font-size: 1.2em;
+  margin: .15em 0
+}
+h6 {
+  font-size: 1em;
+  margin: .1em 0
+}
+p {
+  font-size: 1.2em;
 }
 
 hr {
@@ -1636,7 +1660,7 @@ figure.highlight pre .javascript .function {
 }
 #article-container pre,
 #article-container code {
-  font-size: var(--global-font-size);
+  font-size: 17px;
   font-family: consolas, Menlo, 'PingFang SC', 'Microsoft YaHei', sans-serif !important;
 }
 #article-container code {
@@ -1664,7 +1688,7 @@ figure.highlight pre .javascript .function {
 #article-container figure.highlight figcaption,
 #article-container figure.highlight .caption {
   padding: 6px 0 2px 14px;
-  font-size: var(--global-font-size);
+  font-size: 17px;
   line-height: 1em;
 }
 #article-container figure.highlight figcaption a,
@@ -1709,7 +1733,7 @@ figure.highlight pre .javascript .function {
   height: 2.15em;
   background: var(--hltools-bg);
   color: var(--hltools-color);
-  font-size: var(--global-font-size);
+  font-size: 17px;
 }
 #article-container .highlight-tools > * {
   margin: 0 3px;
@@ -1843,7 +1867,7 @@ figure.highlight pre .javascript .function {
   width: 100%;
   background: var(--hlexpand-bg);
   text-align: center;
-  font-size: var(--global-font-size);
+  font-size: 17px;
   cursor: pointer;
 }
 #article-container .code-expand-btn i {
@@ -2760,7 +2784,7 @@ h1.page-title + .tag-cloud-list {
 }
 #aside-content .card-info .author-info__name {
   font-weight: 500;
-  font-size: 1.57em;
+  font-size: 1.6em;
 }
 #aside-content .card-info .author-info__description {
   margin-top: -0.42em;
@@ -2774,7 +2798,7 @@ h1.page-title + .tag-cloud-list {
 #aside-content .card-info .card-info-social-icons .social-icon {
   margin: 0 10px;
   color: var(--font-color);
-  font-size: 1.4em;
+  font-size: 1.6em;
 }
 #aside-content .card-info .card-info-social-icons i {
   -webkit-transition: all 0.3s;
@@ -2806,7 +2830,7 @@ h1.page-title + .tag-cloud-list {
 }
 #aside-content .item-headline {
   padding-bottom: 6px;
-  font-size: 1.2em;
+  font-size: 1.4em;
 }
 #aside-content .item-headline span {
   margin-left: 6px;
@@ -2882,12 +2906,12 @@ h1.page-title + .tag-cloud-list {
 #aside-content .aside-list > .aside-list-item .content > .name {
   display: block;
   color: #858585;
-  font-size: 85%;
+  font-size: 95%;
 }
 #aside-content .aside-list > .aside-list-item .content > .title,
 #aside-content .aside-list > .aside-list-item .content > .comment {
   color: var(--font-color);
-  font-size: 95%;
+  font-size: 117%;
   line-height: 1.5;
   -webkit-line-clamp: 2;
 }
@@ -3530,7 +3554,7 @@ h1.page-title + .tag-cloud-list {
   content: '';
 }
 #page-header.full_page {
-  height: 200px;
+  height: 300px;
   background-attachment: fixed;
 }
 #page-header.full_page #site-info {
@@ -3547,9 +3571,9 @@ h1.page-title + .tag-cloud-list {
   line-height: 1.5;
 }
 #page-header #site-title {
-  margin: 0;
+  margin: 0px;
   color: var(--white);
-  font-size: 1.85em;
+  font-size: 1.7em;
 }
 @media screen and (min-width: 768px) {
   #page-header #site-title {
@@ -3558,7 +3582,7 @@ h1.page-title + .tag-cloud-list {
 }
 #page-header #site-subtitle {
   color: var(--light-grey);
-  font-size: 1.15em;
+  font-size: 1em;
 }
 @media screen and (min-width: 768px) {
   #page-header #site-subtitle {
@@ -3594,7 +3618,7 @@ h1.page-title + .tag-cloud-list {
   font-size: 20px;
 }
 #page-header.not-home-page {
-  height: 300px;
+  height: 200px;
 }
 @media screen and (max-width: 768px) {
   #page-header.not-home-page {
@@ -3603,7 +3627,7 @@ h1.page-title + .tag-cloud-list {
 }
 #page-header #page-site-info {
   position: absolute;
-  top: 200px;
+  top: 100px;
   padding: 0 10px;
   width: 100%;
 }
@@ -3613,7 +3637,7 @@ h1.page-title + .tag-cloud-list {
   }
 }
 #page-header.post-bg {
-  height: 400px;
+  height: 200px;
 }
 @media screen and (max-width: 768px) {
   #page-header.post-bg {
@@ -3970,7 +3994,7 @@ h1.page-title + .tag-cloud-list {
   position: relative;
   padding-bottom: 6px;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-  font-size: 0.78em;
+  font-size: 0.9em;
   cursor: pointer;
 }
 #nav .site-page:not(.child):after {
@@ -4025,7 +4049,7 @@ h1.page-title + .tag-cloud-list {
 #pagination .next-post .label {
   color: var(--light-grey);
   text-transform: uppercase;
-  font-size: 90%;
+  font-size: 110%;
 }
 #pagination .prev-post,
 #pagination .next-post {
@@ -4107,7 +4131,7 @@ h1.page-title + .tag-cloud-list {
   color: #34495e;
   white-space: nowrap;
   font-weight: 600;
-  font-size: 0.9em;
+  font-size: 20em;
   font-family: Monaco, 'Ubuntu Mono', monospace;
   line-height: 1em;
 }
@@ -4152,7 +4176,7 @@ h1.page-title + .tag-cloud-list {
   position: absolute;
   top: calc(50% - 7px);
   color: #f47466;
-  content: '\f0c1';
+  content: '\f863';
   left: 0;
   line-height: 1;
   -webkit-transition: all 0.2s ease-out;
@@ -4188,13 +4212,13 @@ h1.page-title + .tag-cloud-list {
   padding-left: 30px;
 }
 #article-container.post-content h3 {
-  padding-left: 24px;
+  padding-left: 14px;
 }
 #article-container.post-content h3:before {
-  font-size: 14px;
+  font-size: 4px;
 }
 #article-container.post-content h3:hover {
-  padding-left: 28px;
+  padding-left: 18px;
 }
 #article-container.post-content h4 {
   padding-left: 22px;
@@ -4254,7 +4278,7 @@ h1.page-title + .tag-cloud-list {
   border: 1px solid #49b1f5;
   border-radius: 12px;
   color: #49b1f5;
-  font-size: 0.85em;
+  font-size: 0.9em;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
