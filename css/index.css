@@ -14,23 +14,23 @@ main {
 }
 
 h1 {
-  font-size: 2.2em;
+  font-size: 2.2rem;
   margin: .3em 0
 }
 h2 {
-  font-size: 1.9em;
+  font-size: 1.9rem;
   margin: .25em 0
 }
 h3 {
-  font-size: 1.7em;
+  font-size: 1.7rem;
   margin: .2em 0
 }
 h4 {
-  font-size: 1.5em;
+  font-size: 1.5rem;
   margin: .18em 0
 }
 h5 {
-  font-size: 1.2em;
+  font-size: 1.2rem;
   margin: .15em 0
 }
 h6 {
@@ -38,13 +38,11 @@ h6 {
   margin: .1em 0
 }
 p {
-  font-size: 1.2em;
+  font-size: 1.2rem;
 }
-li {
-  font-size: 1.2em;
-}
-ol {
-  font-size: 1.2em;
+.post-content ol,
+.post-content ul {
+   font-size: 1.2rem;  /* 设置列表的字号 */
 }
 
 hr {
@@ -4105,6 +4103,7 @@ h1.page-title + .tag-cloud-list {
 #article-container {
   word-wrap: break-word;
   overflow-wrap: break-word;
+  text-align: justify;
 }
 #article-container a {
   color: #49b1f5;
