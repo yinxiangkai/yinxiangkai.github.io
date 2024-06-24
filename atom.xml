@@ -6,7 +6,7 @@
   <link href="http://qifeng.xyz/atom.xml" rel="self"/>
   
   <link href="http://qifeng.xyz/"/>
-  <updated>2024-06-23T08:12:35.719Z</updated>
+  <updated>2024-06-23T11:31:09.356Z</updated>
   <id>http://qifeng.xyz/</id>
   
   <author>
@@ -15,29 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>01 Ascend 全栈 AI 软硬件平台</title>
-    <link href="http://qifeng.xyz/posts/d4440279.html"/>
-    <id>http://qifeng.xyz/posts/d4440279.html</id>
-    <published>2024-06-23T06:14:41.000Z</published>
-    <updated>2024-06-23T08:12:35.719Z</updated>
-    
-    
-    <summary type="html">本文主要介绍昇腾的软硬件平台。</summary>
-    
-    
-    
-    <category term="并行计算" scheme="http://qifeng.xyz/categories/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/"/>
-    
-    <category term="Ascend" scheme="http://qifeng.xyz/categories/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/Ascend/"/>
-    
-    
-    <category term="Ascend" scheme="http://qifeng.xyz/tags/Ascend/"/>
-    
-    <category term="NPU" scheme="http://qifeng.xyz/tags/NPU/"/>
-    
-  </entry>
   
   <entry>
     <title>01 认识GPU</title>
@@ -65,6 +42,29 @@
   </entry>
   
   <entry>
+    <title>01 Ascend 全栈 AI 软硬件平台</title>
+    <link href="http://qifeng.xyz/posts/d4440279.html"/>
+    <id>http://qifeng.xyz/posts/d4440279.html</id>
+    <published>2024-06-23T06:14:41.000Z</published>
+    <updated>2024-06-23T08:12:35.719Z</updated>
+    
+    
+    <summary type="html">本文主要介绍昇腾的软硬件平台。</summary>
+    
+    
+    
+    <category term="并行计算" scheme="http://qifeng.xyz/categories/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/"/>
+    
+    <category term="Ascend" scheme="http://qifeng.xyz/categories/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/Ascend/"/>
+    
+    
+    <category term="Ascend" scheme="http://qifeng.xyz/tags/Ascend/"/>
+    
+    <category term="NPU" scheme="http://qifeng.xyz/tags/NPU/"/>
+    
+  </entry>
+  
+  <entry>
     <title>cublas 列优先问题</title>
     <link href="http://qifeng.xyz/posts/f191b528.html"/>
     <id>http://qifeng.xyz/posts/f191b528.html</id>
@@ -84,25 +84,6 @@
     <category term="debug" scheme="http://qifeng.xyz/tags/debug/"/>
     
     <category term="cublas" scheme="http://qifeng.xyz/tags/cublas/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ZKP 发展脉络</title>
-    <link href="http://qifeng.xyz/posts/e16561b3.html"/>
-    <id>http://qifeng.xyz/posts/e16561b3.html</id>
-    <published>2024-06-23T06:14:41.000Z</published>
-    <updated>2024-06-23T08:13:16.158Z</updated>
-    
-    
-    <summary type="html">本文主要介绍了ZKP的大致发展脉络。</summary>
-    
-    
-    
-    <category term="ZKP" scheme="http://qifeng.xyz/categories/ZKP/"/>
-    
-    
-    <category term="ZKP" scheme="http://qifeng.xyz/tags/ZKP/"/>
     
   </entry>
   
@@ -185,11 +166,30 @@
   </entry>
   
   <entry>
+    <title>ZKP 发展脉络</title>
+    <link href="http://qifeng.xyz/posts/e16561b3.html"/>
+    <id>http://qifeng.xyz/posts/e16561b3.html</id>
+    <published>2024-06-23T06:14:41.000Z</published>
+    <updated>2024-06-23T08:13:16.158Z</updated>
+    
+    
+    <summary type="html">本文主要介绍了ZKP的大致发展脉络。</summary>
+    
+    
+    
+    <category term="ZKP" scheme="http://qifeng.xyz/categories/ZKP/"/>
+    
+    
+    <category term="ZKP" scheme="http://qifeng.xyz/tags/ZKP/"/>
+    
+  </entry>
+  
+  <entry>
     <title>NTT（快速数论变换）</title>
     <link href="http://qifeng.xyz/posts/a0adbc0f.html"/>
     <id>http://qifeng.xyz/posts/a0adbc0f.html</id>
     <published>2024-01-23T06:14:41.000Z</published>
-    <updated>2024-06-24T02:24:07.785Z</updated>
+    <updated>2024-06-24T06:41:53.639Z</updated>
     
     
     <summary type="html">本文主要是介绍了NTT算法的基础知识，并扩展了四步NTT，并介绍了相应的优化思路。</summary>

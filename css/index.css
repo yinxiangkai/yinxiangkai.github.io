@@ -40,6 +40,12 @@ h6 {
 p {
   font-size: 1.2em;
 }
+li {
+  font-size: 1.2em;
+}
+ol {
+  font-size: 1.2em;
+}
 
 hr {
   box-sizing: content-box;
