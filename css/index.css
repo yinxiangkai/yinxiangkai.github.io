@@ -202,6 +202,8 @@ template {
 [hidden] {
   display: none
 }
+
+
 .limit-one-line,
 #article-container .flink .flink-item-name,
 #article-container .flink .flink-item-desc,
