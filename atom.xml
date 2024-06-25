@@ -6,7 +6,7 @@
   <link href="http://qifeng.xyz/atom.xml" rel="self"/>
   
   <link href="http://qifeng.xyz/"/>
-  <updated>2024-06-24T07:12:20.973Z</updated>
+  <updated>2024-06-23T08:12:58.085Z</updated>
   <id>http://qifeng.xyz/</id>
   
   <author>
@@ -17,11 +17,87 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>bib 国标模板</title>
+    <link href="http://qifeng.xyz/posts/c0dc4c.html"/>
+    <id>http://qifeng.xyz/posts/c0dc4c.html</id>
+    <published>2024-06-23T06:14:41.000Z</published>
+    <updated>2024-06-23T08:12:58.085Z</updated>
+    
+    
+    <summary type="html">本文呢主要介绍了bib文件中参考文献的国标格式。</summary>
+    
+    
+    
+    <category term="杂项" scheme="http://qifeng.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+    <category term="参考文献" scheme="http://qifeng.xyz/tags/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ZKP 发展脉络</title>
+    <link href="http://qifeng.xyz/posts/e16561b3.html"/>
+    <id>http://qifeng.xyz/posts/e16561b3.html</id>
+    <published>2024-06-23T06:14:41.000Z</published>
+    <updated>2024-06-23T08:13:16.158Z</updated>
+    
+    
+    <summary type="html">本文主要介绍了ZKP的大致发展脉络。</summary>
+    
+    
+    
+    <category term="ZKP" scheme="http://qifeng.xyz/categories/ZKP/"/>
+    
+    
+    <category term="ZKP" scheme="http://qifeng.xyz/tags/ZKP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>clang 环境配置</title>
+    <link href="http://qifeng.xyz/posts/15893855.html"/>
+    <id>http://qifeng.xyz/posts/15893855.html</id>
+    <published>2024-05-21T06:14:41.000Z</published>
+    <updated>2024-06-25T12:21:45.738Z</updated>
+    
+    
+    <summary type="html">本文主要介绍了怎么在Linux中配置clang环境。</summary>
+    
+    
+    
+    <category term="杂项" scheme="http://qifeng.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+    <category term="clang" scheme="http://qifeng.xyz/tags/clang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>连接GitHub</title>
+    <link href="http://qifeng.xyz/posts/d10c5bba.html"/>
+    <id>http://qifeng.xyz/posts/d10c5bba.html</id>
+    <published>2024-04-23T06:14:41.000Z</published>
+    <updated>2024-06-25T12:21:47.219Z</updated>
+    
+    
+    <summary type="html">本文主要介绍了如何通过更新DNS访问Github。</summary>
+    
+    
+    
+    <category term="杂项" scheme="http://qifeng.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+    <category term="github" scheme="http://qifeng.xyz/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
     <title>01 认识GPU</title>
     <link href="http://qifeng.xyz/posts/50b55d72.html"/>
     <id>http://qifeng.xyz/posts/50b55d72.html</id>
-    <published>2024-06-23T06:14:41.000Z</published>
-    <updated>2024-06-24T07:12:20.973Z</updated>
+    <published>2024-03-23T06:14:41.000Z</published>
+    <updated>2024-06-25T12:20:36.437Z</updated>
     
     
     <summary type="html">本主要介绍了N卡架构的发展脉络。</summary>
@@ -45,8 +121,8 @@
     <title>cublas 列优先问题</title>
     <link href="http://qifeng.xyz/posts/f191b528.html"/>
     <id>http://qifeng.xyz/posts/f191b528.html</id>
-    <published>2024-06-23T06:14:41.000Z</published>
-    <updated>2024-06-23T08:12:47.822Z</updated>
+    <published>2024-03-23T06:14:41.000Z</published>
+    <updated>2024-06-25T12:20:55.899Z</updated>
     
     
     <summary type="html">本文主要介绍在使用cublas计算矩阵乘法时遇到的问题。</summary>
@@ -68,8 +144,8 @@
     <title>01 Ascend 全栈 AI 软硬件平台</title>
     <link href="http://qifeng.xyz/posts/d4440279.html"/>
     <id>http://qifeng.xyz/posts/d4440279.html</id>
-    <published>2024-06-23T06:14:41.000Z</published>
-    <updated>2024-06-23T08:12:35.719Z</updated>
+    <published>2024-03-04T06:14:41.000Z</published>
+    <updated>2024-06-25T12:20:30.578Z</updated>
     
     
     <summary type="html">本文主要介绍昇腾的软硬件平台。</summary>
@@ -91,8 +167,8 @@
     <title>Hugo+Github搭建个人主页</title>
     <link href="http://qifeng.xyz/posts/a260d87d.html"/>
     <id>http://qifeng.xyz/posts/a260d87d.html</id>
-    <published>2024-06-23T06:14:41.000Z</published>
-    <updated>2024-06-23T08:13:11.156Z</updated>
+    <published>2024-02-23T06:14:41.000Z</published>
+    <updated>2024-06-25T12:21:38.167Z</updated>
     
     
     <summary type="html">本文主要介绍了如何利用Hugo搭建个人博客。</summary>
@@ -105,82 +181,6 @@
     <category term="Hugo" scheme="http://qifeng.xyz/tags/Hugo/"/>
     
     <category term="网站" scheme="http://qifeng.xyz/tags/%E7%BD%91%E7%AB%99/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>bib 国标模板</title>
-    <link href="http://qifeng.xyz/posts/c0dc4c.html"/>
-    <id>http://qifeng.xyz/posts/c0dc4c.html</id>
-    <published>2024-06-23T06:14:41.000Z</published>
-    <updated>2024-06-23T08:12:58.085Z</updated>
-    
-    
-    <summary type="html">本文呢主要介绍了bib文件中参考文献的国标格式。</summary>
-    
-    
-    
-    <category term="杂项" scheme="http://qifeng.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
-    
-    
-    <category term="参考文献" scheme="http://qifeng.xyz/tags/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>clang 环境配置</title>
-    <link href="http://qifeng.xyz/posts/15893855.html"/>
-    <id>http://qifeng.xyz/posts/15893855.html</id>
-    <published>2024-06-23T06:14:41.000Z</published>
-    <updated>2024-06-23T08:13:18.943Z</updated>
-    
-    
-    <summary type="html">本文主要介绍了怎么在Linux中配置clang环境。</summary>
-    
-    
-    
-    <category term="杂项" scheme="http://qifeng.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
-    
-    
-    <category term="clang" scheme="http://qifeng.xyz/tags/clang/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>连接GitHub</title>
-    <link href="http://qifeng.xyz/posts/d10c5bba.html"/>
-    <id>http://qifeng.xyz/posts/d10c5bba.html</id>
-    <published>2024-06-23T06:14:41.000Z</published>
-    <updated>2024-06-23T08:12:54.119Z</updated>
-    
-    
-    <summary type="html">本文主要介绍了如何通过更新DNS访问Github。</summary>
-    
-    
-    
-    <category term="杂项" scheme="http://qifeng.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
-    
-    
-    <category term="github" scheme="http://qifeng.xyz/tags/github/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ZKP 发展脉络</title>
-    <link href="http://qifeng.xyz/posts/e16561b3.html"/>
-    <id>http://qifeng.xyz/posts/e16561b3.html</id>
-    <published>2024-06-23T06:14:41.000Z</published>
-    <updated>2024-06-23T08:13:16.158Z</updated>
-    
-    
-    <summary type="html">本文主要介绍了ZKP的大致发展脉络。</summary>
-    
-    
-    
-    <category term="ZKP" scheme="http://qifeng.xyz/categories/ZKP/"/>
-    
-    
-    <category term="ZKP" scheme="http://qifeng.xyz/tags/ZKP/"/>
     
   </entry>
   
