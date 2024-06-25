@@ -44,9 +44,10 @@ p {
 .post-content ul {
    font-size: 1.2rem;  /* 设置列表的字号 */
 }
-mjx-container {
-  font-size: 1.2rem;
+.MathJax {
+  font-size: 40em;
 }
+
 hr {
   box-sizing: content-box;
   height: 0;
@@ -3766,18 +3767,27 @@ h1.page-title + .tag-cloud-list {
 #page h1.page-title {
   margin: 8px 0 20px;
 }
+<style>,
+.MathJax {
+  font-size: 1.5em;
+}
+</style> > #post-info,
 #post > #post-info {
   margin-bottom: 30px;
 }
+</style> > #post-info .post-title,
 #post > #post-info .post-title {
   padding-bottom: 4px;
   border-bottom: 1px solid var(--light-grey);
   color: var(--text-highlight-color);
 }
+</style> > #post-info .post-title .post-edit-link,
 #post > #post-info .post-title .post-edit-link {
   float: right;
 }
+</style> > #post-info #post-meta,
 #post > #post-info #post-meta,
+</style> > #post-info #post-meta a,
 #post > #post-info #post-meta a {
   color: #78818a;
 }

@@ -170,6 +170,211 @@
       </tags>
   </entry>
   <entry>
+    <title>cublas 列优先问题</title>
+    <url>/posts/f191b528.html</url>
+    <content><![CDATA[<h3 id="函数功能："><a href="#函数功能：" class="headerlink" title="函数功能："></a>函数功能：</h3><script type="math/tex; mode=display">
+C=\alpha AB+\beta C</script><h3 id="函数示例"><a href="#函数示例" class="headerlink" title="函数示例"></a>函数示例</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">cublasStatus_t <span class="title">cublasSgemm</span><span class="params">(cublasHandle_t handle,</span></span></span><br><span class="line"><span class="params"><span class="function">                           cublasOperation_t transa, cublasOperation_t transb,</span></span></span><br><span class="line"><span class="params"><span class="function">                           <span class="type">int</span> m, <span class="type">int</span> n, <span class="type">int</span> k,</span></span></span><br><span class="line"><span class="params"><span class="function">                           <span class="type">const</span> <span class="type">float</span> *alpha,</span></span></span><br><span class="line"><span class="params"><span class="function">                           <span class="type">const</span> <span class="type">float</span> *A, <span class="type">int</span> lda,</span></span></span><br><span class="line"><span class="params"><span class="function">                           <span class="type">const</span> <span class="type">float</span> *B, <span class="type">int</span> ldb,</span></span></span><br><span class="line"><span class="params"><span class="function">                           <span class="type">const</span> <span class="type">float</span> *beta,</span></span></span><br><span class="line"><span class="params"><span class="function">                           <span class="type">float</span> *C, <span class="type">int</span> ldc)</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="参数解释："><a href="#参数解释：" class="headerlink" title="参数解释："></a>参数解释：</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>handle</td>
+<td style="text-align:center">cublas的上下文</td>
+</tr>
+<tr>
+<td>transa</td>
+<td style="text-align:center">是否对矩阵A进行转置</td>
+</tr>
+<tr>
+<td>transb</td>
+<td style="text-align:center">是否对矩阵B进行转置</td>
+</tr>
+<tr>
+<td>m</td>
+<td style="text-align:center">矩阵C、A的行</td>
+</tr>
+<tr>
+<td>n</td>
+<td style="text-align:center">矩阵C、B的列</td>
+</tr>
+<tr>
+<td>k</td>
+<td style="text-align:center">矩阵A的列，矩阵B的行</td>
+</tr>
+<tr>
+<td>alpha</td>
+<td style="text-align:center">参数 $\alpha $​</td>
+</tr>
+<tr>
+<td>A</td>
+<td style="text-align:center">矩阵A</td>
+</tr>
+<tr>
+<td>lda</td>
+<td style="text-align:center">用于存储矩阵A的二维数组的主导维度。</td>
+</tr>
+<tr>
+<td>B</td>
+<td style="text-align:center">矩阵B</td>
+</tr>
+<tr>
+<td>ldb</td>
+<td style="text-align:center">用于存储矩阵B的二维数组的主导维度。</td>
+</tr>
+<tr>
+<td>beta</td>
+<td style="text-align:center">参数 $\beta$​</td>
+</tr>
+<tr>
+<td>C</td>
+<td style="text-align:center">矩阵C</td>
+</tr>
+<tr>
+<td>ldc</td>
+<td style="text-align:center">用于存储矩阵C的二维数组的主导维度。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>所谓的主导维度就是将一维向量映射为二维矩阵时优先填充维度的长度。cuBLAS按照列主序所以主导维度就是矩阵的行高。</p>
+</blockquote>
+<h3 id="踩空点"><a href="#踩空点" class="headerlink" title="踩空点"></a>踩空点</h3><p>由于最初的BLAS库使用FORTRAN语言编写的，因此它使用的是以列优先的数组存储。如下面的示例所示，在将一维向量映射为二维矩阵是列优先。</p>
+<p>‍</p>
+<script type="math/tex; mode=display">
+\left[1,2,3,4,5,6,7,8,9\right]
+=
+\left[ \begin{array}{ccc}
+       1 & 4 & 7 \\
+        2 & 5 & 8 \\
+        3 & 6 & 9 
+\end{array} \right]</script><p>‍</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>我们下面的矩阵$A$举个例子.</p>
+<script type="math/tex; mode=display">
+\left[ \begin{array}{ccc}
+     1 & 2 & 3 \\
+     4 & 5 & 6 
+\end{array} \right]</script><p>在存储中的表现形式如下：</p>
+<script type="math/tex; mode=display">
+A：[1,2,3,4,5,6]</script><p>因为是列排布优先如果不改变矩阵的行列，则矩阵A如下所示，看上去完全无法进行合理计算。</p>
+<script type="math/tex; mode=display">
+\left[ \begin{array}{ccc}
+     1 & 3 & 5 \\
+     2 & 4 & 6 
+\end{array} \right]</script><p>但是如果我们颠倒一下行列，那么我们就可以获得矩阵A的转置$A^T$，同时按列存储的话在内存中的排序与矩阵A是完全一致的。</p>
+<script type="math/tex; mode=display">
+\left[ \begin{array}{cc}
+        1 & 4  \\
+        2 & 5  \\
+    3 & 6  
+\end{array} \right]</script><blockquote>
+<p>结论：对于矩阵$A$,$A$按行存取和$A^T$的案列存取在最终结果上是一致的。</p>
+</blockquote>
+<p>所以我们从求矩阵$C$转变为求$C^T$</p>
+<script type="math/tex; mode=display">
+C^T=(AB)^T=B^T A^T</script><p>所以我们只需要颠倒一下A和B以及他们的行列就可以获得正确的结果。</p>
+<p>这样只需要稍微改动一下参数，就可以获得行优先的结果：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">列优先取值</th>
+<th>行优先取值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>handle</td>
+<td style="text-align:center">cublas的上下文</td>
+<td>cublas的上下文</td>
+</tr>
+<tr>
+<td>transa</td>
+<td style="text-align:center">CUBLAS_OP_N</td>
+<td>CUBLAS_OP_N</td>
+</tr>
+<tr>
+<td>transb</td>
+<td style="text-align:center">CUBLAS_OP_N</td>
+<td>CUBLAS_OP_N</td>
+</tr>
+<tr>
+<td>m</td>
+<td style="text-align:center">矩阵C、A的行</td>
+<td>矩阵C,B的列</td>
+</tr>
+<tr>
+<td>n</td>
+<td style="text-align:center">矩阵C、B的列</td>
+<td>矩阵C,A的行</td>
+</tr>
+<tr>
+<td>k</td>
+<td style="text-align:center">矩阵A的列，矩阵B的行</td>
+<td>矩阵A的列，矩阵B的行</td>
+</tr>
+<tr>
+<td>alpha</td>
+<td style="text-align:center">参数 $\alpha $</td>
+<td>参数 $\alpha $</td>
+</tr>
+<tr>
+<td>A</td>
+<td style="text-align:center">矩阵A</td>
+<td>矩阵B</td>
+</tr>
+<tr>
+<td>lda</td>
+<td style="text-align:center">矩阵A的行</td>
+<td>矩阵A的列</td>
+</tr>
+<tr>
+<td>B</td>
+<td style="text-align:center">矩阵B</td>
+<td>矩阵A</td>
+</tr>
+<tr>
+<td>ldb</td>
+<td style="text-align:center">矩阵B的行</td>
+<td>矩阵B的列</td>
+</tr>
+<tr>
+<td>beta</td>
+<td style="text-align:center">参数 $\beta$</td>
+<td>参数 $\beta$</td>
+</tr>
+<tr>
+<td>C</td>
+<td style="text-align:center">矩阵C</td>
+<td>矩阵C</td>
+</tr>
+<tr>
+<td>ldc</td>
+<td style="text-align:center">矩阵C的行</td>
+<td>矩阵C的列</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>‍</p>
+]]></content>
+      <categories>
+        <category>debug</category>
+        <category>cuda</category>
+      </categories>
+      <tags>
+        <tag>debug</tag>
+        <tag>cublas</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>01 Ascend 全栈 AI 软硬件平台</title>
     <url>/posts/d4440279.html</url>
     <content><![CDATA[<h2 id="1-总览"><a href="#1-总览" class="headerlink" title="1 总览"></a>1 总览</h2><p>Ascend 全栈 AI软硬件平台如图1所示。昇腾全栈 AI 软硬件平台是基于昇腾系列处理器和基础软件构建的全栈 AI 计算基础设施、行业应用及服务，平台一共分为五层，自底向上依次为 Atlas 系列硬件、异构计算架构、AI 框架、应用使能和行业应用。</p>
@@ -300,70 +505,6 @@
       <tags>
         <tag>Ascend</tag>
         <tag>NPU</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>clang 环境配置</title>
-    <url>/posts/15893855.html</url>
-    <content><![CDATA[<p>在<code>/etc/apt/sources.list.d</code>​目录下创建一个llvm.list文件</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">sudo vi llvm.list</span><br></pre></td></tr></table></figure>
-<p>然后前往<a href="https://apt-llvm-org.translate.goog/?_x_tr_sl=en&amp;_x_tr_tl=zh-CN&amp;_x_tr_hl=zh-CN&amp;_x_tr_pto=sc">LLVM 网站</a> 查找对应linux版本的包资源地址，写进文件按中即可。</p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">deb</span>  [arch=amd64] http://apt.llvm.org/noble/ llvm-toolchain-noble main</span><br><span class="line"><span class="keyword">deb</span>-src http://apt.llvm.org/noble/ llvm-toolchain-noble main</span><br><span class="line"># <span class="number">17</span></span><br><span class="line"><span class="keyword">deb</span>  [arch=amd64] http://apt.llvm.org/noble/ llvm-toolchain-noble-<span class="number">17</span> main</span><br><span class="line"><span class="keyword">deb</span>-src http://apt.llvm.org/noble/ llvm-toolchain-noble-<span class="number">17</span> main</span><br><span class="line"># <span class="number">18</span></span><br><span class="line"><span class="keyword">deb</span>  [arch=amd64] http://apt.llvm.org/noble/ llvm-toolchain-noble-<span class="number">18</span> main</span><br><span class="line"><span class="keyword">deb</span>-src http://apt.llvm.org/noble/ llvm-toolchain-noble-<span class="number">18</span> main</span><br></pre></td></tr></table></figure>
-<p>然后更新apt：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt update</span><br></pre></td></tr></table></figure>
-<p>通常汇报一个错误，提示没有公钥来验证包签名，需要将报错中提示的公钥<code>NO_PUBKEY 15CF4D18AF4F7421</code>​添加到apt密钥环中</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 15CF4D18AF4F7421</span><br></pre></td></tr></table></figure>
-<p>修改完在更新一次即可。</p>
-<p>执行下面的命令安装相应软件：</p>
-<p>llvm</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libllvm-18-ocaml-dev libllvm18 llvm-18 llvm-18-dev llvm-18-doc llvm-18-examples llvm-18-runtime</span><br></pre></td></tr></table></figure>
-<p>lldb</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install lldb-18</span><br></pre></td></tr></table></figure>
-<p>lld</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install lld-18</span><br></pre></td></tr></table></figure>
-<p>clang</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install clang-18 clang-tools-18 clang-18-doc libclang-common-18-dev libclang-18-dev libclang1-18 clang-format-18 python3-clang-18 clangd-18 clang-tidy-18</span><br></pre></td></tr></table></figure>
-<p>compiler-rt</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libclang-rt-18-dev</span><br></pre></td></tr></table></figure>
-<p>libc++</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libc++-18-dev libc++abi-18-dev</span><br></pre></td></tr></table></figure>
-<p>然后安装clangd</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install clangd-18</span><br></pre></td></tr></table></figure>
-<p>使用vscode插件需要在插件设置中填写clangd的路径</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>[1]Install and configure LLVM 18 on Ubuntu 20.04[EB/OL]//Amir’s Homepage. (2024-01-10)[2024-06-15]. <a href="https://amirsojoodi.github.io/posts/Install-LLVM-on-Ubuntu/">https://amirsojoodi.github.io/posts/Install-LLVM-on-Ubuntu/</a>.</p>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>clang</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>连接GitHub</title>
-    <url>/posts/d10c5bba.html</url>
-    <content><![CDATA[<h1 id="连接GitHub"><a href="#连接GitHub" class="headerlink" title="连接GitHub"></a>连接GitHub</h1><h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><p>访问不了主要是DNS被污染了，在本机DNS即可。打开如下文件将下面的内容后缀在文件中即可，修改需要管理员权限，确保自己真的修改成功了<code>C:\Windows\System32\drivers\etc\hosts</code>​。在 CMD 窗口输入：<code>ipconfig /flushdns</code>​</p>
-<p>linux则是修改<code>/etc/hosts</code>​ 保存可以执行<code>sudo nscd restart</code>​确保其生效。</p>
-<p>下面的内容可以在下面的网站中找到最新的：</p>
-<p><a href="https://gitee.com/frankwuzp/github-host/blob/main/hosts">hosts · frankwuzp/github-host - Gitee.com</a></p>
-<p><a href="https://github.com/maxiaof/github-hosts">maxiaof/github-hosts: 通过修改Hosts解决国内Github经常抽风访问不到,每日更新</a></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">Github Hosts Start</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">Project Address: https://github.com/maxiaof/github-hosts</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">Update URL: https://raw.githubusercontent.com/maxiaof/github-hosts/master/hosts</span></span><br><span class="line">151.101.129.194	github.global.ssl.fastly.net</span><br><span class="line">185.199.109.153	assets-cdn.github.com</span><br><span class="line">185.199.108.153	documentcloud.github.com</span><br><span class="line">140.82.112.3	gist.github.com</span><br><span class="line">185.199.109.133	gist.githubusercontent.com</span><br><span class="line">185.199.108.154	github.githubassets.com</span><br><span class="line">140.82.112.18	help.github.com</span><br><span class="line">140.82.114.9	nodeload.github.com</span><br><span class="line">185.199.109.133	raw.github.com</span><br><span class="line">140.82.112.17	status.github.com</span><br><span class="line">185.199.111.153	training.github.com</span><br><span class="line">185.199.109.133	avatars.githubusercontent.com</span><br><span class="line">185.199.109.133	avatars0.githubusercontent.com</span><br><span class="line">185.199.109.133	avatars1.githubusercontent.com</span><br><span class="line">185.199.108.133	avatars2.githubusercontent.com</span><br><span class="line">185.199.111.133	avatars3.githubusercontent.com</span><br><span class="line">185.199.110.133	avatars4.githubusercontent.com</span><br><span class="line">185.199.111.133	avatars5.githubusercontent.com</span><br><span class="line">185.199.109.133	avatars6.githubusercontent.com</span><br><span class="line">185.199.109.133	avatars7.githubusercontent.com</span><br><span class="line">185.199.111.133	avatars8.githubusercontent.com</span><br><span class="line">185.199.109.133	favicons.githubusercontent.com</span><br><span class="line">140.82.114.9	codeload.github.com</span><br><span class="line">52.217.116.57	github-cloud.s3.amazonaws.com</span><br><span class="line">52.216.48.177	github-com.s3.amazonaws.com</span><br><span class="line">3.5.25.27	github-production-release-asset-2e65be.s3.amazonaws.com</span><br><span class="line">52.216.221.89	github-production-user-asset-6210df.s3.amazonaws.com</span><br><span class="line">3.5.29.126	github-production-repository-file-5c1aeb.s3.amazonaws.com</span><br><span class="line">185.199.111.153	githubstatus.com</span><br><span class="line">140.82.114.18	github.community</span><br><span class="line">185.199.110.133	media.githubusercontent.com</span><br><span class="line">185.199.109.133	camo.githubusercontent.com</span><br><span class="line">185.199.110.133	raw.githubusercontent.com</span><br><span class="line">185.199.109.133	cloud.githubusercontent.com</span><br><span class="line">185.199.110.133	user-images.githubusercontent.com</span><br><span class="line">2606:50c0:8003::153	customer-stories-feed.github.com</span><br><span class="line">185.199.108.153	pages.github.com</span><br><span class="line">140.82.112.5	api.github.com</span><br><span class="line">140.82.114.26	live.github.com</span><br><span class="line">140.82.112.30	githubapp.com</span><br><span class="line">140.82.113.3	github.com</span><br><span class="line">52.224.38.193	github.dev</span><br><span class="line">140.82.112.21	central.github.com</span><br><span class="line">140.82.113.25	alive.github.com</span><br><span class="line">185.199.111.133	desktop.githubusercontent.com</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">Github Hosts End</span></span><br></pre></td></tr></table></figure>
-<h2 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h2><p>命令行中输入如下指令。</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;your_email@example.com&quot;</span><br><span class="line">#github注册账号的邮箱，其他的不知道可不可以</span><br></pre></td></tr></table></figure>
-<p>去用户目录（C:\\Users\\用户）下找到.ssh目录，没有该目录，设置显示隐藏目录，在.ssh目录下找到id_rsa.pub，前往GitHub，创建一个SSH keys，把id_rsa.pub复制过来就可以。</p>
-<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403281530899.png" alt=""><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403281530228.png" alt="">​</p>
-<p>将下面内容添加到.ssh/config中,如果没有可以自己创建一个。</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">    User git</span><br><span class="line">    Hostname ssh.github.com</span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa</span><br><span class="line">    Port <span class="number">443</span></span><br></pre></td></tr></table></figure>
-<p>在cmd中输入，验证。</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-<p>‍</p>
-<p>‍</p>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>github</tag>
       </tags>
   </entry>
   <entry>
@@ -559,6 +700,70 @@
       </categories>
       <tags>
         <tag>参考文献</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>clang 环境配置</title>
+    <url>/posts/15893855.html</url>
+    <content><![CDATA[<p>在<code>/etc/apt/sources.list.d</code>​目录下创建一个llvm.list文件</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">sudo vi llvm.list</span><br></pre></td></tr></table></figure>
+<p>然后前往<a href="https://apt-llvm-org.translate.goog/?_x_tr_sl=en&amp;_x_tr_tl=zh-CN&amp;_x_tr_hl=zh-CN&amp;_x_tr_pto=sc">LLVM 网站</a> 查找对应linux版本的包资源地址，写进文件按中即可。</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">deb</span>  [arch=amd64] http://apt.llvm.org/noble/ llvm-toolchain-noble main</span><br><span class="line"><span class="keyword">deb</span>-src http://apt.llvm.org/noble/ llvm-toolchain-noble main</span><br><span class="line"># <span class="number">17</span></span><br><span class="line"><span class="keyword">deb</span>  [arch=amd64] http://apt.llvm.org/noble/ llvm-toolchain-noble-<span class="number">17</span> main</span><br><span class="line"><span class="keyword">deb</span>-src http://apt.llvm.org/noble/ llvm-toolchain-noble-<span class="number">17</span> main</span><br><span class="line"># <span class="number">18</span></span><br><span class="line"><span class="keyword">deb</span>  [arch=amd64] http://apt.llvm.org/noble/ llvm-toolchain-noble-<span class="number">18</span> main</span><br><span class="line"><span class="keyword">deb</span>-src http://apt.llvm.org/noble/ llvm-toolchain-noble-<span class="number">18</span> main</span><br></pre></td></tr></table></figure>
+<p>然后更新apt：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt update</span><br></pre></td></tr></table></figure>
+<p>通常汇报一个错误，提示没有公钥来验证包签名，需要将报错中提示的公钥<code>NO_PUBKEY 15CF4D18AF4F7421</code>​添加到apt密钥环中</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 15CF4D18AF4F7421</span><br></pre></td></tr></table></figure>
+<p>修改完在更新一次即可。</p>
+<p>执行下面的命令安装相应软件：</p>
+<p>llvm</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libllvm-18-ocaml-dev libllvm18 llvm-18 llvm-18-dev llvm-18-doc llvm-18-examples llvm-18-runtime</span><br></pre></td></tr></table></figure>
+<p>lldb</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install lldb-18</span><br></pre></td></tr></table></figure>
+<p>lld</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install lld-18</span><br></pre></td></tr></table></figure>
+<p>clang</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install clang-18 clang-tools-18 clang-18-doc libclang-common-18-dev libclang-18-dev libclang1-18 clang-format-18 python3-clang-18 clangd-18 clang-tidy-18</span><br></pre></td></tr></table></figure>
+<p>compiler-rt</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libclang-rt-18-dev</span><br></pre></td></tr></table></figure>
+<p>libc++</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libc++-18-dev libc++abi-18-dev</span><br></pre></td></tr></table></figure>
+<p>然后安装clangd</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install clangd-18</span><br></pre></td></tr></table></figure>
+<p>使用vscode插件需要在插件设置中填写clangd的路径</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>[1]Install and configure LLVM 18 on Ubuntu 20.04[EB/OL]//Amir’s Homepage. (2024-01-10)[2024-06-15]. <a href="https://amirsojoodi.github.io/posts/Install-LLVM-on-Ubuntu/">https://amirsojoodi.github.io/posts/Install-LLVM-on-Ubuntu/</a>.</p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>clang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>连接GitHub</title>
+    <url>/posts/d10c5bba.html</url>
+    <content><![CDATA[<h1 id="连接GitHub"><a href="#连接GitHub" class="headerlink" title="连接GitHub"></a>连接GitHub</h1><h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><p>访问不了主要是DNS被污染了，在本机DNS即可。打开如下文件将下面的内容后缀在文件中即可，修改需要管理员权限，确保自己真的修改成功了<code>C:\Windows\System32\drivers\etc\hosts</code>​。在 CMD 窗口输入：<code>ipconfig /flushdns</code>​</p>
+<p>linux则是修改<code>/etc/hosts</code>​ 保存可以执行<code>sudo nscd restart</code>​确保其生效。</p>
+<p>下面的内容可以在下面的网站中找到最新的：</p>
+<p><a href="https://gitee.com/frankwuzp/github-host/blob/main/hosts">hosts · frankwuzp/github-host - Gitee.com</a></p>
+<p><a href="https://github.com/maxiaof/github-hosts">maxiaof/github-hosts: 通过修改Hosts解决国内Github经常抽风访问不到,每日更新</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">Github Hosts Start</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">Project Address: https://github.com/maxiaof/github-hosts</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">Update URL: https://raw.githubusercontent.com/maxiaof/github-hosts/master/hosts</span></span><br><span class="line">151.101.129.194	github.global.ssl.fastly.net</span><br><span class="line">185.199.109.153	assets-cdn.github.com</span><br><span class="line">185.199.108.153	documentcloud.github.com</span><br><span class="line">140.82.112.3	gist.github.com</span><br><span class="line">185.199.109.133	gist.githubusercontent.com</span><br><span class="line">185.199.108.154	github.githubassets.com</span><br><span class="line">140.82.112.18	help.github.com</span><br><span class="line">140.82.114.9	nodeload.github.com</span><br><span class="line">185.199.109.133	raw.github.com</span><br><span class="line">140.82.112.17	status.github.com</span><br><span class="line">185.199.111.153	training.github.com</span><br><span class="line">185.199.109.133	avatars.githubusercontent.com</span><br><span class="line">185.199.109.133	avatars0.githubusercontent.com</span><br><span class="line">185.199.109.133	avatars1.githubusercontent.com</span><br><span class="line">185.199.108.133	avatars2.githubusercontent.com</span><br><span class="line">185.199.111.133	avatars3.githubusercontent.com</span><br><span class="line">185.199.110.133	avatars4.githubusercontent.com</span><br><span class="line">185.199.111.133	avatars5.githubusercontent.com</span><br><span class="line">185.199.109.133	avatars6.githubusercontent.com</span><br><span class="line">185.199.109.133	avatars7.githubusercontent.com</span><br><span class="line">185.199.111.133	avatars8.githubusercontent.com</span><br><span class="line">185.199.109.133	favicons.githubusercontent.com</span><br><span class="line">140.82.114.9	codeload.github.com</span><br><span class="line">52.217.116.57	github-cloud.s3.amazonaws.com</span><br><span class="line">52.216.48.177	github-com.s3.amazonaws.com</span><br><span class="line">3.5.25.27	github-production-release-asset-2e65be.s3.amazonaws.com</span><br><span class="line">52.216.221.89	github-production-user-asset-6210df.s3.amazonaws.com</span><br><span class="line">3.5.29.126	github-production-repository-file-5c1aeb.s3.amazonaws.com</span><br><span class="line">185.199.111.153	githubstatus.com</span><br><span class="line">140.82.114.18	github.community</span><br><span class="line">185.199.110.133	media.githubusercontent.com</span><br><span class="line">185.199.109.133	camo.githubusercontent.com</span><br><span class="line">185.199.110.133	raw.githubusercontent.com</span><br><span class="line">185.199.109.133	cloud.githubusercontent.com</span><br><span class="line">185.199.110.133	user-images.githubusercontent.com</span><br><span class="line">2606:50c0:8003::153	customer-stories-feed.github.com</span><br><span class="line">185.199.108.153	pages.github.com</span><br><span class="line">140.82.112.5	api.github.com</span><br><span class="line">140.82.114.26	live.github.com</span><br><span class="line">140.82.112.30	githubapp.com</span><br><span class="line">140.82.113.3	github.com</span><br><span class="line">52.224.38.193	github.dev</span><br><span class="line">140.82.112.21	central.github.com</span><br><span class="line">140.82.113.25	alive.github.com</span><br><span class="line">185.199.111.133	desktop.githubusercontent.com</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">Github Hosts End</span></span><br></pre></td></tr></table></figure>
+<h2 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h2><p>命令行中输入如下指令。</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;your_email@example.com&quot;</span><br><span class="line">#github注册账号的邮箱，其他的不知道可不可以</span><br></pre></td></tr></table></figure>
+<p>去用户目录（C:\\Users\\用户）下找到.ssh目录，没有该目录，设置显示隐藏目录，在.ssh目录下找到id_rsa.pub，前往GitHub，创建一个SSH keys，把id_rsa.pub复制过来就可以。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403281530899.png" alt=""><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403281530228.png" alt="">​</p>
+<p>将下面内容添加到.ssh/config中,如果没有可以自己创建一个。</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">    User git</span><br><span class="line">    Hostname ssh.github.com</span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa</span><br><span class="line">    Port <span class="number">443</span></span><br></pre></td></tr></table></figure>
+<p>在cmd中输入，验证。</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<p>‍</p>
+<p>‍</p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>github</tag>
       </tags>
   </entry>
   <entry>
@@ -950,211 +1155,6 @@
       </categories>
       <tags>
         <tag>ZKP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cublas 列优先问题</title>
-    <url>/posts/f191b528.html</url>
-    <content><![CDATA[<h3 id="函数功能："><a href="#函数功能：" class="headerlink" title="函数功能："></a>函数功能：</h3><script type="math/tex; mode=display">
-C=\alpha AB+\beta C</script><h3 id="函数示例"><a href="#函数示例" class="headerlink" title="函数示例"></a>函数示例</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">cublasStatus_t <span class="title">cublasSgemm</span><span class="params">(cublasHandle_t handle,</span></span></span><br><span class="line"><span class="params"><span class="function">                           cublasOperation_t transa, cublasOperation_t transb,</span></span></span><br><span class="line"><span class="params"><span class="function">                           <span class="type">int</span> m, <span class="type">int</span> n, <span class="type">int</span> k,</span></span></span><br><span class="line"><span class="params"><span class="function">                           <span class="type">const</span> <span class="type">float</span> *alpha,</span></span></span><br><span class="line"><span class="params"><span class="function">                           <span class="type">const</span> <span class="type">float</span> *A, <span class="type">int</span> lda,</span></span></span><br><span class="line"><span class="params"><span class="function">                           <span class="type">const</span> <span class="type">float</span> *B, <span class="type">int</span> ldb,</span></span></span><br><span class="line"><span class="params"><span class="function">                           <span class="type">const</span> <span class="type">float</span> *beta,</span></span></span><br><span class="line"><span class="params"><span class="function">                           <span class="type">float</span> *C, <span class="type">int</span> ldc)</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="参数解释："><a href="#参数解释：" class="headerlink" title="参数解释："></a>参数解释：</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>handle</td>
-<td style="text-align:center">cublas的上下文</td>
-</tr>
-<tr>
-<td>transa</td>
-<td style="text-align:center">是否对矩阵A进行转置</td>
-</tr>
-<tr>
-<td>transb</td>
-<td style="text-align:center">是否对矩阵B进行转置</td>
-</tr>
-<tr>
-<td>m</td>
-<td style="text-align:center">矩阵C、A的行</td>
-</tr>
-<tr>
-<td>n</td>
-<td style="text-align:center">矩阵C、B的列</td>
-</tr>
-<tr>
-<td>k</td>
-<td style="text-align:center">矩阵A的列，矩阵B的行</td>
-</tr>
-<tr>
-<td>alpha</td>
-<td style="text-align:center">参数 $\alpha $​</td>
-</tr>
-<tr>
-<td>A</td>
-<td style="text-align:center">矩阵A</td>
-</tr>
-<tr>
-<td>lda</td>
-<td style="text-align:center">用于存储矩阵A的二维数组的主导维度。</td>
-</tr>
-<tr>
-<td>B</td>
-<td style="text-align:center">矩阵B</td>
-</tr>
-<tr>
-<td>ldb</td>
-<td style="text-align:center">用于存储矩阵B的二维数组的主导维度。</td>
-</tr>
-<tr>
-<td>beta</td>
-<td style="text-align:center">参数 $\beta$​</td>
-</tr>
-<tr>
-<td>C</td>
-<td style="text-align:center">矩阵C</td>
-</tr>
-<tr>
-<td>ldc</td>
-<td style="text-align:center">用于存储矩阵C的二维数组的主导维度。</td>
-</tr>
-</tbody>
-</table>
-</div>
-<blockquote>
-<p>所谓的主导维度就是将一维向量映射为二维矩阵时优先填充维度的长度。cuBLAS按照列主序所以主导维度就是矩阵的行高。</p>
-</blockquote>
-<h3 id="踩空点"><a href="#踩空点" class="headerlink" title="踩空点"></a>踩空点</h3><p>由于最初的BLAS库使用FORTRAN语言编写的，因此它使用的是以列优先的数组存储。如下面的示例所示，在将一维向量映射为二维矩阵是列优先。</p>
-<p>‍</p>
-<script type="math/tex; mode=display">
-\left[1,2,3,4,5,6,7,8,9\right]
-=
-\left[ \begin{array}{ccc}
-       1 & 4 & 7 \\
-        2 & 5 & 8 \\
-        3 & 6 & 9 
-\end{array} \right]</script><p>‍</p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>我们下面的矩阵$A$举个例子.</p>
-<script type="math/tex; mode=display">
-\left[ \begin{array}{ccc}
-     1 & 2 & 3 \\
-     4 & 5 & 6 
-\end{array} \right]</script><p>在存储中的表现形式如下：</p>
-<script type="math/tex; mode=display">
-A：[1,2,3,4,5,6]</script><p>因为是列排布优先如果不改变矩阵的行列，则矩阵A如下所示，看上去完全无法进行合理计算。</p>
-<script type="math/tex; mode=display">
-\left[ \begin{array}{ccc}
-     1 & 3 & 5 \\
-     2 & 4 & 6 
-\end{array} \right]</script><p>但是如果我们颠倒一下行列，那么我们就可以获得矩阵A的转置$A^T$，同时按列存储的话在内存中的排序与矩阵A是完全一致的。</p>
-<script type="math/tex; mode=display">
-\left[ \begin{array}{cc}
-        1 & 4  \\
-        2 & 5  \\
-    3 & 6  
-\end{array} \right]</script><blockquote>
-<p>结论：对于矩阵$A$,$A$按行存取和$A^T$的案列存取在最终结果上是一致的。</p>
-</blockquote>
-<p>所以我们从求矩阵$C$转变为求$C^T$</p>
-<script type="math/tex; mode=display">
-C^T=(AB)^T=B^T A^T</script><p>所以我们只需要颠倒一下A和B以及他们的行列就可以获得正确的结果。</p>
-<p>这样只需要稍微改动一下参数，就可以获得行优先的结果：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">列优先取值</th>
-<th>行优先取值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>handle</td>
-<td style="text-align:center">cublas的上下文</td>
-<td>cublas的上下文</td>
-</tr>
-<tr>
-<td>transa</td>
-<td style="text-align:center">CUBLAS_OP_N</td>
-<td>CUBLAS_OP_N</td>
-</tr>
-<tr>
-<td>transb</td>
-<td style="text-align:center">CUBLAS_OP_N</td>
-<td>CUBLAS_OP_N</td>
-</tr>
-<tr>
-<td>m</td>
-<td style="text-align:center">矩阵C、A的行</td>
-<td>矩阵C,B的列</td>
-</tr>
-<tr>
-<td>n</td>
-<td style="text-align:center">矩阵C、B的列</td>
-<td>矩阵C,A的行</td>
-</tr>
-<tr>
-<td>k</td>
-<td style="text-align:center">矩阵A的列，矩阵B的行</td>
-<td>矩阵A的列，矩阵B的行</td>
-</tr>
-<tr>
-<td>alpha</td>
-<td style="text-align:center">参数 $\alpha $</td>
-<td>参数 $\alpha $</td>
-</tr>
-<tr>
-<td>A</td>
-<td style="text-align:center">矩阵A</td>
-<td>矩阵B</td>
-</tr>
-<tr>
-<td>lda</td>
-<td style="text-align:center">矩阵A的行</td>
-<td>矩阵A的列</td>
-</tr>
-<tr>
-<td>B</td>
-<td style="text-align:center">矩阵B</td>
-<td>矩阵A</td>
-</tr>
-<tr>
-<td>ldb</td>
-<td style="text-align:center">矩阵B的行</td>
-<td>矩阵B的列</td>
-</tr>
-<tr>
-<td>beta</td>
-<td style="text-align:center">参数 $\beta$</td>
-<td>参数 $\beta$</td>
-</tr>
-<tr>
-<td>C</td>
-<td style="text-align:center">矩阵C</td>
-<td>矩阵C</td>
-</tr>
-<tr>
-<td>ldc</td>
-<td style="text-align:center">矩阵C的行</td>
-<td>矩阵C的列</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>‍</p>
-]]></content>
-      <categories>
-        <category>debug</category>
-        <category>cuda</category>
-      </categories>
-      <tags>
-        <tag>debug</tag>
-        <tag>cublas</tag>
       </tags>
   </entry>
   <entry>
