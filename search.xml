@@ -263,7 +263,7 @@ P_o(\omega_{\frac{n}{2}}^{k}) &= \frac{1}{2\omega_{n}^{k}}(P(\omega_{n}^{k}) - P
 <p>对称性：$g_{2n}^{k+n} \equiv - g_{2n}^k \pmod{p}$</p>
 <p>求和性：$\sum_{i=0}^{n-1} (g_n)^{ki} \equiv n[k=0] \pmod{p} $，$k=0$ 为真 $[k=0]=1$,否则为 $0$。</p>
 <h5 id="原根与模数的选择"><a href="#原根与模数的选择" class="headerlink" title="原根与模数的选择"></a>原根与模数的选择</h5><p>为了实现多次二分，模数 $p$ 应选可以拆分为 $q\times 2^k +1$ 的素数,$q$ 为奇素数，$k$ 为整数,$2^k$ 模数的阶，也就是原根的最大数量。可以看下表的例子。</p>
-<h4 id="1-4-2-NTT-的递归实现"><a href="#1-4-2-NTT-的递归实现" class="headerlink" title="1.4.2 NTT 的递归实现"></a>1.4.2 NTT 的递归实现</h4><p>将原根带入公式（7）得：</p>
+<script type="math/tex; mode=display">\text{表 1：原根和模数的相关数据}\\ \begin{array}{cccc} \hline \text{原根 } g & \text{模数 } p & \text{分解 } p & \text{模数的阶} \\ \hline 3 & 469762049 & 7 \times 2^{26} + 1 & 2^{26} \\ 3 & 998244353 & 119 \times 2^{23} + 1 & 2^{23} \\ 3 & 2281701377 & 17 \times 2^{27} + 1 & 2^{27} \\ \hline \end{array}</script><h4 id="1-4-2-NTT-的递归实现"><a href="#1-4-2-NTT-的递归实现" class="headerlink" title="1.4.2 NTT 的递归实现"></a>1.4.2 NTT 的递归实现</h4><p>将原根带入公式（7）得：</p>
 <script type="math/tex; mode=display">
 \begin{align}
 P(g_n^k)=P_e((g_n^k)^2)+{g_n^k}P_o((g_n^k)^2)\mod p \quad k \in[ 0,n)
