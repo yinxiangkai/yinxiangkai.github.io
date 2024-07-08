@@ -1,0 +1,410 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>bib 国标模板 | 豈風</title><meta name="author" content="豈"><meta name="copyright" content="豈"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文呢主要介绍了bib文件中参考文献的国标格式。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="bib 国标模板">
+<meta property="og:url" content="http://qifeng.xyz/posts/c0dc4c.html">
+<meta property="og:site_name" content="豈風">
+<meta property="og:description" content="本文呢主要介绍了bib文件中参考文献的国标格式。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202406231542407.png">
+<meta property="article:published_time" content="2024-06-23T06:14:41.000Z">
+<meta property="article:modified_time" content="2024-07-08T02:11:19.520Z">
+<meta property="article:author" content="豈">
+<meta property="article:tag" content="参考文献">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202406231542407.png"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://qifeng.xyz/posts/c0dc4c.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="codeva-5uvXaaQmiY"/><meta name="google-site-verification" content="xxxxx"/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'bib 国标模板',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-08 10:11:19'
+}</script><link rel="stylesheet" href="/css/icon.css"><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="豈風" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/android-chrome-512x512.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/life/"><i class="fa-fw fas fa-utensils"></i><span> 生活</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/photo/"><i class="fa-fw fas fa-camera"></i><span> 摄影</span></a></li><li><a class="site-page child" href="/movie/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li><li><a class="site-page child" href="/game/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page child" href="/book/"><i class="fa-fw fas fa-book"></i><span> 阅读</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('https://example.com/image.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="豈風"><img class="site-icon" src="/img/apple-touch-icon.png" alt="Logo"/><span class="site-name">豈風</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/life/"><i class="fa-fw fas fa-utensils"></i><span> 生活</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/photo/"><i class="fa-fw fas fa-camera"></i><span> 摄影</span></a></li><li><a class="site-page child" href="/movie/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li><li><a class="site-page child" href="/game/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page child" href="/book/"><i class="fa-fw fas fa-book"></i><span> 阅读</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">bib 国标模板</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-06-23T06:14:41.000Z" title="发表于 2024-06-23 14:14:41">2024-06-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-08T02:11:19.520Z" title="更新于 2024-07-08 10:11:19">2024-07-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="bib 国标模板"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/posts/c0dc4c.html#post-comment"><span class="gitalk-comment-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="1-参考文献常用条目类型"><a href="#1-参考文献常用条目类型" class="headerlink" title="1 参考文献常用条目类型"></a>1 参考文献常用条目类型</h2><script type="math/tex; mode=display">
+\text{表 1：文献常用条目类型}\\
+\begin{array}{ccc}
+\hline
+\text{国标条目}& \text{biblatex条目}& \text{类型标识代码 }\\
+\hline
+专著 & \text{book} &\text{[M]}\\
+标准 & \text{standard} &\text{[S]}\\
+专著析出文献 & \text{inbook} &\text{[M]}\\
+连续出版物 & \text{periodical} &\text{[J]}\\
+连续出版物析出文献 & \text{artical} &\text{[J]}\\
+报纸析出文献 & \text{newspaper} &\text{[N]}\\
+专利 & \text{patent} &\text{[P]}\\
+电子资源或电子公告 & \text{onine} &\text{[EB]}\\
+会议文集 & \text{proceedings} &\text{[C]}\\
+会议文集析出 & \text{inproceedings} &\text{[C]}\\
+汇编、论文集 & \text{collection} &\text{[G]}\\
+汇编、论文集析出 & \text{incollection} &\text{[G]}\\
+学位论文（本） & \text{thesis} &\text{[D]}\\
+学位论文（硕） & \text{mastersthesis} &\text{[D]}\\
+学位论文（博） & \text{phdthesis} &\text{[D]}\\
+报告 & \text{report/techreport} &\text{[R]}\\
+手册 & \text{manual} &\text{[A]}\\
+档案 & \text{archive} &\text{[A]}\\
+数据库 & \text{database} &\text{[DB]}\\
+数据集 & \text{dataset} &\text{[DS]}\\\
+计算机程序 & \text{software} &\text{[CP]}\\
+舆图 & \text{map} &\text{[CM]}\\
+未出版物 & \text{unpublished} &\text{[Z]}\\
+其它 & \text{misc} &\text{[Z]}\\
+
+\hline
+\end{array}</script><h5 id="著录"><a href="#著录" class="headerlink" title="著录"></a>著录</h5><p>主要责任者.题名:其他题名信息[文献类型标识/文献载体标识].年,卷(期)-年,卷(期).出版地: 出版者,出版年[引用日期].获取和访问路径.数字对象唯一标识符.</p>
+<h5 id="著录中析出文献"><a href="#著录中析出文献" class="headerlink" title="著录中析出文献"></a>著录中析出文献</h5><p>析出文献主要责任者.析出文献题名[文献类型标识/文献载体标识].连续出版物题名:其他题名 信息,年,卷(期):页码[引用日期].获取和访问路径.数字对象唯一标识符.</p>
+<h5 id="专利"><a href="#专利" class="headerlink" title="专利"></a>专利</h5><p>专利申请者或所有者.专利题名:专利号[文献类型标识/文献载体标识].公告日期或公开日期[引用日期].获取和访问路径.数字对象唯一标识符.</p>
+<h5 id="电子资源"><a href="#电子资源" class="headerlink" title="电子资源"></a>电子资源</h5><p>主要责任者.题名:其他题名信息[文献类型标识/文献载体标识].出版地:出版者,出版年:引文页 码(更新或修改日期)[引用日期].获取和访问路径.数字对象唯一标识符.</p>
+<p>‍</p>
+<h2 id="2-参考文舆图献常用信息域"><a href="#2-参考文舆图献常用信息域" class="headerlink" title="2 参考文舆图献常用信息域"></a>2 参考文舆图献常用信息域</h2><script type="math/tex; mode=display">
+\text{表 2：参考文献常用信息域}\\
+\begin{array}{cc}
+\hline
+\text{国标文献著录项目}& \text{biblatex 中地域 }\\
+\hline
+责任者 & \text{author/editor} \\
+题名   & \text{title} \\
+译者   & \text{translator} \\
+出版物版本   &\text{ edition} \\
+软件或手册版本   & \text{version} \\
+出版地   & \text{location/address} \\
+出版者   &\text{ publisher} \\
+出版者（大学和研究所）   &\text{ school/institution} \\
+出版者（会议举办者、资源出品方）&\text{organization} \\
+日期   & \text{data} \\
+日期（不可解析的日期）   & \text{year} \\
+页码   & \text{pages} \\
+析出文献来源的责任者   & \text{bookauthor/editor}\\
+析出文献来源的标题   & \text{booktitle} \\
+连续出版物题名（期刊、报纸）   & \text{journal/journaltitle} \\
+期刊的卷   & \text{volume} \\
+期号、专利号   & \text{number} \\
+访问路径   & \text{url} \\
+引用日期   & \text{urldate} \\
+数字对象标识符   & \text{doi} \\
+杂项   & \text{note} \\
+\hline
+\end{array}</script><h5 id="author、translator、bookauthor、editor"><a href="#author、translator、bookauthor、editor" class="headerlink" title="author、translator、bookauthor、editor"></a>author、translator、bookauthor、editor</h5><p>各姓名间用and连接，当 姓名过多省略时，用others代替。</p>
+<p>对于中文作者直接输入中文姓名即可。比如: 于潇and刘义and柴跃廷andothers 。</p>
+<p>对于英文作者: prefix lastname, suffix, firstname middlename.</p>
+<p>对于中文的机构作者，不需要解析，直接输入机构名，比如: 中国企业投资协会and台湾并购与私募股权协会and汇盈国际投资集团。</p>
+<p>对于英文的机构作者，由于机构名可能存在空格或and等字符串，因此最好用{}包 起来，避免解析出错，比如： {International Federation of Library Association and Institutions} and NASA。</p>
+<h5 id="title"><a href="#title" class="headerlink" title="title"></a>title</h5><p>直接输入需要打印的内容</p>
+<h5 id="edition"><a href="#edition" class="headerlink" title="edition"></a>edition</h5><p>直接输入整数或者要打印的内容</p>
+<h5 id="location"><a href="#location" class="headerlink" title="location"></a>location</h5><p>直接输入需要打印的地址内容，而address域在biblatex中作为location别名，表示相同的内容。</p>
+<h5 id="publisher、institution、organization"><a href="#publisher、institution、organization" class="headerlink" title="publisher、institution、organization"></a>publisher、institution、organization</h5><p>直接输入需要打印的出版者内容</p>
+<h5 id="date、urldate、origdate"><a href="#date、urldate、origdate" class="headerlink" title="date、urldate、origdate"></a>date、urldate、origdate</h5><p>日期可以格式化输入，格式化输入biblatex会自动解析，如果无法解析会忽略该域。 格式化的输入方式是: 年-月-日/年-月-日，数字格式为：yyyy-mm-dd 比如:2001-05-06</p>
+<h5 id="year"><a href="#year" class="headerlink" title="year"></a>year</h5><p>year可以处理仅有年的信息或者需要原样打印的内容。</p>
+<h5 id="pages"><a href="#pages" class="headerlink" title="pages"></a>pages</h5><p>可以格式化输入或输入需要打印的内容。格式化输入时，页码用整数，当有范围时， 用单个或多个短横线-隔开。比如:59-60或59—60。</p>
+<h5 id="url"><a href="#url" class="headerlink" title="url"></a>url</h5><p>直接输入需要打印的网址内容。</p>
+<h5 id="doi"><a href="#doi" class="headerlink" title="doi"></a>doi</h5><p>直接输入需要打印的DOI内容</p>
+<h5 id="note"><a href="#note" class="headerlink" title="note"></a>note</h5><p>在本样式中note域可以有特殊功能，当其内容为standard或news|newspaper时， 判断条目类型为标准和报纸析出的文献。</p>
+<h5 id="journal"><a href="#journal" class="headerlink" title="journal"></a>journal</h5><p> 用于连续出版物析出文献，表示连续出版物的题名，比如期刊、报纸的提名，直接输 入需要打印的内容。</p>
+<p>‍</p>
+<h5 id="volume"><a href="#volume" class="headerlink" title="volume"></a>volume</h5><p>连续出版物的卷，格式化输入用整数，当有范围时中间用短横线连接，比如:1-4。当 无法解析时，输入内容被认为是需要完整打印的内容。</p>
+<h5 id="number"><a href="#number" class="headerlink" title="number"></a>number</h5><p>连续出版物的期或报纸的版次，输入与volume类似。或者是专利等的号时，直接输 入需要打印的内容。</p>
+<h5 id="version"><a href="#version" class="headerlink" title="version"></a>version</h5><p>用于report 和manual 的版本信息，直接输入需要打印的内容</p>
+<h2 id="3-示例"><a href="#3-示例" class="headerlink" title="3 示例"></a>3 示例</h2><h5 id="专著"><a href="#专著" class="headerlink" title="专著"></a>专著</h5><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">@book&#123;专著,</span><br><span class="line">  author=&#123;主要作者&#125;,</span><br><span class="line">  series=&#123;系列图书&#125;,</span><br><span class="line">  editor=&#123;负责人&#125;,</span><br><span class="line">  translator=&#123;译者&#125;,</span><br><span class="line">  volume=&#123;卷号&#125;,</span><br><span class="line">  title=&#123;题名&#125;,</span><br><span class="line">  year=&#123;出版年&#125;,</span><br><span class="line">  edition=&#123;版本&#125;,</span><br><span class="line">  address=&#123;出版地&#125;,</span><br><span class="line">  publisher=&#123;出版者&#125;,</span><br><span class="line">  pages=&#123;引用页码&#125;,</span><br><span class="line">  language=&#123;语言&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@book&#123;chuban2011,</span><br><span class="line">  editor=&#123;&#123;全国出版专业职业资格考试办公室&#125;&#125;,</span><br><span class="line">  title=&#123;出版专业实务（初级）&#125;,</span><br><span class="line">  edition=&#123;2011年版&#125;,</span><br><span class="line">  series=&#123;全国出版专业职业资格考试辅导教材&#125;,</span><br><span class="line">  address=&#123;湖北&#125;,</span><br><span class="line">  publisher=&#123;长江出版集团&#125;,</span><br><span class="line">  year=&#123;2011&#125;,</span><br><span class="line">  language=&#123;zh&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@book&#123;anwen1988b,</span><br><span class="line">  author=&#123;昂温, G. and 昂温, P. S.&#125;,</span><br><span class="line">  title=&#123;美国独立战争&#125;,</span><br><span class="line">  series=&#123;世界历史丛书&#125;,</span><br><span class="line">  editor=&#123;张三 and 李四&#125;,</span><br><span class="line">  translator=&#123;陈生铮&#125;,</span><br><span class="line">  address=&#123;北京&#125;,</span><br><span class="line">  publisher=&#123;中国书籍出版社&#125;,</span><br><span class="line">  year=&#123;1988&#125;,</span><br><span class="line">  language=&#123;zh&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="专著析出"><a href="#专著析出" class="headerlink" title="专著析出"></a>专著析出</h5><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@inbook&#123;专著析出,</span><br><span class="line">  author=&#123;主要作者&#125;,</span><br><span class="line">  editor=&#123;负责人&#125;,</span><br><span class="line">  volume=&#123;卷号&#125;,</span><br><span class="line">  title=&#123;题名&#125;,</span><br><span class="line">  booktitle=&#123;专著名称&#125;,</span><br><span class="line">  year=&#123;出版年&#125;,</span><br><span class="line">  edition=&#123;版本&#125;,</span><br><span class="line">  address=&#123;出版地&#125;,</span><br><span class="line">  publisher=&#123;出版者&#125;,</span><br><span class="line">  pages=&#123;引用页码&#125;,</span><br><span class="line">  language=&#123;语言&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@inbook&#123;zhendan1980,</span><br><span class="line">  author=&#123;陈晋镶 and 张惠民 and 朱士兴 and 其他作者&#125;,</span><br><span class="line">  title=&#123;蓟县震旦亚界研究&#125;,</span><br><span class="line">  editor=&#123;中国地质科学院天津地质矿产研究所&#125;,</span><br><span class="line">  booktitle=&#123;中国震旦亚界&#125;,</span><br><span class="line">  address=&#123;天津&#125;,</span><br><span class="line">  publisher=&#123;天津科学技术出版社&#125;,</span><br><span class="line">  year=&#123;1980&#125;,</span><br><span class="line">  pages=&#123;56-114&#125;,</span><br><span class="line">  language=&#123;zh&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="标准"><a href="#标准" class="headerlink" title="标准"></a>标准</h5><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@standard&#123;标准,</span><br><span class="line">  author=&#123;主要责任者&#125;,</span><br><span class="line">  title=&#123;题名&#125;,</span><br><span class="line">  year=&#123;出版年&#125;,</span><br><span class="line">  address=&#123;出版地&#125;,</span><br><span class="line">  publisher=&#123;出版者&#125;,</span><br><span class="line">  language=&#123;语言&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@standard&#123;gbt7156-2003,</span><br><span class="line">  author=&#123;&#123;中国国家标准化管理委员会&#125;&#125;,</span><br><span class="line">  title=&#123;GB/T 7156-2003: 文献保密等级代码与标识&#125;,</span><br><span class="line">  address=&#123;北京&#125;,</span><br><span class="line">  publisher=&#123;科技出版社&#125;,</span><br><span class="line">  year=&#123;2003&#125;,</span><br><span class="line">  language=&#123;zh&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="连续出版物"><a href="#连续出版物" class="headerlink" title="连续出版物"></a>连续出版物</h5><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">@periodical&#123;连续出版物,</span><br><span class="line">  author=&#123;主要责任者&#125;,</span><br><span class="line">  title=&#123;题名&#125;,</span><br><span class="line">  year=&#123;出版年&#125;,</span><br><span class="line">  volume=&#123;卷&#125;,</span><br><span class="line">  number=&#123;期&#125;,</span><br><span class="line">  pages=&#123;引用页码&#125;,</span><br><span class="line">  publisher=&#123;出版者&#125;,</span><br><span class="line">  language=&#123;语言&#125;,</span><br><span class="line">&#125;</span><br><span class="line">@periodical&#123;science1983,</span><br><span class="line">  editor=&#123;&#123;American Association for the Advancement of Science&#125;&#125;,</span><br><span class="line">  title=&#123;Science&#125;,</span><br><span class="line">  year=&#123;1883&#125;,</span><br><span class="line">  volume=&#123;1&#125;,</span><br><span class="line">  number=&#123;1&#125;,</span><br><span class="line">  address=&#123;Washington&#125;,</span><br><span class="line">  publisher=&#123;American Association for the Advancement of Science&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@periodical&#123;dizhipinlun1936,</span><br><span class="line">  editor=&#123;&#123;中国地质学会&#125;&#125;,</span><br><span class="line">  title=&#123;地质论评&#125;,</span><br><span class="line">  year=&#123;1936&#125;,</span><br><span class="line">  volume=&#123;1&#125;,</span><br><span class="line">  number=&#123;1&#125;,</span><br><span class="line">  address=&#123;北京&#125;,</span><br><span class="line">  publisher=&#123;地质出版社&#125;,</span><br><span class="line">  language=&#123;zh&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="连续出版物析出"><a href="#连续出版物析出" class="headerlink" title="连续出版物析出"></a>连续出版物析出</h5><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">@article&#123;连续出版物析出,</span><br><span class="line">  author=&#123;主要责任者&#125;,</span><br><span class="line">  title=&#123;题名&#125;,</span><br><span class="line">  journal=&#123;连续出版物名称&#125;,</span><br><span class="line">  year=&#123;出版年&#125;,</span><br><span class="line">  volume=&#123;卷&#125;,</span><br><span class="line">  number=&#123;期&#125;,</span><br><span class="line">  pages=&#123;引用页码&#125;,</span><br><span class="line">  language=&#123;语言&#125;,</span><br><span class="line">&#125;</span><br><span class="line">@article&#123;kanamori1998,</span><br><span class="line">  author=&#123;Kanamori, H.&#125;,</span><br><span class="line">  title=&#123;Shaking without quaking&#125;,</span><br><span class="line">  journal=&#123;Science&#125;,</span><br><span class="line">  year=&#123;1998&#125;,</span><br><span class="line">  volume=&#123;279&#125;,</span><br><span class="line">  number=&#123;5359&#125;,</span><br><span class="line">  pages=&#123;2063-2064&#125;,</span><br><span class="line">&#125;</span><br><span class="line">@article&#123;jiangxiangdong1999,</span><br><span class="line">  author=&#123;江向东&#125;,</span><br><span class="line">  title=&#123;互联网环境下的信息处理与图书管理系统解决方案&#125;,</span><br><span class="line">  journal=&#123;情报学报&#125;,</span><br><span class="line">  year=&#123;1999&#125;,</span><br><span class="line">  volume=&#123;18&#125;,</span><br><span class="line">  number=&#123;2&#125;,</span><br><span class="line">  pages=&#123;4&#125;,</span><br><span class="line">  language=&#123;zh&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="报纸"><a href="#报纸" class="headerlink" title="报纸"></a>报纸</h5><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@newspaper&#123;报纸,</span><br><span class="line">  author=&#123;主要责任者&#125;,</span><br><span class="line">  title=&#123;题名&#125;,</span><br><span class="line">  journal=&#123;报纸名称&#125;,</span><br><span class="line">  year=&#123;出版年&#125;,</span><br><span class="line">  volume=&#123;卷&#125;,</span><br><span class="line">  language=&#123;语言&#125;,</span><br><span class="line">  publisher=&#123;出版者&#125;,</span><br><span class="line">  address=&#123;出版地&#125;,</span><br><span class="line">  language=&#123;语言&#125;,</span><br><span class="line">&#125;</span><br><span class="line">@newspaper&#123;renminribao,</span><br><span class="line">  editor=&#123;&#123;人民日报编辑部&#125;&#125;,</span><br><span class="line">  title=&#123;人民日报&#125;,</span><br><span class="line">  year=&#123;2011&#125;,</span><br><span class="line">  volume=&#123;22892&#125;,</span><br><span class="line">  address=&#123;北京&#125;,</span><br><span class="line">  publisher=&#123;人民日报出版社&#125;,</span><br><span class="line">  language=&#123;zh&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="专利-1"><a href="#专利-1" class="headerlink" title="专利"></a>专利</h5><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@patent&#123;专利,</span><br><span class="line">  author=&#123;专利权所有者&#125;,</span><br><span class="line">  title=&#123;题名&#125;,</span><br><span class="line">  patentid=&#123;专利号&#125;,</span><br><span class="line">  date=&#123;日期&#125;,</span><br><span class="line">  country=&#123;国家&#125;,</span><br><span class="line">  langauge=&#123;zh&#125;,</span><br><span class="line">&#125;</span><br><span class="line">@patent&#123;p88105607.3,</span><br><span class="line">  author=&#123;姜锡洲&#125;,</span><br><span class="line">  title=&#123;一种温热外敷药制备方案&#125;,</span><br><span class="line">  country=&#123;中国&#125;,</span><br><span class="line">  patentid=&#123;88105607.3&#125;,</span><br><span class="line">  date=&#123;1989-07-26&#125;,</span><br><span class="line">  langauge=&#123;zh&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="电子资源-1"><a href="#电子资源-1" class="headerlink" title="电子资源"></a>电子资源</h5><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@online&#123;电子资源,</span><br><span class="line">  author=&#123;主要责任者&#125;,</span><br><span class="line">  title=&#123;题名&#125;,</span><br><span class="line">  modifydate=&#123;修订日期&#125;,</span><br><span class="line">  url=&#123;检索地址&#125;,</span><br><span class="line">  citedate=&#123;引用日期&#125;,</span><br><span class="line">&#125;</span><br><span class="line">@online&#123;chuban2001,</span><br><span class="line">  author=&#123;萧钰&#125;,</span><br><span class="line">  title=&#123;出版业信息化迈入快车道&#125;,</span><br><span class="line">  modifydate=&#123;2001-12-19&#125;,</span><br><span class="line">  url=&#123;http://www.creader.com/news/20011219/200112190019.html&#125;,</span><br><span class="line">  citedate=&#123;2002-04-15&#125;,</span><br><span class="line">  langauge=&#123;zh&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="文集"><a href="#文集" class="headerlink" title="文集"></a>文集</h5><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@collection&#123;文集,</span><br><span class="line">  editor=&#123;主编&#125;,</span><br><span class="line">  title=&#123;题名&#125;,</span><br><span class="line">  year=&#123;出版年&#125;,</span><br><span class="line">  address=&#123;出版地&#125;,</span><br><span class="line">  publisher=&#123;出版者&#125;,</span><br><span class="line">  pages=&#123;引用页码&#125;,</span><br><span class="line">  language=&#123;语言&#125;,</span><br><span class="line">&#125;</span><br><span class="line">@collection&#123;maxis1982,</span><br><span class="line">  author=&#123;马克思 and 恩格斯&#125;,</span><br><span class="line">  title=&#123;马克思恩格斯全集&#125;,</span><br><span class="line">  volume=&#123;44&#125;,</span><br><span class="line">  address=&#123;北京&#125;,</span><br><span class="line">  publisher=&#123;人民出版社&#125;,</span><br><span class="line">  year=&#123;1982&#125;,</span><br><span class="line">  language=&#123;zh&#125;,</span><br><span class="line">&#125;</span><br><span class="line">@incollection&#123;文集析出,</span><br><span class="line">  author=&#123;作者&#125;,</span><br><span class="line">  title=&#123;题名&#125;,</span><br><span class="line">  booktitle=&#123;文集名称&#125;,</span><br><span class="line">  year=&#123;出版年&#125;,</span><br><span class="line">  editor=&#123;主编&#125;,</span><br><span class="line">  pages=&#123;引用页码&#125;,</span><br><span class="line">  address=&#123;出版地&#125;,</span><br><span class="line">  publisher=&#123;出版者&#125;,</span><br><span class="line">  language=&#123;语言&#125;,</span><br><span class="line">&#125;</span><br><span class="line">@incollection&#123;gongzi,</span><br><span class="line">  author=&#123;马克思&#125;,</span><br><span class="line">  title=&#123;关于《工资、价格和利润》的报告札记&#125;,</span><br><span class="line">  editor=&#123;马克思 and 恩格斯&#125;,</span><br><span class="line">  booktitle=&#123;马克思恩格斯全集&#125;,</span><br><span class="line">  volume=&#123;44&#125;,</span><br><span class="line">  address=&#123;北京&#125;,</span><br><span class="line">  publisher=&#123;人民出版社&#125;,</span><br><span class="line">  year=&#123;1982&#125;,</span><br><span class="line">  pages=&#123;505&#125;,</span><br><span class="line">  language=&#123;zh&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="会议记录"><a href="#会议记录" class="headerlink" title="会议记录"></a>会议记录</h5><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">@proceedings&#123;会议录,</span><br><span class="line">  editor=&#123;主编&#125;,</span><br><span class="line">  title=&#123;题名&#125;,</span><br><span class="line">  year=&#123;出版年&#125;,</span><br><span class="line">  address=&#123;出版地&#125;,</span><br><span class="line">  publisher=&#123;出版者&#125;,</span><br><span class="line">  language=&#123;语言&#125;,</span><br><span class="line">&#125;</span><br><span class="line">@proceedings&#123;1-11,</span><br><span class="line">  editor=&#123;Yufin, S. A.&#125;,</span><br><span class="line">  title=&#123;Geoecology and computers: proceedings of the Third International</span><br><span class="line">             Conference on Advance of Computer Methods in Geotechnical and</span><br><span class="line">             Geoenvironmental Engineering, Moscow, Russia, February 1--4, 2000&#125;,</span><br><span class="line">  address=&#123;Rotterdam&#125;,</span><br><span class="line">  publisher=&#123;A. A. Balkema&#125;,</span><br><span class="line">    year=&#123;2000&#125;,</span><br><span class="line">&#125;</span><br><span class="line">@inproceedings&#123;会议录析出,</span><br><span class="line">  author=&#123;作者&#125;,</span><br><span class="line">  title=&#123;题名&#125;,</span><br><span class="line">  booktitle=&#123;会议录名称&#125;,</span><br><span class="line">  year=&#123;出版年&#125;,</span><br><span class="line">  editor=&#123;主编&#125;,</span><br><span class="line">  pages=&#123;引用页码&#125;,</span><br><span class="line">  address=&#123;出版地&#125;,</span><br><span class="line">  publisher=&#123;出版者&#125;,</span><br><span class="line">  language=&#123;语言&#125;,</span><br><span class="line">&#125;</span><br><span class="line">@inproceedings&#123;nonlinear1996,</span><br><span class="line">  author=&#123;钟文发&#125;,</span><br><span class="line">  title=&#123;非线性规划在可燃毒物配置中的应用&#125;,</span><br><span class="line">  editor =&#123;赵玮&#125;,</span><br><span class="line">  booktitle=&#123;运筹学的理论与应用：中国运筹学会第五届大会论文集&#125;,</span><br><span class="line">  address=&#123;西安&#125;,</span><br><span class="line">  publisher=&#123;西安电子科技大学出版社&#125;,</span><br><span class="line">  year=&#123;1996&#125;,</span><br><span class="line">  pages=&#123;468-471&#125;,</span><br><span class="line">  language=&#123;zh&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="报告手册"><a href="#报告手册" class="headerlink" title="报告手册"></a>报告手册</h5><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">@report&#123;报告,</span><br><span class="line">  author=&#123;作者&#125;,</span><br><span class="line">  title=&#123;题名&#125;,</span><br><span class="line">  year=&#123;出版年&#125;,</span><br><span class="line">  address=&#123;出版地&#125;,</span><br><span class="line">  institution=&#123;机构&#125;,</span><br><span class="line">&#125;</span><br><span class="line">@techreport&#123;a3-1,</span><br><span class="line">  author=&#123;&#123;U.S. Department of Transportation Federal Highway Administration&#125;&#125;,</span><br><span class="line">  title=&#123;Guidelines for handling excavated acid-producing materials, PB 91-194001&#125;,</span><br><span class="line">  address=&#123;Springfield&#125;,</span><br><span class="line">  institution=&#123;U.S. Department of Commerce National Information Service&#125;,</span><br><span class="line">  year=&#123;1990&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@manual&#123;手册,</span><br><span class="line">  author=&#123;作者&#125;,</span><br><span class="line">  title=&#123;题名&#125;,</span><br><span class="line">  year=&#123;出版年&#125;,</span><br><span class="line">  address=&#123;出版地&#125;,</span><br><span class="line">  organization=&#123;组织&#125;,</span><br><span class="line">  language=&#123;语言&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@manual&#123;ipad,</span><br><span class="line">  author=&#123;&#123;Apple Inc&#125;&#125;,</span><br><span class="line">  title=&#123;iPad User Manual&#125;,</span><br><span class="line">  address=&#123;Cupertino&#125;,</span><br><span class="line">  publisher=&#123;Apple Inc&#125;,</span><br><span class="line">  year=&#123;2008&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="论文"><a href="#论文" class="headerlink" title="论文"></a>论文</h5><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@thesis&#123;学位论文,</span><br><span class="line">  author=&#123;作者&#125;,</span><br><span class="line">  title=&#123;题名&#125;,</span><br><span class="line">  year=&#123;完成年&#125;,</span><br><span class="line">  address=&#123;学位授予单位地址&#125;,</span><br><span class="line">  school=&#123;学位授予单位&#125;,</span><br><span class="line">  language=&#123;语言&#125;,</span><br><span class="line">&#125;</span><br><span class="line">@phdthesis&#123;1-5,</span><br><span class="line">  author=&#123;孙玉文&#125;,</span><br><span class="line">  title=&#123;汉语变调构词研究&#125;,</span><br><span class="line">  address=&#123;北京&#125;,</span><br><span class="line">  school=&#123;北京大学中文系&#125;,</span><br><span class="line">  year=&#123;2000&#125;,</span><br><span class="line">  language=&#123;zh&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@masterthesis&#123;a4-1,</span><br><span class="line">  author=&#123;张志祥&#125;,</span><br><span class="line">  title=&#123;间断动力系统的随机扰动及其在守恒律方程中的应用&#125;,</span><br><span class="line">  address=&#123;南京&#125;,</span><br><span class="line">  school=&#123;南京大学数学学院&#125;,</span><br><span class="line">  year=&#123;1998&#125;,</span><br><span class="line">  language=&#123;zh&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>‍</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1]中 国 国 家 标 准 化 管 理 委 员 会. 信息与文献 参考文献著录规则：GB/T7714—2015[S]. 北京: 中国标准出版社出版, 2015.</p>
+<p>[2]国家标准《GB/T 7714-2005: 文后参考文献著录规则》BibTeX样式[EB/OL]. [2024-06-21]. <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.latexstudio.net/archives/1541.html">https://www.latexstudio.net/archives/1541.html</a>.</p>
+<p>‍</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://qifeng.xyz">豈</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://qifeng.xyz/posts/c0dc4c.html">http://qifeng.xyz/posts/c0dc4c.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://qifeng.xyz" target="_blank">豈風</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE/">参考文献</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202406231542407.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/ed5d8a1b.html" title="TensorCore WMMA 编程"><img class="cover" src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202407081006989.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">TensorCore WMMA 编程</div></div></a></div><div class="next-post pull-right"><a href="/posts/e16561b3.html" title="ZKP 发展脉络"><img class="cover" src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202406231538250.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ZKP 发展脉络</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/android-chrome-512x512.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">豈</div><div class="author-info__description">分享研究生阶段学习和生活经历</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" href="/myself/myself.html"><i class="fa-solid fa-person"></i><span>个人简历</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yinxiangkai" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:yinxkai@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="/img/wechat.png" target="_blank" title="Wechat"><i class="fa-brands fa-weixin" style="color: #7bb32e;"></i></a><a class="social-icon" href="/img/QQ.jpg" target="_blank" title="QQ"><i class="fa-brands fa-qq" style="color: #2ca7e0;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">路过的旅人你好啊！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E5%B8%B8%E7%94%A8%E6%9D%A1%E7%9B%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">1 参考文献常用条目类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%91%97%E5%BD%95"><span class="toc-text">著录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%91%97%E5%BD%95%E4%B8%AD%E6%9E%90%E5%87%BA%E6%96%87%E7%8C%AE"><span class="toc-text">著录中析出文献</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%93%E5%88%A9"><span class="toc-text">专利</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%B5%E5%AD%90%E8%B5%84%E6%BA%90"><span class="toc-text">电子资源</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%8F%82%E8%80%83%E6%96%87%E8%88%86%E5%9B%BE%E7%8C%AE%E5%B8%B8%E7%94%A8%E4%BF%A1%E6%81%AF%E5%9F%9F"><span class="toc-text">2 参考文舆图献常用信息域</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#author%E3%80%81translator%E3%80%81bookauthor%E3%80%81editor"><span class="toc-text">author、translator、bookauthor、editor</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#title"><span class="toc-text">title</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#edition"><span class="toc-text">edition</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#location"><span class="toc-text">location</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#publisher%E3%80%81institution%E3%80%81organization"><span class="toc-text">publisher、institution、organization</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#date%E3%80%81urldate%E3%80%81origdate"><span class="toc-text">date、urldate、origdate</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#year"><span class="toc-text">year</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#pages"><span class="toc-text">pages</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#url"><span class="toc-text">url</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#doi"><span class="toc-text">doi</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#note"><span class="toc-text">note</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#journal"><span class="toc-text">journal</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#volume"><span class="toc-text">volume</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#number"><span class="toc-text">number</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#version"><span class="toc-text">version</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%A4%BA%E4%BE%8B"><span class="toc-text">3 示例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%93%E8%91%97"><span class="toc-text">专著</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%93%E8%91%97%E6%9E%90%E5%87%BA"><span class="toc-text">专著析出</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%87%E5%87%86"><span class="toc-text">标准</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E5%87%BA%E7%89%88%E7%89%A9"><span class="toc-text">连续出版物</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E5%87%BA%E7%89%88%E7%89%A9%E6%9E%90%E5%87%BA"><span class="toc-text">连续出版物析出</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8A%A5%E7%BA%B8"><span class="toc-text">报纸</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%93%E5%88%A9-1"><span class="toc-text">专利</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%B5%E5%AD%90%E8%B5%84%E6%BA%90-1"><span class="toc-text">电子资源</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%87%E9%9B%86"><span class="toc-text">文集</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%9A%E8%AE%AE%E8%AE%B0%E5%BD%95"><span class="toc-text">会议记录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8A%A5%E5%91%8A%E6%89%8B%E5%86%8C"><span class="toc-text">报告手册</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BA%E6%96%87"><span class="toc-text">论文</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-text">参考文献</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/ed5d8a1b.html" title="TensorCore WMMA 编程"><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202407081006989.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TensorCore WMMA 编程"/></a><div class="content"><a class="title" href="/posts/ed5d8a1b.html" title="TensorCore WMMA 编程">TensorCore WMMA 编程</a><time datetime="2024-07-08T02:01:16.000Z" title="发表于 2024-07-08 10:01:16">2024-07-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/c0dc4c.html" title="bib 国标模板"><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202406231542407.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="bib 国标模板"/></a><div class="content"><a class="title" href="/posts/c0dc4c.html" title="bib 国标模板">bib 国标模板</a><time datetime="2024-06-23T06:14:41.000Z" title="发表于 2024-06-23 14:14:41">2024-06-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/e16561b3.html" title="ZKP 发展脉络"><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202406231538250.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ZKP 发展脉络"/></a><div class="content"><a class="title" href="/posts/e16561b3.html" title="ZKP 发展脉络">ZKP 发展脉络</a><time datetime="2024-06-23T06:14:41.000Z" title="发表于 2024-06-23 14:14:41">2024-06-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/15893855.html" title="clang 环境配置"><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202406231542326.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="clang 环境配置"/></a><div class="content"><a class="title" href="/posts/15893855.html" title="clang 环境配置">clang 环境配置</a><time datetime="2024-05-21T06:14:41.000Z" title="发表于 2024-05-21 14:14:41">2024-05-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/d10c5bba.html" title="连接GitHub"><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202406231534268.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="连接GitHub"/></a><div class="content"><a class="title" href="/posts/d10c5bba.html" title="连接GitHub">连接GitHub</a><time datetime="2024-04-23T06:14:41.000Z" title="发表于 2024-04-23 14:14:41">2024-04-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By 豈</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams'
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+      
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+    
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+  
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'cee9a7299c7ed214f720',
+      clientSecret: 'b6b040a40001c2d2129236573ac7695d3fec20e3',
+      repo: 'yinxiangkai.github.io',
+      owner: 'yinxiangkai',
+      admin: ['yinxiangkai'],
+      id: 'e3565230ee6fd6a512c52eb17ed759cf',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.14.0-b3"></script></div></div></body></html>
