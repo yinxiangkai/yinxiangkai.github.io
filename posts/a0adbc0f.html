@@ -335,7 +335,7 @@ P(\omega_{n}^{k}) - P(\omega_{n}^{k+m}) = 2\omega_{n}^{k}P_{o}(\omega_{\frac{n}{
 P_e(\omega_{\frac{n}{2}}^{k}) &= \frac{1}{2}(P(\omega_{n}^{k}) + P(\omega_{n}^{k+m})) \\
 P_o(\omega_{\frac{n}{2}}^{k}) &= \frac{1}{2\omega_{n}^{k}}(P(\omega_{n}^{k}) - P(\omega_{n}^{k+m})) 
 
-\end{align}</script><p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402191954666.svg%20" alt="资源 11" title="图7 GS蝶形操作">​</p>
+\end{align}</script><p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402191954666.svg" alt="资源 11" title="图7 GS蝶形操作">​</p>
 <h4 id="1-3-2-FFT-迭代实现"><a href="#1-3-2-FFT-迭代实现" class="headerlink" title="1.3.2 $FFT$ 迭代实现"></a>1.3.2 $FFT$ 迭代实现</h4><p>继续优化。依然拿 n=8 举例。递归数据操作如图 7 所示，在递归操作中是自定向下层层展开，然后逐层向上收缩。每一次递归都会消耗堆栈资源，影响效率。如果可以从底向上计算，那么可以省去堆栈资源的消耗，提高程序运行效率。于是现在的问题就变为了如何确定递归树叶子节点的元素排序。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202402191954478.svg" alt="图8 n=8时递归示意图" title="图8 n=8时递归示意图">​</p>
 <h5 id="位逆序"><a href="#位逆序" class="headerlink" title="位逆序"></a><strong>位逆序</strong></h5><p>将叶子节点元素顺序和原始元素顺序均使用二进制表示。发现二进制表示发生了左右对称反转，称之为位逆序变换。</p>
@@ -443,7 +443,7 @@ P_o(\omega_{\frac{n}{2}}^{k}) &= \frac{1}{2\omega_{n}^{k}}(P(\omega_{n}^{k}) - P
  \textbf{end function}
 & \\ 
 \hline 
-& \end{array}</script><p><img src="assets/资源%2020-20240712140245-sxzxwzj.svg" alt="资源 20">​</p>
+& \end{array}</script><p><img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202407121417909.svg" alt="图10 n=8迭代DIT数据流图2" title="图10 n=8迭代DIT数据流图2">​</p>
 <h3 id="1-4-快速数论变换（-NTT-）"><a href="#1-4-快速数论变换（-NTT-）" class="headerlink" title="1.4 快速数论变换（$NTT$）"></a>1.4 快速数论变换（$NTT$）</h3><p>$FFT$ 存一些问题。首先 FFT 是在复数域上的表示，而计算机系统中表示复数，需要比实数花费更多的资源，且复数运算也比实数运算更加复杂。此外 FFT 涉及大量的正余弦运算，对于精度有影响。于是我们期望在实数域内寻找类似单位根性质的数学概念。有限域上的原根满足相应的要求。</p>
 <h4 id="1-4-1-数学基础"><a href="#1-4-1-数学基础" class="headerlink" title="1.4.1 数学基础"></a>1.4.1 数学基础</h4><h5 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h5><p>欧拉函数，即 $\varphi(n)$,表示的是小于等于 $n$ 且和 $n$ 互素的数的个数。当 n 是素数时 $\varphi(n)=n-1$。</p>
 <h5 id="欧拉定理"><a href="#欧拉定理" class="headerlink" title="欧拉定理"></a>欧拉定理</h5><p>对于 $a \in \mathbb{Z}$ ,$m\in \mathbb{N}^*$,若 $\gcd(a,m)=1$,则 $a^{\varphi(m)} \equiv 1 \pmod{m}$。</p>
