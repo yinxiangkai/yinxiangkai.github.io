@@ -74,7 +74,7 @@
         <category>Nvidia</category>
       </categories>
       <tags>
-        <tag>cuda</tag>
+        <tag>CUDA</tag>
       </tags>
   </entry>
   <entry>
@@ -842,15 +842,16 @@ C^T=(AB)^T=B^T A^T</script><p>所以我们只需要颠倒一下A和B以及他们
 ]]></content>
       <categories>
         <category>debug</category>
-        <category>cuda</category>
+        <category>CUDA</category>
       </categories>
       <tags>
+        <tag>CUDA</tag>
         <tag>debug</tag>
         <tag>cublas</tag>
       </tags>
   </entry>
   <entry>
-    <title>01 认识GPU</title>
+    <title>认识GPU</title>
     <url>/posts/50b55d72.html</url>
     <content><![CDATA[<h2 id="1-GPU简单介绍"><a href="#1-GPU简单介绍" class="headerlink" title="1 GPU简单介绍"></a>1 GPU简单介绍</h2><p>GPU(Graphics Processing Unit)也叫做图形处理单元，是一种专用电子电路，最初设计使用来加速计算机图形处理，但后续因其并行结构非常适合与并行计算领域。GPU一共经历了三个历史发展阶段。下面是显卡示意图，主要由GPU和显存组成。<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202403061543299.png" alt="GPU示意图" title="GPU示意图"></p>
 <h2 id="1-1-GPU的发展阶段"><a href="#1-1-GPU的发展阶段" class="headerlink" title="1.1 GPU的发展阶段"></a>1.1 GPU的发展阶段</h2><h4 id="1-1-1-硬件加速阶段"><a href="#1-1-1-硬件加速阶段" class="headerlink" title="1.1.1 硬件加速阶段"></a>1.1.1 硬件加速阶段</h4><p>在1999年以前，将CPU的部分功能剥离出来，形成单独的硬件，实现对图像的硬件加速，只起到3D图像处理的加速作用，不具备软件编程特征。</p>
@@ -1230,7 +1231,6 @@ C^T=(AB)^T=B^T A^T</script><p>所以我们只需要颠倒一下A和B以及他们
         <category>杂项</category>
       </categories>
       <tags>
-        <tag>Hugo</tag>
         <tag>网站</tag>
       </tags>
   </entry>
