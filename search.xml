@@ -1903,7 +1903,7 @@ C^T=(AB)^T=B^T A^T</script><p>所以我们只需要颠倒一下A和B以及他们
 <p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202409121241579.png" alt="image">​</p>
 <p>然后选择user目录下配置文件</p>
 <p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202409121242709.png" alt="image">​</p>
-<p>进入配置文件按照如下格式填写：通过ssh进行远程连接，ssh默认端口是22，如果存在路由器进行端口映射则填写相应的端口。GPU服务器的IP地址和端口号，可以找相应的设备管理员询问`\<span class\="hidden-text"\>也就是我这个倒霉蛋\&lt;/span>`。</p>
+<p>进入配置文件按照如下格式填写：通过ssh进行远程连接，ssh默认端口是22，如果存在路由器进行端口映射则填写相应的端口。GPU服务器的IP地址和端口号，可以找相应的设备管理员询问<span class="hidden-text">也就是我这个倒霉蛋</span>。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host A100-135  //随意</span><br><span class="line">    HostName 10.102.33.135 //主机的IP地址</span><br><span class="line">    User xkyin        //用户名</span><br><span class="line">    Port 22           //端口号</span><br></pre></td></tr></table></figure>
 <p>点加左下角绿色区域远程连接，选择连接到主机。然后选择相应的主机，输入密码即可。</p>
 <p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202409121246477.png" alt="image">​</p>
