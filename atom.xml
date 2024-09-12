@@ -6,7 +6,7 @@
   <link href="http://qifeng.xyz/atom.xml" rel="self"/>
   
   <link href="http://qifeng.xyz/"/>
-  <updated>2024-09-11T10:00:37.969Z</updated>
+  <updated>2024-09-12T08:37:49.888Z</updated>
   <id>http://qifeng.xyz/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>远程连接服务器</title>
+    <link href="http://qifeng.xyz/posts/b49c4352.html"/>
+    <id>http://qifeng.xyz/posts/b49c4352.html</id>
+    <published>2024-09-12T08:34:47.000Z</published>
+    <updated>2024-09-12T08:37:49.888Z</updated>
+    
+    
+    <summary type="html">介绍如何连接组内服务器以及泉城实验室网段冲突问题</summary>
+    
+    
+    
+    <category term="杂项" scheme="http://qifeng.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+    <category term="SSH" scheme="http://qifeng.xyz/tags/SSH/"/>
+    
+    <category term="服务器" scheme="http://qifeng.xyz/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>NVTX</title>
