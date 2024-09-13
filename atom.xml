@@ -6,7 +6,7 @@
   <link href="http://qifeng.xyz/atom.xml" rel="self"/>
   
   <link href="http://qifeng.xyz/"/>
-  <updated>2024-09-13T02:01:57.683Z</updated>
+  <updated>2024-09-13T02:04:14.820Z</updated>
   <id>http://qifeng.xyz/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://qifeng.xyz/posts/b49c4352.html"/>
     <id>http://qifeng.xyz/posts/b49c4352.html</id>
     <published>2024-09-12T08:34:47.000Z</published>
-    <updated>2024-09-13T02:01:57.683Z</updated>
+    <updated>2024-09-13T02:04:14.820Z</updated>
     
     
     <summary type="html">介绍如何连接组内服务器以及泉城实验室网段冲突问题</summary>
@@ -126,7 +126,7 @@
     <link href="http://qifeng.xyz/posts/15893855.html"/>
     <id>http://qifeng.xyz/posts/15893855.html</id>
     <published>2024-05-21T06:14:41.000Z</published>
-    <updated>2024-09-13T01:46:03.325Z</updated>
+    <updated>2024-09-13T02:43:35.053Z</updated>
     
     
     <summary type="html">本文主要介绍了怎么在Linux中配置clang环境。</summary>
