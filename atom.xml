@@ -6,7 +6,7 @@
   <link href="http://qifeng.xyz/atom.xml" rel="self"/>
   
   <link href="http://qifeng.xyz/"/>
-  <updated>2024-09-13T02:04:14.820Z</updated>
+  <updated>2024-10-05T13:44:17.464Z</updated>
   <id>http://qifeng.xyz/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Shared Memory 大小限制</title>
+    <link href="http://qifeng.xyz/posts/1ea709cb.html"/>
+    <id>http://qifeng.xyz/posts/1ea709cb.html</id>
+    <published>2024-10-05T13:42:01.000Z</published>
+    <updated>2024-10-05T13:44:17.464Z</updated>
+    
+    
+    <summary type="html">介绍对对共享内存大小的调整。</summary>
+    
+    
+    
+    <category term="并行计算" scheme="http://qifeng.xyz/categories/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/"/>
+    
+    <category term="Nvidia" scheme="http://qifeng.xyz/categories/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/Nvidia/"/>
+    
+    
+    <category term="CUDA" scheme="http://qifeng.xyz/tags/CUDA/"/>
+    
+  </entry>
   
   <entry>
     <title>远程连接服务器</title>
@@ -44,7 +65,7 @@
     <link href="http://qifeng.xyz/posts/89d9e386.html"/>
     <id>http://qifeng.xyz/posts/89d9e386.html</id>
     <published>2024-09-11T09:55:07.000Z</published>
-    <updated>2024-09-11T10:00:37.969Z</updated>
+    <updated>2024-10-05T13:41:42.672Z</updated>
     
     
     <summary type="html">主要介绍NVTX的简单使用方式。</summary>
