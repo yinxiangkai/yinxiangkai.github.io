@@ -51,7 +51,7 @@
 <h4 id="3-2-长久方案"><a href="#3-2-长久方案" class="headerlink" title="3.2 长久方案"></a>3.2 长久方案</h4><p>实验室网线接口走的是交换机，交换机不关机网关应该不会变，但是如果连接WIFI则不确定，要想切换网络不受影响，可以写个脚本时刻检测网络情况。<br>连接实验室局域网的如果不关机，下面的方法问题不大：</p>
 <p>查看默认网关</p>
 <p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202409121603727.png" alt="image">​</p>
-<p>然后在管理员权限下，添加一条路由，学校网段的ip走默认网关，并提高优先级，这样VPN重启就不影响了。</p>
+<p>然后在管理员权限下，添加一条路由，学校网段的ip走默认网关，并提高优先级，这样VPN重启就不影响了。<br><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">route add <span class="number">10.102</span>.<span class="number">0.0</span> mask <span class="number">255.255</span>.<span class="number">0.0</span> <span class="number">101.76</span>.<span class="number">255.254</span> metric <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
 <p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202409121620484.png" alt="image">​</p>
 <h2 id="4-远程控制"><a href="#4-远程控制" class="headerlink" title="4 远程控制"></a>4 远程控制</h2><p>可以使用todesk：<a href="https://www.todesk.com/">ToDesk远程桌面软件-免费安全流畅的远程连接电脑手机</a></p>
 <p>‍</p>
