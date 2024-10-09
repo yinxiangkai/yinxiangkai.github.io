@@ -210,7 +210,21 @@ template {
   display: none
 }
 
+.hidden-text {
+    color: transparent;
+    user-select: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
 
+.hidden-text:hover {
+    background-color: #f6f1f1; /* 鼠标悬停时的背景色，可根据需要调整 */
+}
+
+.hidden-text:active {
+    color: inherit; /* 默认文本颜色 */
+    user-select: text;
+}
 .limit-one-line,
 #article-container .flink .flink-item-name,
 #article-container .flink .flink-item-desc,
