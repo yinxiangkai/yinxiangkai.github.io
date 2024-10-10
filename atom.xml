@@ -6,7 +6,7 @@
   <link href="http://qifeng.xyz/atom.xml" rel="self"/>
   
   <link href="http://qifeng.xyz/"/>
-  <updated>2024-10-05T13:44:17.464Z</updated>
+  <updated>2024-10-10T07:56:28.407Z</updated>
   <id>http://qifeng.xyz/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CUDA 环境配置</title>
+    <link href="http://qifeng.xyz/posts/a1546b3a.html"/>
+    <id>http://qifeng.xyz/posts/a1546b3a.html</id>
+    <published>2024-10-10T07:55:04.000Z</published>
+    <updated>2024-10-10T07:56:28.407Z</updated>
+    
+    
+    <summary type="html">主要介绍如何配置cuda环境</summary>
+    
+    
+    
+    <category term="杂项" scheme="http://qifeng.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+    <category term="CUDA" scheme="http://qifeng.xyz/tags/CUDA/"/>
+    
+    <category term="环境" scheme="http://qifeng.xyz/tags/%E7%8E%AF%E5%A2%83/"/>
+    
+  </entry>
   
   <entry>
     <title>Shared Memory 大小限制</title>
@@ -105,25 +126,6 @@
   </entry>
   
   <entry>
-    <title>bib 国标模板</title>
-    <link href="http://qifeng.xyz/posts/c0dc4c.html"/>
-    <id>http://qifeng.xyz/posts/c0dc4c.html</id>
-    <published>2024-06-23T06:14:41.000Z</published>
-    <updated>2024-07-08T02:11:19.520Z</updated>
-    
-    
-    <summary type="html">本文呢主要介绍了bib文件中参考文献的国标格式。</summary>
-    
-    
-    
-    <category term="杂项" scheme="http://qifeng.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
-    
-    
-    <category term="参考文献" scheme="http://qifeng.xyz/tags/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE/"/>
-    
-  </entry>
-  
-  <entry>
     <title>ZKP 发展脉络</title>
     <link href="http://qifeng.xyz/posts/e16561b3.html"/>
     <id>http://qifeng.xyz/posts/e16561b3.html</id>
@@ -139,6 +141,25 @@
     
     
     <category term="ZKP" scheme="http://qifeng.xyz/tags/ZKP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>bib 国标模板</title>
+    <link href="http://qifeng.xyz/posts/c0dc4c.html"/>
+    <id>http://qifeng.xyz/posts/c0dc4c.html</id>
+    <published>2024-06-23T06:14:41.000Z</published>
+    <updated>2024-07-08T02:11:19.520Z</updated>
+    
+    
+    <summary type="html">本文呢主要介绍了bib文件中参考文献的国标格式。</summary>
+    
+    
+    
+    <category term="杂项" scheme="http://qifeng.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+    <category term="参考文献" scheme="http://qifeng.xyz/tags/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE/"/>
     
   </entry>
   
