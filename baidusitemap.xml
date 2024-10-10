@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://qifeng.xyz/posts/1ea709cb.html</loc>
+    <lastmod>2024-10-10</lastmod>
+  </url>
+  <url>
+    <loc>http://qifeng.xyz/posts/89d9e386.html</loc>
+    <lastmod>2024-10-10</lastmod>
+  </url>
+  <url>
+    <loc>http://qifeng.xyz/posts/c0dc4c.html</loc>
+    <lastmod>2024-10-10</lastmod>
+  </url>
+  <url>
     <loc>http://qifeng.xyz/posts/b49c4352.html</loc>
     <lastmod>2024-10-10</lastmod>
   </url>
@@ -25,14 +37,6 @@
     <lastmod>2024-10-10</lastmod>
   </url>
   <url>
-    <loc>http://qifeng.xyz/posts/1ea709cb.html</loc>
-    <lastmod>2024-10-05</lastmod>
-  </url>
-  <url>
-    <loc>http://qifeng.xyz/posts/89d9e386.html</loc>
-    <lastmod>2024-10-05</lastmod>
-  </url>
-  <url>
     <loc>http://qifeng.xyz/posts/a260d87d.html</loc>
     <lastmod>2024-09-13</lastmod>
   </url>
@@ -51,9 +55,5 @@
   <url>
     <loc>http://qifeng.xyz/posts/a0adbc0f.html</loc>
     <lastmod>2024-07-12</lastmod>
-  </url>
-  <url>
-    <loc>http://qifeng.xyz/posts/c0dc4c.html</loc>
-    <lastmod>2024-07-08</lastmod>
   </url>
 </urlset> 
