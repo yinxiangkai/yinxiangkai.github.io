@@ -2,6 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://qifeng.xyz/posts/50b55d72.html</loc>
+    
+    <lastmod>2024-10-10</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qifeng.xyz/posts/a260d87d.html</loc>
+    
+    <lastmod>2024-10-10</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qifeng.xyz/posts/f191b528.html</loc>
+    
+    <lastmod>2024-10-10</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://qifeng.xyz/posts/1ea709cb.html</loc>
     
     <lastmod>2024-10-10</lastmod>
@@ -140,33 +167,6 @@
     <loc>http://qifeng.xyz/gallery/%E9%A3%8E%E6%99%AF.html</loc>
     
     <lastmod>2024-09-27</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qifeng.xyz/posts/a260d87d.html</loc>
-    
-    <lastmod>2024-09-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qifeng.xyz/posts/f191b528.html</loc>
-    
-    <lastmod>2024-09-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qifeng.xyz/posts/50b55d72.html</loc>
-    
-    <lastmod>2024-09-11</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
