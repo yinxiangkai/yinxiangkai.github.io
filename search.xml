@@ -725,6 +725,45 @@ A(x)\cdot B(x)=IDFT(DFT(A)\cdot DFT(B))</script><p>如果使用$DIF$完成$DFT$�
       </tags>
   </entry>
   <entry>
+    <title>论文工具速览</title>
+    <url>/posts/fcebcda5.html</url>
+    <content><![CDATA[<h2 id="论文搜索"><a href="#论文搜索" class="headerlink" title="论文搜索"></a>论文搜索</h2><p>论文搜索直接使用谷歌学术。</p>
+<p>介绍一个论文标记插件：CCFrank，可以标记论文所在期刊会议在CCF评价体系中的分类</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202411271625983.png" alt="image">​</p>
+<h2 id="论文管理"><a href="#论文管理" class="headerlink" title="论文管理"></a>论文管理</h2><p>论文管理工具推荐<a href="https://www.zotero.org/download/">Zotero </a>，顺便安装一下浏览器插件方便添加。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202411271628884.png" alt="image">​</p>
+<p>去<a href="https://zotero-chinese.com/plugins/#search=mar">Zotero 插件商店 </a>插件市场下载市场插件(z注意版本)</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202411271729136.png" alt="image">​</p>
+<p>下载后在zetero中点加导航栏-&gt;工具-&gt;插件 将下载的.xpi文件拖到插件窗口中。</p>
+<p>此时导航栏-&gt;工具下出现插件市场，建议安装下述两个插件。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202411271730079.png" alt="image">​</p>
+<h4 id="向zetero添加条目"><a href="#向zetero添加条目" class="headerlink" title="向zetero添加条目"></a>向zetero添加条目</h4><p>在“我的文库”中创建目录然后打开目录保持zetero打开状态，去往浏览器，找到需要的资源点击插件添加。如果想要保存论文pdf，需要先获取访问许可。访问许可认证选择机构，填写Shandong university 就行。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202411271714542.png" alt="image">​</p>
+<h4 id="生成文献"><a href="#生成文献" class="headerlink" title="生成文献"></a>生成文献</h4><p>可以直接点击条目右键选择用算选条目建立参考文献，选择相应的输出格式即可。</p>
+<p>国内需要使用国标格式</p>
+<p>在导航栏-&gt;设置-&gt;引用-&gt;获得更多样式，搜索china添加即可</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202411271721679.png" alt="image">​</p>
+<h4 id="word使用"><a href="#word使用" class="headerlink" title="word使用"></a>word使用</h4><p>在想要插入文献的位置，选择插入引用，在出现的搜索栏中搜索相应的条目加入即可。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202411271714320.png" alt="image">​</p>
+<p>全部加入后，在参考文献部分生成列表</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202411271718780.png" alt="image">​</p>
+<h2 id="翻译工具"><a href="#翻译工具" class="headerlink" title="翻译工具"></a>翻译工具</h2><p>翻译工具可以使用<a href="https://www.zhiyunwenxian.cn/">知云文献翻译客户端软件</a>，提供了知云翻译和xtranslator两种工具，后者可以在任意页面使用，前者需要将文件导入知云。</p>
+<h2 id="写作工具"><a href="#写作工具" class="headerlink" title="写作工具"></a>写作工具</h2><p>overleaf多人协作组里有会员账号。</p>
+<h2 id="笔记工具"><a href="#笔记工具" class="headerlink" title="笔记工具"></a>笔记工具</h2><p>国内推荐思源或者Typora</p>
+<h2 id="绘图工具："><a href="#绘图工具：" class="headerlink" title="绘图工具："></a>绘图工具：</h2><p>word推荐Visio。</p>
+<p>Adobe illustrator 学校正版软件平台下载。</p>
+<p>数据处理使用python <a href="https://matplotlib.org/">Matplotlib</a>库。</p>
+<p>‍</p>
+<p>‍</p>
+]]></content>
+      <categories>
+        <category>分类</category>
+      </categories>
+      <tags>
+        <tag>标签</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CUDA 环境配置</title>
     <url>/posts/a1546b3a.html</url>
     <content><![CDATA[<h2 id="1-cuda安装"><a href="#1-cuda安装" class="headerlink" title="1 cuda安装"></a>1 cuda安装</h2><p>首先查看操作系统版本</p>
