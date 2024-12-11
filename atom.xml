@@ -6,7 +6,7 @@
   <link href="http://qifeng.xyz/atom.xml" rel="self"/>
   
   <link href="http://qifeng.xyz/"/>
-  <updated>2024-11-29T09:33:55.627Z</updated>
+  <updated>2024-12-11T09:06:52.075Z</updated>
   <id>http://qifeng.xyz/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Word 写论文</title>
+    <link href="http://qifeng.xyz/posts/fc1d140d.html"/>
+    <id>http://qifeng.xyz/posts/fc1d140d.html</id>
+    <published>2024-12-11T08:55:13.000Z</published>
+    <updated>2024-12-11T09:06:52.075Z</updated>
+    
+    
+    <summary type="html">介绍下用word 写论文常用的一些技巧。</summary>
+    
+    
+    
+    <category term="杂项" scheme="http://qifeng.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+    <category term="学术" scheme="http://qifeng.xyz/tags/%E5%AD%A6%E6%9C%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>学术工具速览</title>
