@@ -82,7 +82,7 @@
     <link href="http://qifeng.xyz/posts/1ea709cb.html"/>
     <id>http://qifeng.xyz/posts/1ea709cb.html</id>
     <published>2024-10-05T13:42:01.000Z</published>
-    <updated>2024-10-11T02:06:34.548Z</updated>
+    <updated>2024-12-16T01:53:57.325Z</updated>
     
     
     <summary type="html">介绍对对共享内存大小的调整。</summary>
@@ -95,6 +95,8 @@
     
     
     <category term="CUDA" scheme="http://qifeng.xyz/tags/CUDA/"/>
+    
+    <category term="共享内存" scheme="http://qifeng.xyz/tags/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98/"/>
     
   </entry>
   
@@ -149,7 +151,7 @@
     <link href="http://qifeng.xyz/posts/ed5d8a1b.html"/>
     <id>http://qifeng.xyz/posts/ed5d8a1b.html</id>
     <published>2024-07-08T02:01:16.000Z</published>
-    <updated>2024-10-11T02:06:39.223Z</updated>
+    <updated>2024-12-17T07:39:50.963Z</updated>
     
     
     <summary type="html">本文主要介绍通过WMMA API 使用TensorCore的方法。</summary>
@@ -162,6 +164,8 @@
     
     
     <category term="CUDA" scheme="http://qifeng.xyz/tags/CUDA/"/>
+    
+    <category term="张量核心" scheme="http://qifeng.xyz/tags/%E5%BC%A0%E9%87%8F%E6%A0%B8%E5%BF%83/"/>
     
   </entry>
   
@@ -246,11 +250,11 @@
   </entry>
   
   <entry>
-    <title>认识GPU</title>
+    <title>赛博土木B-CUDA系列01：认识GPU</title>
     <link href="http://qifeng.xyz/posts/50b55d72.html"/>
     <id>http://qifeng.xyz/posts/50b55d72.html</id>
     <published>2024-03-23T06:14:41.000Z</published>
-    <updated>2024-10-11T02:06:20.884Z</updated>
+    <updated>2024-12-16T01:58:10.979Z</updated>
     
     
     <summary type="html">本主要介绍了N卡架构的发展脉络。</summary>
@@ -267,6 +271,8 @@
     <category term="架构" scheme="http://qifeng.xyz/tags/%E6%9E%B6%E6%9E%84/"/>
     
     <category term="GPU" scheme="http://qifeng.xyz/tags/GPU/"/>
+    
+    <category term="赛博土木B" scheme="http://qifeng.xyz/tags/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8B/"/>
     
   </entry>
   
