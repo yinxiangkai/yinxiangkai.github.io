@@ -725,6 +725,601 @@ A(x)\cdot B(x)=IDFT(DFT(A)\cdot DFT(B))</script><p>如果使用$DIF$完成$DFT$�
       </tags>
   </entry>
   <entry>
+    <title>赛博土木A-深度学习01：机器学习概述</title>
+    <url>/posts/a098a643.html</url>
+    <content><![CDATA[<h2 id="1-机器学习组件"><a href="#1-机器学习组件" class="headerlink" title="1 机器学习组件"></a>1 机器学习组件</h2><p>机器学习是人工智能的一个分支，机器学习主要由图所示的组件构成，即：数据、模型、目标函数、算法。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202501031713265.svg" alt="图1 机器学习组件" title="图1 机器学习组件">​</p>
+<p><strong>数据：</strong> 数据集由一个个独立的样本组成，样本（数据点/数据实例）由一组称为特征的属性构成，监督学习还会包含标签。</p>
+<p><strong>模型：</strong> 对数据的处理，根据输入的数据给出相应的结果。模型存在一些列参数，参数可以影响模型的效果。</p>
+<p><strong>目标函数：</strong> 用来量化模型的有效性。</p>
+<p><strong>算法：</strong> 调整模型参数以优化模型的效果。</p>
+<p>‍</p>
+<h2 id="2-机器学习分类"><a href="#2-机器学习分类" class="headerlink" title="2 机器学习分类"></a>2 机器学习分类</h2><h3 id="2-1-监督学习"><a href="#2-1-监督学习" class="headerlink" title="2.1 监督学习"></a>2.1 监督学习</h3><p>监督学习(supervised learning)擅长在“给定输入特征”的情况下预测标签。训练时需要提供一个聚到的训练样本集，每个样本包含特征和相应标签值。</p>
+<p>监督学习包含如下几类问题：</p>
+<ul>
+<li>回归：根据特征评估标签值（e.g. 价格）。</li>
+<li>分类：预测样本属于属于哪个分类。</li>
+<li>标记：预测样本包含多个不互相排斥的分类。</li>
+<li>搜索：对搜索结果进行排序。</li>
+<li>推荐：个性化推荐。</li>
+<li>序列学习：样本之间存在前后联系（翻译）。</li>
+</ul>
+<h3 id="2-2-无监督学习"><a href="#2-2-无监督学习" class="headerlink" title="2.2 无监督学习"></a>2.2 无监督学习</h3><p>无监督学习的训练样本集不提供标签。主要处理如下的问题：</p>
+<ul>
+<li>聚类：对数据进行分类。</li>
+<li>主成分分析：用少量参数来描述数据的线性属性（运动轨迹：速度、方向、加速度）。</li>
+<li>因果关系：影响数据的根本原因。</li>
+<li>生成对抗性网络：合成数据。</li>
+</ul>
+<h3 id="2-3-强化学习"><a href="#2-3-强化学习" class="headerlink" title="2.3 强化学习"></a>2.3 强化学习</h3><p>监督学习与非监督学习都是一种离线学习，首先从环境中收集足够的样本进行训练，然后在环境中使用，训练好的模型不再受环境影响。</p>
+<p>强化学习则是与环境进行交互，其过程可以描述如下：在每个特定时间点,智能体从环境 接收一些观察,并且必须选择一个动作,然后通过某种机制将 其传输回环境,最后智能体从环境中获得奖励。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202412131553172.png" alt="图2 强化学习与环境的交互" title="图2 强化学习与环境的交互">​</p>
+<h2 id="3-深度学习"><a href="#3-深度学习" class="headerlink" title="3 深度学习"></a>3 深度学习</h2><p>深度学习是一种解决机器学习问题的一种工具，其依赖于数据与神经网络编程。深度是指其使用了多层模型。</p>
+<p>‍</p>
+<p>‍</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] 《动手学深度学习》 — 动手学深度学习 2.0.0 documentation[EB/OL]. [2024-12-21]. <a href="https://zh.d2l.ai/">https://zh.d2l.ai/</a>.</p>
+<p>‍</p>
+]]></content>
+      <categories>
+        <category>赛博土木</category>
+        <category>深度学习，基础</category>
+      </categories>
+      <tags>
+        <tag>赛博土木</tag>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>赛博土木A-深度学习03：softmax回归</title>
+    <url>/posts/e35c4051.html</url>
+    <content><![CDATA[<h2 id="1-分类问题"><a href="#1-分类问题" class="headerlink" title="1 分类问题"></a>1 分类问题</h2><p>一个样本有四个特征$x_1,x_2,x_3,x_4$,存在三个类别$\{1,2,3\}$。</p>
+<p>采用独热编码的形式表示标签：$y\in \{(1,0,0),(0,1,0),(0,0,1)\}$.</p>
+<p>为了估计所有类别的概率，需要多个输出。</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+o_1 &= x_1 w_{11} + x_2 w_{12} + x_3 w_{13} + x_4 w_{14} + b_1,\\
+o_2 &= x_1 w_{21} + x_2 w_{22} + x_3 w_{23} + x_4 w_{24} + b_2,\\
+o_3 &= x_1 w_{31} + x_2 w_{32} + x_3 w_{33} + x_4 w_{34} + b_3.
+\end{aligned}</script><p>向量化表示：</p>
+<script type="math/tex; mode=display">
+\mathbf{o} = \mathbf{W} \mathbf{x} + \mathbf{b}</script><p>神经网络结构如下：</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202412171957157.svg" alt="softmaxreg">​</p>
+<p>‍</p>
+<p>问题在于目前的$\mathbf{o}$未经规范化，其不满足概率基本公理。</p>
+<h2 id="2-softmax函数"><a href="#2-softmax函数" class="headerlink" title="2 softmax函数"></a>2 softmax函数</h2><p>softmax函数，通过求幂来保证预测非负，然后归一化处理。</p>
+<script type="math/tex; mode=display">
+\hat{\mathbf{y}} = \mathrm{softmax}(\mathbf{o}),\quad \hat{y}_j = \frac{\exp(o_j)}{\sum_k \exp(o_k)}</script><p>不难发现softmax并不改变概率的大小顺序，仅是让结果符合正确的概率分布。</p>
+<p>‍</p>
+<h2 id="3-损失函数"><a href="#3-损失函数" class="headerlink" title="3 损失函数"></a>3 损失函数</h2><p>对模型在训练集上的表现进行评估，可以用下面的公式进行表示，即在训练集的特征前提下，获得训练集标签的概率，$P$越接近$1$说明模型在训练集上的效果越好。</p>
+<script type="math/tex; mode=display">
+P(\mathbf{Y} \mid \mathbf{X}) = \prod_{i=1}^n P(\mathbf{y}^{(i)} \mid \mathbf{x}^{(i)})</script><p>根据最大似然估计，最大化$P$，相当于最小化负对数似然：</p>
+<script type="math/tex; mode=display">
+-\log P(\mathbf{Y} \mid \mathbf{X}) = \sum_{i=1}^n -\log P(\mathbf{y}^{(i)} \mid \mathbf{x}^{(i)})
+= \sum_{i=1}^n l(\mathbf{y}^{(i)}, \hat{\mathbf{y}}^{(i)})</script><p>损失函数：</p>
+<script type="math/tex; mode=display">
+l(\mathbf{y}, \hat{\mathbf{y}}) = - \sum_{j=1}^q y_j \log \hat{y}_j</script><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] 《动手学深度学习》 — 动手学深度学习 2.0.0 documentation[EB/OL]. [2024-12-21]. <a href="https://zh.d2l.ai/">https://zh.d2l.ai/</a>.</p>
+]]></content>
+      <categories>
+        <category>赛博土木</category>
+        <category>深度学习，基础</category>
+      </categories>
+      <tags>
+        <tag>赛博土木</tag>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>赛博土木A-深度学习02：线性回归</title>
+    <url>/posts/2e34cdb8.html</url>
+    <content><![CDATA[<p>回归：能为一个或多个自变量与因变量之间关系建模的一类方法。</p>
+<h2 id="1-线性回归模型"><a href="#1-线性回归模型" class="headerlink" title="1 线性回归模型"></a>1 线性回归模型</h2><p>线性回归基于如下假设：</p>
+<ol>
+<li>自变量与因变量的关系是线性的。</li>
+<li>包含噪声值，且噪声值是正常的。</li>
+</ol>
+<p>将线性回归与机器学习模型进行结合，现有数据即训练数据集，每组自变量与因变量视为一个样本（数据点）（$(\mathbf{x}^i,y^i)$）。自变量称为特征($\mathbf{x}^{i}=[x^i_1,x^i_2,\ldots,x^i_m]^T$)，因变量即标签($y^i$)。</p>
+<h2 id="2-线性模型"><a href="#2-线性模型" class="headerlink" title="2 线性模型"></a>2 线性模型</h2><p>线性模型基本形式是对自变量的加权和：</p>
+<script type="math/tex; mode=display">
+\hat{y^i} =\omega_1x^i_1 +\ldots\omega_mx^i_m+b</script><p>其中，$\hat{y^i}$ 是样本的预测值,$\omega_j$是权重，b是偏置，以向量形式表示, $\mathbf{x},\mathbf{w} \in \mathbb{R}^m$：</p>
+<script type="math/tex; mode=display">
+\hat{y}^i =\mathbf{w}^T\mathbf{x}^i+b</script><p>可以通过矩阵表示整个数据集(规模为$n$)，$\mathbf{X} \in \mathbb{R}^{n \times m}$：</p>
+<script type="math/tex; mode=display">
+\hat{\mathbf{y}}= \mathbf{Xw}+b</script><p>无论采样什么样的手段来观察特征$\mathbf{X}$和标签$\mathbf{y}$也会存在观测误差，因此需要添加噪声项用以表示观测误差。</p>
+<p>与机器学习组件进行对应，可以发现$\mathbf{w},b$是模型参数，形成完整的机器学习结构还需要如下两个组件：</p>
+<ol>
+<li>一种模型质量的度量方式。</li>
+<li>一种能够更新模型以提高模型预测质量的方法。</li>
+</ol>
+<h2 id="3-损失函数"><a href="#3-损失函数" class="headerlink" title="3 损失函数"></a>3 损失函数</h2><p>损失函数用于量化目标实际值与预测值之间的差距（损失），一般使用正整数表示。</p>
+<p>平方误差公式：</p>
+<script type="math/tex; mode=display">
+l^i(\mathbf{w},b)=\frac{1}{2}(\hat{y^i}-y^i)^2</script><p>这里的$\frac{1}{2}$仅仅是为了求导后形式简单而选择的。</p>
+<p>理想的参数$(\mathbf{w}^<em>,b^</em>)$使得在样本上损失最小：</p>
+<script type="math/tex; mode=display">
+\mathbf{w}^*,b^* =\underset{\mathbf{w},b}{argmin}  \ L(\mathbf{w},b)</script><p>‍</p>
+<h2 id="4-解析解"><a href="#4-解析解" class="headerlink" title="4 解析解"></a>4 解析解</h2><p>对于线性回归模型，理想参数（解）可以用公式进行表示，可以称为解析解。</p>
+<p>将偏置融入$\mathbf{w}$结合形成新的向量$\mathbf{w}$,问题转化为最小化$||\mathbf{y}-\mathbf{Xw}||^2$:</p>
+<script type="math/tex; mode=display">
+\mathbf{w}^* =(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T \mathbf{y}</script><p>‍</p>
+<h2 id="5-随机梯度下降"><a href="#5-随机梯度下降" class="headerlink" title="5 随机梯度下降"></a>5 随机梯度下降</h2><p>但是大多数情况下是无法获得解析解的，因此需要寻找一种方式来找到理想参数。</p>
+<p>梯度下降是在损失函数递减的方向是更新参数来降低误差。最简单的做法是计算损失函数关于模型参数的导数。</p>
+<p>为了加快速度，通常更新时从训练集中抽取小批样本进行计算<br>（1）初始化模型参数的值，如随机初始化；<br>（2）从数据集中随机抽取小批量样本且在负梯度的方向上更新参数，并不断迭代这一步骤。<br>对于平方损失和仿射变换，我们可以明确地写成如下形式:</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \mathbf{w} &\leftarrow \mathbf{w} -   \frac{\eta}{|\mathcal{B}|} \sum_{i \in \mathcal{B}} \partial_{\mathbf{w}} l^{(i)}(\mathbf{w}, b) = \mathbf{w} - \frac{\eta}{|\mathcal{B}|} \sum_{i \in \mathcal{B}} \mathbf{x}^{(i)} \left(\mathbf{w}^\top \mathbf{x}^{(i)} + b - y^{(i)}\right),\\ b &\leftarrow b -  \frac{\eta}{|\mathcal{B}|} \sum_{i \in \mathcal{B}} \partial_b l^{(i)}(\mathbf{w}, b)  = b - \frac{\eta}{|\mathcal{B}|} \sum_{i \in \mathcal{B}} \left(\mathbf{w}^\top \mathbf{x}^{(i)} + b - y^{(i)}\right). \end{aligned}</script><p>$|\mathcal{B}|$表示每个小批量中的样本数，这也称为批量大小。$\eta$表示学习率。这两个参数是提前设置的，不会在训练中改变，称为超参数。调整超参数的过程称为调参。</p>
+<p>‍</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] 《动手学深度学习》 — 动手学深度学习 2.0.0 documentation[EB/OL]. [2024-12-21]. <a href="https://zh.d2l.ai/">https://zh.d2l.ai/</a>.</p>
+]]></content>
+      <categories>
+        <category>赛博土木</category>
+        <category>深度学习，基础</category>
+      </categories>
+      <tags>
+        <tag>赛博土木</tag>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>赛博土木A-深度学习04：多层感知机</title>
+    <url>/posts/90bbb405.html</url>
+    <content><![CDATA[<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h2><p>通过在输入与输出之间增加隐藏层，可以构建多层网络，前$L − 1$层看作表示,把最后一层看作线性预测器。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202412171956836.png" alt="image">​</p>
+<p>数学表示：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+    \mathbf{H} & = \mathbf{X} \mathbf{W}^{(1)} + \mathbf{b}^{(1)}, \\
+    \mathbf{O} & = \mathbf{H}\mathbf{W}^{(2)} + \mathbf{b}^{(2)}.
+\end{aligned}</script><p>没有额外的处理，多层网络与单层线性网络没有本质的不同：</p>
+<script type="math/tex; mode=display">
+\mathbf{O} = (\mathbf{X} \mathbf{W}^{(1)} + \mathbf{b}^{(1)})\mathbf{W}^{(2)} + \mathbf{b}^{(2)} = \mathbf{X} \mathbf{W}^{(1)}\mathbf{W}^{(2)} + \mathbf{b}^{(1)} \mathbf{W}^{(2)} + \mathbf{b}^{(2)} = \mathbf{X} \mathbf{W} + \mathbf{b}</script><p>于是引入了非线性的激活函数$\sigma$，对于激活函数$\sigma()$的结果称为活性值。</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+    \mathbf{H} & = \sigma(\mathbf{X} \mathbf{W}^{(1)} + \mathbf{b}^{(1)}), \\
+    \mathbf{O} & = \mathbf{H}\mathbf{W}^{(2)} + \mathbf{b}^{(2)}.\\
+\end{aligned}</script><h2 id="2-激活函数"><a href="#2-激活函数" class="headerlink" title="2 激活函数"></a>2 激活函数</h2><h5 id="ReLU-函数"><a href="#ReLU-函数" class="headerlink" title="ReLU 函数"></a>ReLU 函数</h5><script type="math/tex; mode=display">
+\operatorname{ReLU}(x) = \max(x, 0)</script><h5 id="sigmod-函数"><a href="#sigmod-函数" class="headerlink" title="sigmod 函数"></a>sigmod 函数</h5><script type="math/tex; mode=display">
+\operatorname{sigmoid}(x) = \frac{1}{1 + \exp(-x)}</script><h5 id="tanh"><a href="#tanh" class="headerlink" title="tanh"></a>tanh</h5><script type="math/tex; mode=display">
+\operatorname{tanh}(x) = \frac{1 - \exp(-2x)}{1 + \exp(-2x)}</script><h2 id="3-模型选择"><a href="#3-模型选择" class="headerlink" title="3 模型选择"></a>3 模型选择</h2><h3 id="3-1-训练误差与泛化误差"><a href="#3-1-训练误差与泛化误差" class="headerlink" title="3.1 训练误差与泛化误差"></a>3.1 训练误差与泛化误差</h3><p>对于模型在训练集和理想状态的正确性可以用训练误差和泛化误差及进行表示：</p>
+<p><strong>训练误差：</strong></p>
+<p>模型在训练集上计算得到的误差。</p>
+<p><strong>泛化误差：</strong></p>
+<p>模型从原始样本的分布中抽取的无限多数据样本时，模型误差的期望。</p>
+<p>显然泛化误差是一种抽象概念无法实际计算获得。</p>
+<h3 id="3-2-拟合与欠拟合"><a href="#3-2-拟合与欠拟合" class="headerlink" title="3.2 拟合与欠拟合"></a>3.2 拟合与欠拟合</h3><p>根据模型在训练集和测试集上的效果可以形成两种对模型的评价：</p>
+<p><strong>过拟合：</strong></p>
+<p>过拟合是指在训练集上准确性显著高于测试集。</p>
+<p><strong>欠拟合：</strong></p>
+<p>欠拟合情况下，模型在训练集和测试集上的准确性没有明显差距，但是整体正确性较低。</p>
+<h3 id="3-3-模型复杂性"><a href="#3-3-模型复杂性" class="headerlink" title="3.3 模型复杂性"></a>3.3 模型复杂性</h3><p>采用不同策略的模型之间很难进行比较，只能泛泛的归纳为：参数数量，参数取值范围，训练迭代轮数。</p>
+<p>在理论上模型复杂度越高，其能处理的任务更多。但是计算机是一个实践的学科，在理论只具有指导意义。复杂的模型需要足够大的训练集（成本高昂），过小的样本集容易导致欠拟合。</p>
+<p>‍</p>
+<h3 id="3-4-验证集"><a href="#3-4-验证集" class="headerlink" title="3.4 验证集"></a>3.4 验证集</h3><p>模型中存在人为设置的超参数。通常会根据在测试集上的表现来调整超参数。</p>
+<p>如果我们将训练和测试过程都视为训练的过程，会出现超参数面对测试集过拟合的问题。</p>
+<p>为此我们需要在增加一个样本集合用来充当前文测试集所扮演的角色，从何避免对测试集的过拟合。这个集合就是验证集。</p>
+<h4 id="k折交叉验证"><a href="#k折交叉验证" class="headerlink" title="k折交叉验证"></a>k折交叉验证</h4><p>将训练集分为K份，其中一份用作验证集，其余用于新的训练集。进行K次实验，取平均估计训练和验证误差。</p>
+<p>‍</p>
+<h2 id="4-正则化"><a href="#4-正则化" class="headerlink" title="4 正则化"></a>4 正则化</h2><p>正则化包含一系列用于纠正机器学习模型过拟合问题的技术。因此，正则化是一种用于提高模型泛化能力的方法。正则化可在增大训练误差的前提下提高泛化能力。换言之，正则化方法通常会导致对训练数据的预测不太准确，但对测试数据的预测更为准确。</p>
+<h3 id="4-1-范数"><a href="#4-1-范数" class="headerlink" title="4.1 范数"></a>4.1 范数</h3><p>在机器学习中范数指的是从向量到标量的映射。</p>
+<p>满足如下性质：</p>
+<ol>
+<li><p>缩放：</p>
+<script type="math/tex; mode=display">
+ f(\alpha \mathbf{x})=|\alpha|f(\mathbf{x})</script></li>
+<li><p>三角不等式：</p>
+<script type="math/tex; mode=display">
+ f(\mathbf{x}+\mathbf{y})\lt f(\mathbf{x})+f(\mathbf{y})</script></li>
+<li><p>非负：</p>
+<script type="math/tex; mode=display">
+ f(\mathbf{x}) \ge 0</script></li>
+</ol>
+<p>将欧几里得空间内的向量长度(相对坐标原点)，推广到一般向量空间中：</p>
+<script type="math/tex; mode=display">
+\|\mathbf{x}\|_2 = \sqrt{\sum_{i=1}^n x_i^2}</script><p>上述表示称为$L_2$范式，为了减少受异常值的影响通常采用$L_1$范式：</p>
+<script type="math/tex; mode=display">
+\|\mathbf{x}\|_1 = \sum_{i=1}^n \left|x_i \right|</script><p>给出范式的一般化表示$L_p$：</p>
+<script type="math/tex; mode=display">
+\|\mathbf{x}\|_p = \left(\sum_{i=1}^n \left|x_i \right|^p \right)^{1/p}</script><p>矩阵的Frobenius范数：</p>
+<script type="math/tex; mode=display">
+\|\mathbf{X}\|_F = \sqrt{\sum_{i=1}^m \sum_{j=1}^n x_{ij}^2}</script><h3 id="4-2-权重衰减"><a href="#4-2-权重衰减" class="headerlink" title="4.2 权重衰减"></a>4.2 权重衰减</h3><p>权重衰减用参数向量的范数（$L_2$范数）来衡量模型的复杂度，然后将其作为惩罚项添加到损失函数中。</p>
+<h3 id="4-3-暂退法"><a href="#4-3-暂退法" class="headerlink" title="4.3 暂退法"></a>4.3 暂退法</h3><p>暂退法在计算每层神经网络时引入噪声。在标准暂退法正则化中，每个中间活性值以暂退概率$p$进行替换：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+h' =
+\begin{cases}
+    0 & \text{ 概率为 } p \\
+    \frac{h}{1-p} & \text{ 其他情况}
+\end{cases}
+\end{aligned}</script><p>‍</p>
+<p>‍</p>
+<p>‍</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] 《动手学深度学习》 — 动手学深度学习 2.0.0 documentation[EB/OL]. [2024-12-21]. <a href="https://zh.d2l.ai/">https://zh.d2l.ai/</a>.<br>[2] 什么是正则化？| IBM[EB/OL]. (2023-11-10)[2024-12-21]. <a href="https://www.ibm.com/cn-zh/topics/regularization">https://www.ibm.com/cn-zh/topics/regularization</a>.</p>
+]]></content>
+      <categories>
+        <category>赛博土木</category>
+        <category>深度学习，基础</category>
+      </categories>
+      <tags>
+        <tag>赛博土木</tag>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>赛博土木A-深度学习05：块组件</title>
+    <url>/posts/5afd145b.html</url>
+    <content><![CDATA[<p>‍</p>
+<p>复杂的神经网络模型通常由多层结构构成，将其基本构成部分称为<strong>块</strong>，描单层、多层组件或者整个模型。</p>
+<p>从单纯的编程视角出发，块是同过类实现的，考虑到神经网络的性质，这些类需要具备如下的基本功能：</p>
+<ol>
+<li>输入数据作为前向传播的函数的参数。</li>
+<li>通过前向传播函数生成输出。</li>
+<li>计算输出的梯度。</li>
+<li>存储和访问前向传播计算所需的参数。</li>
+<li>根据需求初始化模型参数。</li>
+</ol>
+<p>‍</p>
+]]></content>
+      <categories>
+        <category>赛博土木</category>
+        <category>深度学习，基础</category>
+      </categories>
+      <tags>
+        <tag>赛博土木</tag>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>赛博土木A-深度学习06：卷积神经网络</title>
+    <url>/posts/af6b5fbd.html</url>
+    <content><![CDATA[<h2 id="1-全连接层到卷积"><a href="#1-全连接层到卷积" class="headerlink" title="1 全连接层到卷积"></a>1 全连接层到卷积</h2><p>多层感知机更适合处理表格样本数据，但是对于具有一定结构的数据集就不再适用，例如图片。</p>
+<h3 id="1-1-不变性"><a href="#1-1-不变性" class="headerlink" title="1.1 不变性"></a>1.1 不变性</h3><p>不变性是指检测对象出现在图片不同的位置，不影响检测对象的形状。</p>
+<p>适合于计算机视觉的神经网络架构：</p>
+<ol>
+<li><strong>平移不变性：</strong> 不管检测对象出现在图像中的哪个位置,神经网络的前面几层  应该对相同的图像区域具有相似的反应,即为“平移不变性”。</li>
+<li><strong>局部性：</strong> 神经网络的前面几层应该只探索输入图像中的局部区域,而不过度在意图像中相隔  较远区域的关系,这就是“局部性”原则。最终,可以聚合这些局部特征,以在整个图像级别进行预测。</li>
+</ol>
+<h3 id="1-2-多层感知机的限制"><a href="#1-2-多层感知机的限制" class="headerlink" title="1.2 多层感知机的限制"></a>1.2 多层感知机的限制</h3><p>输入是二维图像$\mathbf{X}$，隐藏表示$\mathbf{H}$也是矩阵，两者都是二维张量。</p>
+<p>使用$[\mathbf{X}]_{i, j}$和$[\mathbf{H}]_{i, j}$分别表示输入图像和隐藏表示中位置$(i,j)$处的像素。为了使每个隐藏神经元都能接收到每个输入像素的信息，参数从权重矩阵转变为为四阶权重张量$\mathsf{W}$。假设<strong>$\mathbf{U}$</strong>包含偏置参数，我们可以将全连接层形式化地表示为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \left[\mathbf{H}\right]_{i, j} &= [\mathbf{U}]_{i, j} + \sum_k \sum_l[\mathsf{W}]_{i, j, k, l}  [\mathbf{X}]_{k, l}\\ &=  [\mathbf{U}]_{i, j} +
+\sum_a \sum_b [\mathsf{V}]_{i, j, a, b}  [\mathbf{X}]_{i+a, j+b}.\end{aligned}</script><p>其中，$[\mathsf{V}]_{i, j, a, b} = [\mathsf{W}]_{i, j, i+a, j+b}$。</p>
+<h4 id="1-2-1-平移不变性"><a href="#1-2-1-平移不变性" class="headerlink" title="1.2.1 平移不变性"></a>1.2.1 平移不变性</h4><p>为了满足平移不变性，参数和偏置应当与检测位置无关。因此$\mathbf{U}$和$\mathsf{V}$应当与$(i,j)$无关。即$[\mathsf{V}]_{i, j, a, b} = [\mathbf{V}]_{a, b}$，$\mathbf{U}=u$。因此$\mathbf{H}$简化为：</p>
+<script type="math/tex; mode=display">
+[\mathbf{H}]_{i, j} = u + \sum_a\sum_b [\mathbf{V}]_{a, b} [\mathbf{X}]_{i+a, j+b}</script><h4 id="1-2-2-局部性"><a href="#1-2-2-局部性" class="headerlink" title="1.2.2 局部性"></a>1.2.2 局部性</h4><p>为了满足局部性需要控制范围：</p>
+<script type="math/tex; mode=display">
+[\mathbf{H}]_{i, j} = u + \sum_{a = -\Delta}^{\Delta} \sum_{b = -\Delta}^{\Delta} [\mathbf{V}]_{a, b}  [\mathbf{X}]_{i+a, j+b}</script><p>上式就是一个卷积层，$\mathbf{V}$被称为卷积核，或者滤波器。</p>
+<h4 id="1-2-3-卷积"><a href="#1-2-3-卷积" class="headerlink" title="1.2.3 卷积"></a>1.2.3 卷积</h4><p>两个函数，比如$f, g: \mathbb{R}^d \to \mathbb{R}$之间的“卷积”被定义为：</p>
+<script type="math/tex; mode=display">
+(f * g)(\mathbf{x}) = \int f(\mathbf{z}) g(\mathbf{x}-\mathbf{z}) d\mathbf{z}</script><p>对于二维张量，则为$f$的索引$(a, b)$和$g$的索引$(i-a, j-b)$上的对应加和：</p>
+<script type="math/tex; mode=display">
+(f * g)(i, j) = \sum_a\sum_b f(a, b) g(i-a, j-b).</script><h4 id="1-2-4-通道"><a href="#1-2-4-通道" class="headerlink" title="1.2.4 通道"></a>1.2.4 通道</h4><p>图像本质上是三维的（宽、高、颜色）。以RGB图像为例其颜色由三个参数构成，并称这个大小为3的轴为通道维度。此外输出可能存在多个输出通道用以表示特殊空间特征（纹理等）所以实际上卷积核是四维的。</p>
+<script type="math/tex; mode=display">
+[\mathsf{H}]_{i,j,d} = \sum_{a = -\Delta}^{\Delta} \sum_{b = -\Delta}^{\Delta} \sum_c [\mathsf{V}]_{a, b, c, d} [\mathsf{X}]_{i+a, j+b, c}</script><h2 id="2-图像卷积"><a href="#2-图像卷积" class="headerlink" title="2 图像卷积"></a>2 图像卷积</h2><h3 id="2-1-互相关运算"><a href="#2-1-互相关运算" class="headerlink" title="2.1 互相关运算"></a>2.1 互相关运算</h3><p>卷积层做的并不是卷积操作，而是互相关操作，输入张量与核张量通过互相关运算产生输出张量。</p>
+<p>对于二维张量而言，卷积窗口从左到右，从上到下依次滑动并与核张量进行互相关运算（逐元素相乘并求和）。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202412231510115.svg" alt="correlation">​</p>
+<script type="math/tex; mode=display">
+0\times0+1\times1+3\times2+4\times3=19,\\
+1\times0+2\times1+4\times2+5\times3=25,\\
+3\times0+4\times1+6\times2+7\times3=37,\\
+4\times0+5\times1+7\times2+8\times3=43.</script><p>卷积层在计算完每个元素后还要加上偏置值。</p>
+<p>输出大小与输入大小$n_k\times n_w$，以及卷积核大小$h_k\times h_w$相关：</p>
+<script type="math/tex; mode=display">
+(n_h-k_h+1) \times (n_w-k_w+1)</script><h3 id="2-2-填充与步幅"><a href="#2-2-填充与步幅" class="headerlink" title="2.2 填充与步幅"></a>2.2 填充与步幅</h3><h4 id="2-2-1-填充"><a href="#2-2-1-填充" class="headerlink" title="2.2.1 填充"></a>2.2.1 填充</h4><p>图像卷积有个问题，随着卷积层数的增加会逐步丢失图像边缘信息。为此需要对图像边缘进行填充。</p>
+<p>填充后的输出大小：</p>
+<script type="math/tex; mode=display">
+(n_h-k_h+p_h+1) \times (n_w-k_w+p_w+1)</script><p>其中$p_h=k_h-1,p_w=k_w-1$。注意是左右各填充$\frac{p_w}{2}$，上下同理。</p>
+<h4 id="2-2-2-步幅"><a href="#2-2-2-步幅" class="headerlink" title="2.2.2 步幅"></a>2.2.2 步幅</h4><p>面对高像素图象时，信息是冗余的，因此可以提高卷积核每次滑动的元素个数，即步幅。</p>
+<p>输出大小：</p>
+<script type="math/tex; mode=display">
+[(n_h-k_h+p_h+s_h) /s_h]\times[ (n_w-k_w+p_w+s_w)/s_w]</script><h3 id="2-3-通道"><a href="#2-3-通道" class="headerlink" title="2.3 通道"></a>2.3 通道</h3><h4 id="2-3-1-多输入通道"><a href="#2-3-1-多输入通道" class="headerlink" title="2.3.1 多输入通道"></a>2.3.1 多输入通道</h4><p>卷积核应当与输入的通道数$c_i$保持一致，然后分别计算对应通道的互相管运算，最后进行求和。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202412231510334.svg" alt="conv-multi-in">​</p>
+<h4 id="2-3-2-多输出通道"><a href="#2-3-2-多输出通道" class="headerlink" title="2.3.2 多输出通道"></a>2.3.2 多输出通道</h4><p>对于$c_o$个输出通道，需要为每一个通道构建一个多输入通道卷积核，最后四维卷积核表示为：$c_o\times c_i \times k_h \times k_w$。</p>
+<h2 id="3-汇聚层-池化层"><a href="#3-汇聚层-池化层" class="headerlink" title="3 汇聚层/池化层"></a>3 汇聚层/池化层</h2><p>汇聚层是CNN中用于减小特征图尺寸的关键层级结构。其基本思想是通过对输入特征图的子区域进行聚合操作，以提取出更加鲁棒的特征并减小计算量。汇聚操作通常包括最大汇聚（Max Pooling）和平均汇聚（Average Pooling）两种方式。</p>
+<h3 id="3-1-感受野"><a href="#3-1-感受野" class="headerlink" title="3.1 感受野"></a>3.1 感受野</h3><p>通常我们希望获得是对整个图像的处理结果，需要插入汇聚层，使得每层的输出特征图变小，这就会导致，每个神经元对其敏感的感受野变大。</p>
+<p>感受野，指的是神经网络中神经元“看到的”输入区域，在卷积神经网络中，特征图上某个元素的计算受输入图像上某个区域的影响，这个区域即该元素的感受野。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202412231510918.png" alt="image">​</p>
+<h3 id="3-2-最大汇聚层与平均汇聚层"><a href="#3-2-最大汇聚层与平均汇聚层" class="headerlink" title="3.2  最大汇聚层与平均汇聚层"></a>3.2  最大汇聚层与平均汇聚层</h3><p>汇聚层也是存在一个窗口，但是不同与卷积层，汇聚层的窗口不含参数，只是对窗口覆盖的元素执行特定运算。最大汇聚层是计算计算最大值，平均汇聚层测试计算平均值。</p>
+<p>汇聚层的填充与步幅和卷积层没有什么区别。不同在于汇聚层在每个通道上进行单独运算，所以输入与输出的通道数一致。</p>
+<h2 id="4-CNN"><a href="#4-CNN" class="headerlink" title="4 CNN"></a>4 CNN</h2><h3 id="4-1-基本组成"><a href="#4-1-基本组成" class="headerlink" title="4.1 基本组成"></a>4.1 基本组成</h3><p>卷积神经网络由两个部分组成，分别是多层感知机(MLP)和特征提取器，特征提取器由卷积层、激活函数、汇聚层构成。</p>
+<p>特征提取器用于提取图片特征，MLP部分根据提取出来的特征进行分类。特征提取器的输出是特征图，通过展开转换为MLP的输入。</p>
+<h3 id="4-2-示例-LeNet"><a href="#4-2-示例-LeNet" class="headerlink" title="4.2  示例 LeNet"></a>4.2  示例 LeNet</h3><p>LeNet组成：</p>
+<p>特征提取器：两个卷积块</p>
+<p>多层感知机：三个全连接层</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202501031711929.svg" alt="lenet">​</p>
+<p>卷积块：一个卷积层+sigmod激活函数+平均汇聚层。</p>
+<p>卷积的输出维度：批量大小、通道数、高度、宽度。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202501031711858.svg" alt="lenet-vert">​</p>
+<p>为了将卷积块的输出转换为稠密块的输入，我们需要将其展平第一个维度是批次，第二个维度则是平面向量。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Conv2d output shape: 	 torch.Size([<span class="number">1</span>, <span class="number">6</span>, <span class="number">28</span>, <span class="number">28</span>])</span><br><span class="line">Sigmoid output shape: 	 torch.Size([<span class="number">1</span>, <span class="number">6</span>, <span class="number">28</span>, <span class="number">28</span>])</span><br><span class="line">AvgPool2d output shape:  torch.Size([<span class="number">1</span>, <span class="number">6</span>, <span class="number">14</span>, <span class="number">14</span>])</span><br><span class="line">Conv2d output shape: 	 torch.Size([<span class="number">1</span>, <span class="number">16</span>, <span class="number">10</span>, <span class="number">10</span>])</span><br><span class="line">Sigmoid output shape: 	 torch.Size([<span class="number">1</span>, <span class="number">16</span>, <span class="number">10</span>, <span class="number">10</span>])</span><br><span class="line">AvgPool2d output shape:  torch.Size([<span class="number">1</span>, <span class="number">16</span>, <span class="number">5</span>, <span class="number">5</span>])</span><br><span class="line">Flatten output shape: 	 torch.Size([<span class="number">1</span>, <span class="number">400</span>])</span><br><span class="line">Linear output shape: 	 torch.Size([<span class="number">1</span>, <span class="number">120</span>])</span><br><span class="line">Sigmoid output shape: 	 torch.Size([<span class="number">1</span>, <span class="number">120</span>])</span><br><span class="line">Linear output shape: 	 torch.Size([<span class="number">1</span>, <span class="number">84</span>])</span><br><span class="line">Sigmoid output shape: 	 torch.Size([<span class="number">1</span>, <span class="number">84</span>])</span><br><span class="line">Linear output shape: 	 torch.Size([<span class="number">1</span>, <span class="number">10</span>])</span><br></pre></td></tr></table></figure>
+<p>‍</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] 彻底搞懂感受野的含义与计算-腾讯云开发者社区-腾讯云[EB/OL]. [2024-12-23]. <a href="https://cloud.tencent.com/developer/article/1557374">https://cloud.tencent.com/developer/article/1557374</a>.<br>[2] 深度神经网络中的感受野(Receptive Field)[EB/OL]. [2024-12-23]. <a href="https://zhuanlan.zhihu.com/p/28492837">https://zhuanlan.zhihu.com/p/28492837</a>.<br>[3] 《动手学深度学习》 — 动手学深度学习 2.0.0 documentation[EB/OL]. [2024-12-21]. <a href="https://zh.d2l.ai/">https://zh.d2l.ai/</a>.</p>
+<p>‍</p>
+]]></content>
+      <categories>
+        <category>赛博土木</category>
+        <category>深度学习，基础</category>
+      </categories>
+      <tags>
+        <tag>赛博土木</tag>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>赛博土木A-深度学习07：现代卷积神经网络</title>
+    <url>/posts/f9ed3af.html</url>
+    <content><![CDATA[<h2 id="1-AlexNet"><a href="#1-AlexNet" class="headerlink" title="1 AlexNet"></a>1 AlexNet</h2><p>AlexNet 与letNet没有什么本质上的区别，只是增加了层数修改了一些细节。</p>
+<p>‍</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202412241543240.svg" alt="alexnet">​</p>
+<p>激活函数：采用了ReLU激活函数，取代sigmod。</p>
+<p>复杂度控制：通过暂退法控制模型的复杂度，而不是采用权重衰减。</p>
+<h2 id="2-块搭建网络，VGGNeT"><a href="#2-块搭建网络，VGGNeT" class="headerlink" title="2 块搭建网络，VGGNeT"></a>2 块搭建网络，VGGNeT</h2><p>利用卷积层、激活函数、汇聚层构成卷积块，然后重复使用该卷积块构成卷积部分。</p>
+<p> VGG 首先构建VGG块主要由多层卷积(每层有激活函数）以及一个汇聚层构成。然后重复使用VGG块，搭建VGG网络。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202412241544944.svg" alt="vgg">​</p>
+<h2 id="3-微网络构建网络，NiN"><a href="#3-微网络构建网络，NiN" class="headerlink" title="3 微网络构建网络，NiN"></a>3 微网络构建网络，NiN</h2><p>NIN提出一种新的方案，利用微神经网络替代卷积块，使用汇聚层进行最后的分类。传统的神经网络中MLP会破坏特征的空间结构。为此使用$1 \times 1$的卷积层对每个像素位置采用全连接，保证空间结构。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202412241914570.svg" alt="nin-compare">​</p>
+<h2 id="4-并行网络，GoogleNet"><a href="#4-并行网络，GoogleNet" class="headerlink" title="4 并行网络，GoogleNet"></a>4 并行网络，GoogleNet</h2><p>GoogleNet中的基本卷积块被称为Inception块，其将输入的特征图复制四份，并行处理，最后将结果进行连结。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202412251415891.svg" alt="inception">​</p>
+<p>GoogleNet：</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202412251415904.svg" alt="inception-full">​</p>
+<h2 id="5-批量规范化"><a href="#5-批量规范化" class="headerlink" title="5 批量规范化"></a>5 批量规范化</h2><p>批量规范化的引入是为了结局神经网络收敛速度。</p>
+<h3 id="5-1-问题"><a href="#5-1-问题" class="headerlink" title="5.1 问题"></a>5.1 问题</h3><ul>
+<li>数据预处理对最终结果会产生重要的影响，为此需要对数据进行标准化处理使其平均值为0，方差为1。</li>
+<li>对于深层网络，模型参数众多，且变换莫测，其会影响网络的收敛。</li>
+<li>深层网络容易过拟合。</li>
+</ul>
+<h2 id="5-2-基本原理"><a href="#5-2-基本原理" class="headerlink" title="5.2 基本原理"></a>5.2 基本原理</h2><p>批量规范化主要对小批量进行：规范化输入；比例拉伸和比例偏移；</p>
+<p>$\mathbf{x}\in \mathcal{B}$ 表示来自小批量 $ \mathcal{B}$ 的输入，规范化$BN$：</p>
+<script type="math/tex; mode=display">
+\mathrm{BN}(\mathbf{x}) = \boldsymbol{\gamma} \odot \frac{\mathbf{x} - \hat{\boldsymbol{\mu}}_\mathcal{B}}{\hat{\boldsymbol{\sigma}}_\mathcal{B}} + \boldsymbol{\beta}</script><p>$\hat{\boldsymbol{\mu}}_\mathcal{B}$是小批量$\mathcal{B}$的样本均值，$\hat{\boldsymbol{\sigma}}_\mathcal{B}$是小批量$\mathcal{B}$的样本标准差。应用标准化后，生成的小批量的平均值为0和单位方差为1。由于单位方差是一个主观的选择，因此通常包含拉伸参数$\boldsymbol{\gamma}$和偏移参数$\boldsymbol{\beta}$，形状与$\mathbf{x}$相同。$\boldsymbol{\gamma}$和$\boldsymbol{\beta}$是需要与其他模型参数一起学习的参数。引入噪声确保除数不为0。</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \hat{\boldsymbol{\mu}}_\mathcal{B} &= \frac{1}{|\mathcal{B}|} \sum_{\mathbf{x} \in \mathcal{B}} \mathbf{x},\\
+\hat{\boldsymbol{\sigma}}_\mathcal{B}^2 &= \frac{1}{|\mathcal{B}|} \sum_{\mathbf{x} \in \mathcal{B}} (\mathbf{x} - \hat{\boldsymbol{\mu}}_{\mathcal{B}})^2 + \epsilon.\end{aligned}</script><h3 id="5-3-批量规范化层"><a href="#5-3-批量规范化层" class="headerlink" title="5.3 批量规范化层"></a>5.3 批量规范化层</h3><h4 id="5-3-1-全连接层"><a href="#5-3-1-全连接层" class="headerlink" title="5.3.1 全连接层"></a>5.3.1 全连接层</h4><p>全连接层的输入为$\mathbf{x}$，权重参数和偏置参数分别为$\mathbf{W}$和$\mathbf{b}$，激活函数为$\phi$，批量规范化的运算符为$\mathrm{BN}$。<br>那么，使用批量规范化的全连接层的输出的计算详情如下：</p>
+<script type="math/tex; mode=display">
+\mathbf{h} = \phi(\mathrm{BN}(\mathbf{W}\mathbf{x} + \mathbf{b}) ).</script><h4 id="5-3-2-卷积层"><a href="#5-3-2-卷积层" class="headerlink" title="5.3.2 卷积层"></a>5.3.2 卷积层</h4><p>卷积层上的规范化是在每个通道上分别进行批量规范化。</p>
+<p>‍</p>
+<h2 id="6-残差网络"><a href="#6-残差网络" class="headerlink" title="6 残差网络"></a>6 残差网络</h2><h3 id="6-1-函数类"><a href="#6-1-函数类" class="headerlink" title="6.1 函数类"></a>6.1 函数类</h3><p>设神经网络框架$\mathcal{F}$，包含学习速率以及其它超参数设置。$\forall f \in \mathcal{F}$，存在的参数集（权重和偏重）都可以通过在合适的集合上训练获得。$f^<em>$是理想函数，如果$f^</em> \in \mathcal{F}$我们可以轻易找到，但是通常我们只能找到近似$f^*$的$f_\mathcal{F}$。</p>
+<script type="math/tex; mode=display">
+f_\mathcal{F} := \mathop{\mathrm{argmin}}_f L(\mathbf{X}, \mathbf{y}, f) \text{ subject to } f \in \mathcal{F}</script><p>为了寻找更接近$f^*$,唯一的办法是扩展$ \mathcal{F} \rarr \mathcal{F}’$。如果$ \mathcal{F} \not\subseteq \mathcal{F}’$结果存在变差的风险。所以$ \mathcal{F} \subseteq \mathcal{F}’$。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202412251415579.svg" alt="functionclasses">​</p>
+<p>换言之，如果通过增加的网络层可以训练成恒等映射，就可以认为其可能比原网络更有效。</p>
+<script type="math/tex; mode=display">
+f(x)=x</script><h3 id="6-2-残差块"><a href="#6-2-残差块" class="headerlink" title="6.2 残差块"></a>6.2 残差块</h3><p>每个附加层都应该更容易地包含原始函数作为其元素之一。如下图所示，左面是直接拟合出映射$f(x)$,而右面则是拟合出$f(x)-x$。其中$f(x)$是理想映射。但是理想网络结构不能保证拟合结果一定是理想情况，右侧至少保证可以不会比$x$更差。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202412251415321.svg" alt="residual-block">​</p>
+<p>因为需要进行相加，所以输出要与输入规模一致，如果想要改变通道数可以引入$1\times1$卷积层。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202412251415784.svg" alt="resnet-block">​</p>
+<p>ResNet‐18：</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202412251415544.svg" alt="resnet18">​</p>
+<h2 id="7-稠密连接网络"><a href="#7-稠密连接网络" class="headerlink" title="7 稠密连接网络"></a>7 稠密连接网络</h2><p>稠密神经网络是残差神经网络结合泰勒展开的产物。</p>
+<p>泰勒展开形式如下：</p>
+<script type="math/tex; mode=display">
+f(x) = f(0) + f'(0) x + \frac{f''(0)}{2!}  x^2 + \frac{f'''(0)}{3!}  x^3 + \ldots</script><p>而稠密连接网络DenseNet相比ResNet的区别在于将相加给位连接。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202412251445742.svg" alt="densenet-block">​</p>
+<p>这样每经过一次稠密块，都可以保留之前的结果。</p>
+<script type="math/tex; mode=display">
+\mathbf{x} \to \left[
+\mathbf{x},
+f_1(\mathbf{x}),
+f_2([\mathbf{x}, f_1(\mathbf{x})]), f_3([\mathbf{x}, f_1(\mathbf{x}), f_2([\mathbf{x}, f_1(\mathbf{x})])]), \ldots\right]</script><p>​​</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202412251445100.svg" alt="densenet">​</p>
+<p>但是稠密层也带来了一个问题随着使用次数的增加，其通道数快速增加。为此需要插入过渡层来控制模型的复杂度，一方面通过 $1 \times 1$ 卷积层来控制通道数，另一方面通过平均汇聚层减小特征图大小。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] 《动手学深度学习》 — 动手学深度学习 2.0.0 documentation[EB/OL]. [2024-12-21]. <a href="https://zh.d2l.ai/">https://zh.d2l.ai/</a>.</p>
+]]></content>
+      <categories>
+        <category>赛博土木</category>
+        <category>深度学习，基础</category>
+      </categories>
+      <tags>
+        <tag>赛博土木</tag>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>赛博土木A-深度学习08：序列模型基础</title>
+    <url>/posts/168e861e.html</url>
+    <content><![CDATA[<p>多层感知机和卷积神经网络分别用于处理表格和图像，这两种情况可以认为样本是独立同分布的。但是很多情况样本是有顺序关系的，例如文本、音频和视频。此外还需要根据过去的信息来预测未来的走势，例如股票。为此引入了新的结构—循环神经网络。</p>
+<h2 id="1-序列模型"><a href="#1-序列模型" class="headerlink" title="1 序列模型"></a>1 序列模型</h2><p>首先预测分为两种，一种是在观测范围内进行预测,内插法；一种是在观测范围外进行预测，外推法；</p>
+<p>基于时间步$t$以及其对应的值进行预测，预测$x_t$:</p>
+<script type="math/tex; mode=display">
+x_t \sim P(x_t \mid x_{t-1}, \ldots, x_1)</script><h3 id="1-1-自回归模型"><a href="#1-1-自回归模型" class="headerlink" title="1.1 自回归模型"></a>1.1 自回归模型</h3><p>参照线性回归模型，可以建立$x_t$与$x$的映射模型，但是不同于线性回归，样本数量不会变换，对于序列模型而言需要考虑的样本数量会随着$t$的增大而同步增加，意味着模型参数会根据观测对象变化而变化。</p>
+<h4 id="1-1-1-自回归模型"><a href="#1-1-1-自回归模型" class="headerlink" title="1.1.1 自回归模型"></a>1.1.1 自回归模型</h4><p>我们可以假定$x_t$只受前面$\tau$跨度（$x_{t-1}, \ldots, x_{t-\tau}$）的影响，这样就可以固定参数的数量，从而训练模型，这种模型被称为自回归模型。</p>
+<h4 id="1-1-2-隐变量自回归模型"><a href="#1-1-2-隐变量自回归模型" class="headerlink" title="1.1.2 隐变量自回归模型"></a>1.1.2 隐变量自回归模型</h4><p>自回归模型抛弃了大量的序列，我们也可以之前的序列进行一个总结$h_t$，根据总结去推测，$\hat{x}_t = P(x_t \mid h_{t})$，这样参数数量就不会受序列影响了。总结通过$h_t = g(h_{t-1}, x_{t-1})$更新。因为$h_t$是模型内部的参数既不是输入也不是输出，因此称其为隐变量，故而模型称为隐变量自回归模型。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202501031715020.svg" alt="sequence-model">​</p>
+<h3 id="1-1-3-问题"><a href="#1-1-3-问题" class="headerlink" title="1.1.3 问题"></a>1.1.3 问题</h3><p>自回归模型存在一个问题，可以利用历史观测来预测下一个数据，是基于序列本身的动力学，但是如果是预测多个数据显然存在问题。因为受新的数据影响其动力学应当是变化的。但是我们只能根据现有数据进行预测，因此事实上假定了序列动力学是不变的。</p>
+<script type="math/tex; mode=display">
+P(x_1, \ldots, x_T) = \prod_{t=1}^T P(x_t \mid x_{t-1}, \ldots, x_1)</script><h3 id="1-2-马尔可夫模型"><a href="#1-2-马尔可夫模型" class="headerlink" title="1.2 马尔可夫模型"></a>1.2 马尔可夫模型</h3><p>如果状态转换只依赖于前$\tau$个状态（例如自回归模型），那么我们就可该转换过程为一个马尔可夫状态。如果之和前一个状态有关即$\tau =1$,则是最简单的一阶马尔可夫模型：</p>
+<script type="math/tex; mode=display">
+P(x_1, \ldots, x_T) = \prod_{t=1}^T P(x_t \mid x_{t-1}) ， P(x_1 \mid x_0) = P(x_1)</script><p>当假设$x_t$仅是离散值时，，使用动态规划可以沿着马尔可夫链精确地计算结果。<br>例如，高效地计算$P(x_{t+1} \mid x_{t-1})$：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+P(x_{t+1} \mid x_{t-1})
+&= \frac{\sum_{x_t} P(x_{t+1}, x_t, x_{t-1})}{P(x_{t-1})}\\
+&= \frac{\sum_{x_t} P(x_{t+1} \mid x_t, x_{t-1}) P(x_t, x_{t-1})}{P(x_{t-1})}\\
+&= \sum_{x_t} P(x_{t+1} \mid x_t) P(x_t \mid x_{t-1})
+\end{aligned}</script><h3 id="1-3-因果关系"><a href="#1-3-因果关系" class="headerlink" title="1.3 因果关系"></a>1.3 因果关系</h3><p>因果关系强强调的是序列有一个自然的方向，通常是时间。解释$P(x_{t+1} \mid x_{t})$ 比观察$P(x_{t} \mid x_{t+1})$更容易。且更具有实际价值。</p>
+<p>‍</p>
+<h2 id="2-文本数据预处理"><a href="#2-文本数据预处理" class="headerlink" title="2 文本数据预处理"></a>2 文本数据预处理</h2><p>文本数据的预处理主要包括如下的步骤：</p>
+<ul>
+<li>文本转换为字符串加载到内存中。</li>
+<li>字符串拆分为词元（单词和字符）</li>
+<li>建立一个词表将拆分的词元映射到数字索引</li>
+<li>将文本转换为数字索引序列。</li>
+</ul>
+<h2 id="3-语言模型"><a href="#3-语言模型" class="headerlink" title="3 语言模型"></a>3 语言模型</h2><p>将文本数据映射为词元数字索引，将这些词元数字索引视为离散的观测序列。对于长度为$T$的文本观测序列 $x_1,x_2,\ldots,x_T$。语言模型的目标是估计序列的联合：</p>
+<script type="math/tex; mode=display">
+P(x_1, x_2, \ldots, x_T)</script><h3 id="3-1-学习语言模型"><a href="#3-1-学习语言模型" class="headerlink" title="3.1 学习语言模型"></a>3.1 学习语言模型</h3><p>一段文本出现的概率计算方式：</p>
+<script type="math/tex; mode=display">
+P(x_1, x_2, \ldots, x_T) 
+ = \prod_{t=1}^T P(x_t  \mid  x_1, \ldots, x_{t-1})</script><p>计算上式，需要单词的概率，以及给定几个单词后出现某个单词的概率，显然这些概率应该在进行推测之前获得，对应到机器学习中就是模型的参数。</p>
+<p>需要构建以足够规模的文本语料库用作训练集。，然后计算单词的频率，以及各种组合的频率。</p>
+<script type="math/tex; mode=display">
+\hat{P}(\text{learning} \mid \text{deep}) = \frac{n(\text{deep, learning})}{n(\text{deep})}</script><p>随着组合规模的上升，很容易出现组合本身是合理的，但是在训练语料库中很少出现或者没有出现。这样计算概率值为0.</p>
+<p>为了解决0概率问题引入了拉普拉斯平滑，拉普拉斯平滑的思想是在一个规模巨大的语料库中对每个词元出现次数$+1$，不会造成什么影响但是可以解决零概率事件。具体方法是在所有计数中添加一个小常量。用$n$表示训练集中的单词总数（重复计数），用$m$表示词元的数量（非重复计数）。其中，$\epsilon_1,\epsilon_2$和$\epsilon_3$是超参数。</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+    \hat{P}(x) & = \frac{n(x) + \epsilon_1/m}{n + \epsilon_1}, \\
+    \hat{P}(x' \mid x) & = \frac{n(x, x') + \epsilon_2 \hat{P}(x')}{n(x) + \epsilon_2}, \\
+    \hat{P}(x'' \mid x,x') & = \frac{n(x, x',x'') + \epsilon_3 \hat{P}(x'')}{n(x, x') + \epsilon_3}.
+\end{aligned}</script><p>该模型很容无效，一方面是模型参数过多，另一方面完全忽略词义。</p>
+<h3 id="3-2-马尔可夫模型"><a href="#3-2-马尔可夫模型" class="headerlink" title="3.2 马尔可夫模型"></a>3.2 马尔可夫模型</h3><p>马尔可夫模型根据涉及元素的多少分为一元语法、二元语法、三元语法模型。</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+P(x_1, x_2, x_3, x_4) &=  P(x_1) P(x_2) P(x_3) P(x_4),\\
+P(x_1, x_2, x_3, x_4) &=  P(x_1) P(x_2  \mid  x_1) P(x_3  \mid  x_2) P(x_4  \mid  x_3),\\
+P(x_1, x_2, x_3, x_4) &=  P(x_1) P(x_2  \mid  x_1) P(x_3  \mid  x_1, x_2) P(x_4  \mid  x_2, x_3).
+\end{aligned}</script><h3 id="3-3-自然语言统计"><a href="#3-3-自然语言统计" class="headerlink" title="3.3 自然语言统计"></a>3.3 自然语言统计</h3><p>根据自然语言统计，词频遵循齐普夫定律，即第<em>$i$</em>个最常用单词的频率为$n_i$：</p>
+<script type="math/tex; mode=display">
+n_i \propto \frac{1}{i^\alpha},</script><p>等价：</p>
+<script type="math/tex; mode=display">
+\log n_i = -\alpha \log i + c</script><p>对n元语法模型的词元频率进行分析：</p>
+<ul>
+<li>单词序列也遵循齐普夫定律。</li>
+<li>此表中$n$元组的数量并不多</li>
+<li>n元组很少出现。</li>
+</ul>
+<h3 id="3-4-读取序列长度"><a href="#3-4-读取序列长度" class="headerlink" title="3.4 读取序列长度"></a>3.4 读取序列长度</h3><p>神经网络一次处理具有预定长度（$n$ 个时间步）的一个小批量序列。</p>
+<h4 id="3-4-1-随机采样"><a href="#3-4-1-随机采样" class="headerlink" title="3.4.1 随机采样"></a>3.4.1 随机采样</h4><p>在随机采样中,每个样本都是在原始的长序列上任意捕获的子序列。对于语言建模,目标是基于到目前为止我们看到的词元来预测下一个词元,因此标签是移位了一个词元的原始序列。</p>
+<h4 id="3-4-2-顺序分区"><a href="#3-4-2-顺序分区" class="headerlink" title="3.4.2 顺序分区"></a>3.4.2 顺序分区</h4><p>不同于随机采样相邻，顺序分区方式中相邻小批量中的子序列在原始序列上是相邻的。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] 《动手学深度学习》 — 动手学深度学习 2.0.0 documentation[EB/OL]. [2024-12-21]. <a href="https://zh.d2l.ai/">https://zh.d2l.ai/</a>.</p>
+]]></content>
+      <categories>
+        <category>赛博土木</category>
+        <category>深度学习，基础</category>
+      </categories>
+      <tags>
+        <tag>赛博土木</tag>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>赛博土木A-深度学习09：循环神经网络</title>
+    <url>/posts/95c64ca1.html</url>
+    <content><![CDATA[<h2 id="1-无隐状态的神经网络"><a href="#1-无隐状态的神经网络" class="headerlink" title="1 无隐状态的神经网络"></a>1 无隐状态的神经网络</h2><p>单隐藏层的MLP 结构如下：</p>
+<script type="math/tex; mode=display">
+\mathbf{H} = \phi(\mathbf{X} \mathbf{W}_{xh} + \mathbf{b}_h)</script><script type="math/tex; mode=display">
+\mathbf{O} = \mathbf{H} \mathbf{W}_{hq} + \mathbf{b}_q</script><p>其中$\mathbf{H}$是隐藏层。</p>
+<h2 id="2-有隐状态的循环神经网络"><a href="#2-有隐状态的循环神经网络" class="headerlink" title="2 有隐状态的循环神经网络"></a>2 有隐状态的循环神经网络</h2><p>隐藏状态的表示如下：</p>
+<script type="math/tex; mode=display">
+\mathbf{H}_t = \phi(\mathbf{X}_t \mathbf{W}_{xh} + \mathbf{H}_{t-1} \mathbf{W}_{hh}  + \mathbf{b}_h)</script><script type="math/tex; mode=display">
+\mathbf{O}_t = \mathbf{H}_t \mathbf{W}_{hq} + \mathbf{b}_q</script><p>不同于MLP，新增了 $\mathbf{H}_{t-1} \mathbf{W}_{hh}$ 结构用保留序列的历史信息。并且隐状态是随着时间步变换而同步变化的，因此会循环计算 $\mathbf{H}_t$ 。因此将这类循环计算隐状态的神经网络称为循环神经网络。计算隐状态的层被称为循环层。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202501031715321.svg" alt="rnn">​</p>
+<p>‍</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] 《动手学深度学习》 — 动手学深度学习 2.0.0 documentation[EB/OL]. [2024-12-21]. <a href="https://zh.d2l.ai/">https://zh.d2l.ai/</a>.</p>
+]]></content>
+      <categories>
+        <category>赛博土木</category>
+        <category>深度学习，基础</category>
+      </categories>
+      <tags>
+        <tag>赛博土木</tag>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>赛博土木A-深度学习10：现代循环神经网络</title>
+    <url>/posts/8ea7f284.html</url>
+    <content><![CDATA[<h2 id="1-门控循环单元（GRU）"><a href="#1-门控循环单元（GRU）" class="headerlink" title="1 门控循环单元（GRU）"></a>1 门控循环单元（GRU）</h2><p>门控循环单元引入了对因状态的门控，意味着有专门的机制来控制新状态更新与重置的时机</p>
+<h5 id="重置门和更新门"><a href="#重置门和更新门" class="headerlink" title="重置门和更新门"></a>重置门和更新门</h5><p>重置门（$\mathbf{R}_t$）和更新门（$\mathbf{Z}_t$）的结构如下：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf{R}_t = \sigma(\mathbf{X}_t \mathbf{W}_{xr} + \mathbf{H}_{t-1} \mathbf{W}_{hr} + \mathbf{b}_r),\\
+\mathbf{Z}_t = \sigma(\mathbf{X}_t \mathbf{W}_{xz} + \mathbf{H}_{t-1} \mathbf{W}_{hz} + \mathbf{b}_z),
+\end{aligned}</script><p>其中$\mathbf{W}_{xr}, \mathbf{W}_{xz} \in \mathbb{R}^{d \times h}$和$\mathbf{W}_{hr}, \mathbf{W}_{hz} \in \mathbb{R}^{h \times h}$是权重参数，$\mathbf{b}_r, \mathbf{b}_z \in \mathbb{R}^{1 \times h}$是偏置参数。</p>
+<h5 id="候选隐状态"><a href="#候选隐状态" class="headerlink" title="候选隐状态"></a>候选隐状态</h5><p>时间步$t$的候选隐状态$\tilde{\mathbf{H}}_t \in \mathbb{R}^{n \times h}$：</p>
+<script type="math/tex; mode=display">
+\tilde{\mathbf{H}}_t = \tanh(\mathbf{X}_t \mathbf{W}_{xh} + \left(\mathbf{R}_t \odot \mathbf{H}_{t-1}\right) \mathbf{W}_{hh} + \mathbf{b}_h),</script><p>其中$\mathbf{W}_{xh} \in \mathbb{R}^{d \times h}$和$\mathbf{W}_{hh} \in \mathbb{R}^{h \times h}$是权重参数，$\mathbf{b}_h \in \mathbb{R}^{1 \times h}$是偏置项，符号$\odot$是Hadamard积（按元素乘积）运算符。在这里，我们使用tanh非线性激活函数来确保候选隐状态中的值保持在区间(-1, 1)中。</p>
+<h5 id="隐状态"><a href="#隐状态" class="headerlink" title="隐状态"></a>隐状态</h5><p>隐状态如下</p>
+<script type="math/tex; mode=display">
+\mathbf{H}_t = \mathbf{Z}_t \odot \mathbf{H}_{t-1}  + (1 - \mathbf{Z}_t) \odot \tilde{\mathbf{H}}_t</script><p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202501021032972.svg" alt="gru-3">​</p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p><strong>更新门：</strong> 决定了多少过去的信息应该被传递到未来。</p>
+<p><strong>重置门：</strong> 决定了如何将新的输入信息与先前的记忆结合。</p>
+<h2 id="2-长短期记忆网络（LSTM）"><a href="#2-长短期记忆网络（LSTM）" class="headerlink" title="2 长短期记忆网络（LSTM）"></a>2 长短期记忆网络（LSTM）</h2><p>  LSTM 结构如下：</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202501021041391.svg" alt="lstm-3">​  </p>
+<p>假设有$h$个隐藏单元，批量大小为$n$，输入数为$d$。因此，输入为$\mathbf{X}_t \in \mathbb{R}^{n \times d}$，前一时间步的隐状态为$\mathbf{H}_{t-1} \in \mathbb{R}^{n \times h}$。相应地，时间步t的门被定义如下：输入门是$\mathbf{I}_t \in \mathbb{R}^{n \times h}$，遗忘门是$\mathbf{F}_t \in \mathbb{R}^{n \times h}$，输出门是$\mathbf{O}_t \in \mathbb{R}^{n \times h}$。它们的计算方法如下：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathbf{I}_t &= \sigma(\mathbf{X}_t \mathbf{W}_{xi} + \mathbf{H}_{t-1} \mathbf{W}_{hi} + \mathbf{b}_i),\\
+\mathbf{F}_t &= \sigma(\mathbf{X}_t \mathbf{W}_{xf} + \mathbf{H}_{t-1} \mathbf{W}_{hf} + \mathbf{b}_f),\\
+\mathbf{O}_t &= \sigma(\mathbf{X}_t \mathbf{W}_{xo} + \mathbf{H}_{t-1} \mathbf{W}_{ho} + \mathbf{b}_o),
+\end{aligned}</script><p>其中$\mathbf{W}_{xi}, \mathbf{W}_{xf}, \mathbf{W}_{xo} \in \mathbb{R}^{d \times h}$和$\mathbf{W}_{hi}$, $\mathbf{W}_{hf}$, $\mathbf{W}_{ho} \in \mathbb{R}^{h \times h}$是权重参数，$\mathbf{b}_i,$ $\mathbf{b}_f, \mathbf{b}_o \in \mathbb{R}^{1 \times h}$是偏置参数。</p>
+<p>候选记忆单元$\tilde{\mathbf{C}}_t \in \mathbb{R}^{n \times h}$：</p>
+<script type="math/tex; mode=display">
+\tilde{\mathbf{C}}_t = \text{tanh}(\mathbf{X}_t \mathbf{W}_{xc} + \mathbf{H}_{t-1} \mathbf{W}_{hc} + \mathbf{b}_c)</script><p>记忆元$\mathbf{C}_t \in \mathbb{R}^{n \times h}$：</p>
+<script type="math/tex; mode=display">
+\mathbf{C}_t = \mathbf{F}_t \odot \mathbf{C}_{t-1} + \mathbf{I}_t \odot \tilde{\mathbf{C}}_t</script><p>隐状态$\mathbf{H}_t \in \mathbb{R}^{n \times h}$：</p>
+<script type="math/tex; mode=display">
+\mathbf{H}_t = \mathbf{O}_t \odot \tanh(\mathbf{C}_t)</script><h2 id="3-深度循环网络"><a href="#3-深度循环网络" class="headerlink" title="3 深度循环网络"></a>3 深度循环网络</h2><p>对于$L$个隐藏层的深度循环神经网络每一个隐藏层表示如下：</p>
+<script type="math/tex; mode=display">
+\mathbf{H}_t^{(l)} = \phi_l(\mathbf{H}_t^{(l-1)} \mathbf{W}_{xh}^{(l)} + \mathbf{H}_{t-1}^{(l)} \mathbf{W}_{hh}^{(l)}  + \mathbf{b}_h^{(l)})</script><p>最后的输出只与最后一层隐藏层有关</p>
+<script type="math/tex; mode=display">
+\mathbf{O}_t = \mathbf{H}_t^{(L)} \mathbf{W}_{hq} + \mathbf{b}_q</script><p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202501021112064.svg" alt="deep-rnn">​</p>
+<h2 id="4-双向模型"><a href="#4-双向模型" class="headerlink" title="4 双向模型"></a>4 双向模型</h2><p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202501021351483.svg" alt="birnn">​</p>
+<p>对于任意时间步$t$，给定一个小批量的输入数据<br>$\mathbf{X}_t \in \mathbb{R}^{n \times d}$（样本数$n$，每个示例中的输入数$d$），并且令隐藏层激活函数为$\phi$。在双向架构中，设该时间步的前向和反向隐状态分别为$\overrightarrow{\mathbf{H}}_t  \in \mathbb{R}^{n \times h}$和$\overleftarrow{\mathbf{H}}_t  \in \mathbb{R}^{n \times h}$，其中$h$是隐藏单元的数目。<br>前向和反向隐状态的更新如下：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\overrightarrow{\mathbf{H}}_t &= \phi(\mathbf{X}_t \mathbf{W}_{xh}^{(f)} + \overrightarrow{\mathbf{H}}_{t-1} \mathbf{W}_{hh}^{(f)}  + \mathbf{b}_h^{(f)}),\\
+\overleftarrow{\mathbf{H}}_t &= \phi(\mathbf{X}_t \mathbf{W}_{xh}^{(b)} + \overleftarrow{\mathbf{H}}_{t+1} \mathbf{W}_{hh}^{(b)}  + \mathbf{b}_h^{(b)}),
+\end{aligned}</script><p>其中，权重$\mathbf{W}_{xh}^{(f)} \in \mathbb{R}^{d \times h}, \mathbf{W}_{hh}^{(f)} \in \mathbb{R}^{h \times h}, \mathbf{W}_{xh}^{(b)} \in \mathbb{R}^{d \times h}, \mathbf{W}_{hh}^{(b)} \in \mathbb{R}^{h \times h}$和偏置$\mathbf{b}_h^{(f)} \in \mathbb{R}^{1 \times h}, \mathbf{b}_h^{(b)} \in \mathbb{R}^{1 \times h}$都是模型参数。</p>
+<p>‍</p>
+<h2 id="5-序列到序列学习"><a href="#5-序列到序列学习" class="headerlink" title="5 序列到序列学习"></a>5 序列到序列学习</h2><p>机器翻译是一种常用的应用场景，即将输入序列转换为输出序列。输入序列与输出序列均是可变序列。</p>
+<p>为此引入编码器与解码器架构：</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202501021351042.svg" alt="encoder-decoder">​</p>
+<p><strong>编码器</strong>（encoder）：接受一个长度可变的序列作为输入，并将其转换为具有固定形状的编码状态。</p>
+<p><strong>解码器</strong>（decoder）：它将固定形状的编码状态映射到长度可变的序列。</p>
+<p>‍</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202501021351648.svg" alt="seq2seq">​</p>
+<p>“<eos>”表示序列结束词元。一旦输出序列生成此词元,模型就会停止预测。“<bos>”表示序列开始词元,它是解码器的输入序列的第一个词元。使用循环神经网络编码器最终的隐状态来初始化解码器的隐状态。</p>
+<p>嵌入层的权重是一个矩阵,其行数等于输入词表的大小(vocab_size),其列数等于特征向量的维度(embed_size)。对于任意输入词元的索引i,嵌入层获取权重矩阵的第i行(从0开始)以返回其特征向量。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202501031710816.svg" alt="seq2seq-details">​</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] 《动手学深度学习》 — 动手学深度学习 2.0.0 documentation[EB/OL]. [2024-12-21]. <a href="https://zh.d2l.ai/">https://zh.d2l.ai/</a>.</p>
+]]></content>
+      <categories>
+        <category>赛博土木</category>
+        <category>深度学习，基础</category>
+      </categories>
+      <tags>
+        <tag>赛博土木</tag>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>赛博土木A-深度学习11：注意力机制</title>
+    <url>/posts/1cbcd929.html</url>
+    <content><![CDATA[<h2 id="1-注意力提示"><a href="#1-注意力提示" class="headerlink" title="1 注意力提示"></a>1 注意力提示</h2><p>人类的注意力提示存在两种模式，分别是自主性与非自主性。非自主性是受外界环境影响例如突出的颜色，而自主性则是受人的主观影响。</p>
+<p>非自主性注意力提示可以通过全连接层和池化层进行实现。</p>
+<p>注意力机制引入了自主性提示（查询）。将感官输入称为值，每一个值都对应一个键。注意力机制通过注意力汇聚的方式，将查询与键进行匹配，进而引导至对应的值上。</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202501031708167.svg" alt="qkv">​</p>
+<h2 id="2-Nadaraya-Watson核回归"><a href="#2-Nadaraya-Watson核回归" class="headerlink" title="2 Nadaraya-Watson核回归"></a>2 Nadaraya-Watson核回归</h2><p>对于回归问题最简单的估计器则是平均汇聚：</p>
+<script type="math/tex; mode=display">
+f(x)=\frac{1}{n}\sum_{i=1}^ny_i</script><p>平均汇聚忽略了输入$x_i$,Nadaraya-Watson核回归输入的位置对输出$y_i$进行加权，其中$K$是核：</p>
+<script type="math/tex; mode=display">
+f(x) = \sum_{i=1}^n \frac{K(x - x_i)}{\sum_{j=1}^n K(x - x_j)} y_i</script><p>可以给出更一般的表示：</p>
+<script type="math/tex; mode=display">
+f(x) = \sum_{i=1}^n \alpha(x, x_i) y_i</script><p>$x$表示查询，$(x_i,y_i)$表示键值对。用$\alpha(x,x_i)$表示键与查询的关系。</p>
+<p>采用高斯核$K(u) = \frac{1}{\sqrt{2\pi}} \exp(-\frac{u^2}{2})$：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} f(x) &=\sum_{i=1}^n \alpha(x, x_i) y_i\\ &= \sum_{i=1}^n \frac{\exp\left(-\frac{1}{2}(x - x_i)^2\right)}{\sum_{j=1}^n \exp\left(-\frac{1}{2}(x - x_j)^2\right)} y_i \\&= \sum_{i=1}^n \mathrm{softmax}\left(-\frac{1}{2}(x - x_i)^2\right) y_i \end{aligned}</script><p>也可以引入参数：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}f(x) &= \sum_{i=1}^n \alpha(x, x_i) y_i \\&= \sum_{i=1}^n \frac{\exp\left(-\frac{1}{2}((x - x_i)w)^2\right)}{\sum_{j=1}^n \exp\left(-\frac{1}{2}((x - x_j)w)^2\right)} y_i \\&= \sum_{i=1}^n \mathrm{softmax}\left(-\frac{1}{2}((x - x_i)w)^2\right) y_i\end{aligned}</script><h2 id="3-注意力评分函数"><a href="#3-注意力评分函数" class="headerlink" title="3 注意力评分函数"></a>3 注意力评分函数</h2><p>将高斯核的指数部分称为注意力评分函数，简称评分函数。如下图所示，$a$ 表示注意力评分函数，其结果通过softmax函数后得到概率分布，最后和值结合获得一个加权平均值。</p>
+<p>‍</p>
+<p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202501031708487.svg" alt="attention-output">​</p>
+<p>用数学语言描述，假设有一个查询$\mathbf{q}\in\mathbb{R}^q$和$m$个“键－值”对$(\mathbf{k}_1,\mathbf{v}_1),\ldots,(\mathbf{k}_m,\mathbf{v}_m)$，其中$\mathbf{k}_i\in\mathbb{R}^k$，$\mathbf{v}_i\in\mathbb{R}^v$。注意力汇聚函数$f$就被表示成值的加权和：</p>
+<script type="math/tex; mode=display">
+f(\mathbf{q},(\mathbf{k}_1,\mathbf{v}_1),\ldots,(\mathbf{k}_m,\mathbf{v}_m))=\sum_{i=1}^m\alpha(\mathbf{q},\mathbf{k}_i)\mathbf{v}_i\in\mathbb{R}^v,</script><p>$\mathbf{q}$和键$\mathbf{k}_i$的注意力权重（标量）是通过注意力评分函数将两个向量映射成标量，再经过softmax运算得到的：</p>
+<script type="math/tex; mode=display">
+\alpha(\mathbf{q},\mathbf{k}_i)=\mathrm{softmax}(a(\mathbf{q},\mathbf{k}_i))=\frac{\exp(a(\mathbf{q},\mathbf{k}_i))}{\sum_{j=1}^m\exp(a(\mathbf{q},\mathbf{k}_j))}\in\mathbb{R}.</script><p> 选择不同的注意力评分函数a会导致不同的注意力汇聚操作。</p>
+<h2 id="4-Bahdanau注意力"><a href="#4-Bahdanau注意力" class="headerlink" title="4 Bahdanau注意力"></a>4 Bahdanau注意力</h2><p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202501031709489.svg" alt="seq2seq-attention-details">​</p>
+<h2 id="5-多头注意力"><a href="#5-多头注意力" class="headerlink" title="5 多头注意力"></a>5 多头注意力</h2><p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202501031709770.svg" alt="multi-head-attention">​</p>
+<h2 id="6-transformer"><a href="#6-transformer" class="headerlink" title="6 transformer"></a>6 transformer</h2><p>​<img src="https://cdn.jsdelivr.net/gh/yinxiangkai/ImageBed@main/202501031709730.svg" alt="transformer">​</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] 《动手学深度学习》 — 动手学深度学习 2.0.0 documentation[EB/OL]. [2024-12-21]. <a href="https://zh.d2l.ai/">https://zh.d2l.ai/</a>.</p>
+]]></content>
+      <categories>
+        <category>赛博土木</category>
+        <category>深度学习，基础</category>
+      </categories>
+      <tags>
+        <tag>赛博土木</tag>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Word 写论文</title>
     <url>/posts/fc1d140d.html</url>
     <content><![CDATA[<h3 id="1-页边距"><a href="#1-页边距" class="headerlink" title="1 页边距"></a>1 页边距</h3><p>举例：设置页边距上下2.5cm 左右3.0cm。根据边距，建议将页眉页脚设置为2cm（个人建议）。</p>
