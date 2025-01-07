@@ -6,7 +6,7 @@
   <link href="http://qifeng.xyz/atom.xml" rel="self"/>
   
   <link href="http://qifeng.xyz/"/>
-  <updated>2025-01-03T09:23:54.726Z</updated>
+  <updated>2025-01-07T02:01:30.407Z</updated>
   <id>http://qifeng.xyz/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Git 基础操作</title>
+    <link href="http://qifeng.xyz/posts/b7d757fa.html"/>
+    <id>http://qifeng.xyz/posts/b7d757fa.html</id>
+    <published>2025-01-06T07:35:51.000Z</published>
+    <updated>2025-01-07T02:01:30.407Z</updated>
+    
+    
+    <summary type="html">git pro 阅读笔记</summary>
+    
+    
+    
+    <category term="开发工具" scheme="http://qifeng.xyz/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="工具" scheme="http://qifeng.xyz/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+    <category term="Git" scheme="http://qifeng.xyz/tags/Git/"/>
+    
+    <category term="开发" scheme="http://qifeng.xyz/tags/%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
   
   <entry>
     <title>赛博土木A-深度学习01：机器学习概述</title>
@@ -440,25 +463,6 @@
     <category term="参考文献" scheme="http://qifeng.xyz/tags/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE/"/>
     
     <category term="学术" scheme="http://qifeng.xyz/tags/%E5%AD%A6%E6%9C%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ZKP 发展脉络</title>
-    <link href="http://qifeng.xyz/posts/e16561b3.html"/>
-    <id>http://qifeng.xyz/posts/e16561b3.html</id>
-    <published>2024-06-23T06:14:41.000Z</published>
-    <updated>2024-10-11T02:28:50.457Z</updated>
-    
-    
-    <summary type="html">本文主要介绍了ZKP的大致发展脉络。</summary>
-    
-    
-    
-    <category term="ZKP" scheme="http://qifeng.xyz/categories/ZKP/"/>
-    
-    
-    <category term="ZKP" scheme="http://qifeng.xyz/tags/ZKP/"/>
     
   </entry>
   
