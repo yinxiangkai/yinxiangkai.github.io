@@ -40,259 +40,6 @@
   </entry>
   
   <entry>
-    <title>赛博土木A-深度学习01：机器学习概述</title>
-    <link href="http://qifeng.xyz/posts/a098a643.html"/>
-    <id>http://qifeng.xyz/posts/a098a643.html</id>
-    <published>2025-01-03T09:17:46.000Z</published>
-    <updated>2025-01-09T06:33:18.581Z</updated>
-    
-    
-    <summary type="html">动手学深度学习笔记</summary>
-    
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习，基础" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%8C%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/tags/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习" scheme="http://qifeng.xyz/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>赛博土木A-深度学习03：softmax回归</title>
-    <link href="http://qifeng.xyz/posts/e35c4051.html"/>
-    <id>http://qifeng.xyz/posts/e35c4051.html</id>
-    <published>2025-01-03T09:17:46.000Z</published>
-    <updated>2025-01-09T06:33:21.633Z</updated>
-    
-    
-    <summary type="html">动手学深度学习笔记</summary>
-    
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习，基础" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%8C%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/tags/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习" scheme="http://qifeng.xyz/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>赛博土木A-深度学习02：线性回归</title>
-    <link href="http://qifeng.xyz/posts/2e34cdb8.html"/>
-    <id>http://qifeng.xyz/posts/2e34cdb8.html</id>
-    <published>2025-01-03T09:17:46.000Z</published>
-    <updated>2025-01-09T06:33:19.381Z</updated>
-    
-    
-    <summary type="html">动手学深度学习笔记</summary>
-    
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习，基础" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%8C%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/tags/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习" scheme="http://qifeng.xyz/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>赛博土木A-深度学习04：多层感知机</title>
-    <link href="http://qifeng.xyz/posts/90bbb405.html"/>
-    <id>http://qifeng.xyz/posts/90bbb405.html</id>
-    <published>2025-01-03T09:17:46.000Z</published>
-    <updated>2025-01-09T06:33:22.628Z</updated>
-    
-    
-    <summary type="html">动手学深度学习笔记</summary>
-    
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习，基础" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%8C%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/tags/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习" scheme="http://qifeng.xyz/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>赛博土木A-深度学习05：块组件</title>
-    <link href="http://qifeng.xyz/posts/5afd145b.html"/>
-    <id>http://qifeng.xyz/posts/5afd145b.html</id>
-    <published>2025-01-03T09:17:46.000Z</published>
-    <updated>2025-01-09T06:33:24.534Z</updated>
-    
-    
-    <summary type="html">动手学深度学习笔记</summary>
-    
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习，基础" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%8C%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/tags/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习" scheme="http://qifeng.xyz/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>赛博土木A-深度学习06：卷积神经网络</title>
-    <link href="http://qifeng.xyz/posts/af6b5fbd.html"/>
-    <id>http://qifeng.xyz/posts/af6b5fbd.html</id>
-    <published>2025-01-03T09:17:46.000Z</published>
-    <updated>2025-01-09T06:33:25.529Z</updated>
-    
-    
-    <summary type="html">动手学深度学习笔记</summary>
-    
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习，基础" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%8C%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/tags/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习" scheme="http://qifeng.xyz/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>赛博土木A-深度学习07：现代卷积神经网络</title>
-    <link href="http://qifeng.xyz/posts/f9ed3af.html"/>
-    <id>http://qifeng.xyz/posts/f9ed3af.html</id>
-    <published>2025-01-03T09:17:46.000Z</published>
-    <updated>2025-01-09T06:33:16.866Z</updated>
-    
-    
-    <summary type="html">动手学深度学习笔记</summary>
-    
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习，基础" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%8C%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/tags/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习" scheme="http://qifeng.xyz/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>赛博土木A-深度学习08：序列模型基础</title>
-    <link href="http://qifeng.xyz/posts/168e861e.html"/>
-    <id>http://qifeng.xyz/posts/168e861e.html</id>
-    <published>2025-01-03T09:17:46.000Z</published>
-    <updated>2025-01-09T06:33:09.264Z</updated>
-    
-    
-    <summary type="html">动手学深度学习笔记</summary>
-    
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习，基础" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%8C%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/tags/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习" scheme="http://qifeng.xyz/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>赛博土木A-深度学习09：循环神经网络</title>
-    <link href="http://qifeng.xyz/posts/95c64ca1.html"/>
-    <id>http://qifeng.xyz/posts/95c64ca1.html</id>
-    <published>2025-01-03T09:17:46.000Z</published>
-    <updated>2025-01-09T06:33:17.054Z</updated>
-    
-    
-    <summary type="html">动手学深度学习笔记</summary>
-    
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习，基础" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%8C%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/tags/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习" scheme="http://qifeng.xyz/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>赛博土木A-深度学习10：现代循环神经网络</title>
-    <link href="http://qifeng.xyz/posts/8ea7f284.html"/>
-    <id>http://qifeng.xyz/posts/8ea7f284.html</id>
-    <published>2025-01-03T09:17:46.000Z</published>
-    <updated>2025-01-09T06:33:13.188Z</updated>
-    
-    
-    <summary type="html">动手学深度学习笔记</summary>
-    
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习，基础" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%8C%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/tags/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习" scheme="http://qifeng.xyz/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>赛博土木A-深度学习11：注意力机制</title>
-    <link href="http://qifeng.xyz/posts/1cbcd929.html"/>
-    <id>http://qifeng.xyz/posts/1cbcd929.html</id>
-    <published>2025-01-03T09:17:46.000Z</published>
-    <updated>2025-01-09T06:33:09.852Z</updated>
-    
-    
-    <summary type="html">动手学深度学习笔记</summary>
-    
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习，基础" scheme="http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%8C%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="赛博土木" scheme="http://qifeng.xyz/tags/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/"/>
-    
-    <category term="深度学习" scheme="http://qifeng.xyz/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Word 写论文</title>
     <link href="http://qifeng.xyz/posts/fc1d140d.html"/>
     <id>http://qifeng.xyz/posts/fc1d140d.html</id>
@@ -463,6 +210,180 @@
     <category term="参考文献" scheme="http://qifeng.xyz/tags/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE/"/>
     
     <category term="学术" scheme="http://qifeng.xyz/tags/%E5%AD%A6%E6%9C%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ZKP 发展脉络</title>
+    <link href="http://qifeng.xyz/posts/e16561b3.html"/>
+    <id>http://qifeng.xyz/posts/e16561b3.html</id>
+    <published>2024-06-23T06:14:41.000Z</published>
+    <updated>2024-10-11T02:28:50.457Z</updated>
+    
+    
+    <summary type="html">本文主要介绍了ZKP的大致发展脉络。</summary>
+    
+    
+    
+    <category term="ZKP" scheme="http://qifeng.xyz/categories/ZKP/"/>
+    
+    
+    <category term="ZKP" scheme="http://qifeng.xyz/tags/ZKP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>clang 环境配置</title>
+    <link href="http://qifeng.xyz/posts/15893855.html"/>
+    <id>http://qifeng.xyz/posts/15893855.html</id>
+    <published>2024-05-21T06:14:41.000Z</published>
+    <updated>2024-12-17T07:44:05.607Z</updated>
+    
+    
+    <summary type="html">本文主要介绍了怎么在Linux中配置clang环境。</summary>
+    
+    
+    
+    <category term="杂项" scheme="http://qifeng.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+    <category term="环境" scheme="http://qifeng.xyz/tags/%E7%8E%AF%E5%A2%83/"/>
+    
+    <category term="clang" scheme="http://qifeng.xyz/tags/clang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>连接GitHub</title>
+    <link href="http://qifeng.xyz/posts/d10c5bba.html"/>
+    <id>http://qifeng.xyz/posts/d10c5bba.html</id>
+    <published>2024-04-23T06:14:41.000Z</published>
+    <updated>2024-12-17T07:44:12.501Z</updated>
+    
+    
+    <summary type="html">本文主要介绍了如何通过更新DNS访问Github。</summary>
+    
+    
+    
+    <category term="杂项" scheme="http://qifeng.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+    <category term="github" scheme="http://qifeng.xyz/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>赛博土木B-CUDA系列01：认识GPU</title>
+    <link href="http://qifeng.xyz/posts/50b55d72.html"/>
+    <id>http://qifeng.xyz/posts/50b55d72.html</id>
+    <published>2024-03-23T06:14:41.000Z</published>
+    <updated>2024-12-16T01:58:10.979Z</updated>
+    
+    
+    <summary type="html">本主要介绍了N卡架构的发展脉络。</summary>
+    
+    
+    
+    <category term="并行计算" scheme="http://qifeng.xyz/categories/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/"/>
+    
+    <category term="Nvidia" scheme="http://qifeng.xyz/categories/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/Nvidia/"/>
+    
+    
+    <category term="CUDA" scheme="http://qifeng.xyz/tags/CUDA/"/>
+    
+    <category term="架构" scheme="http://qifeng.xyz/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+    <category term="GPU" scheme="http://qifeng.xyz/tags/GPU/"/>
+    
+    <category term="赛博土木B" scheme="http://qifeng.xyz/tags/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>cublas 列优先问题</title>
+    <link href="http://qifeng.xyz/posts/f191b528.html"/>
+    <id>http://qifeng.xyz/posts/f191b528.html</id>
+    <published>2024-03-23T06:14:41.000Z</published>
+    <updated>2024-12-17T07:44:11.592Z</updated>
+    
+    
+    <summary type="html">本文主要介绍在使用cublas计算矩阵乘法时遇到的问题。</summary>
+    
+    
+    
+    <category term="debug" scheme="http://qifeng.xyz/categories/debug/"/>
+    
+    <category term="CUDA" scheme="http://qifeng.xyz/categories/debug/CUDA/"/>
+    
+    
+    <category term="CUDA" scheme="http://qifeng.xyz/tags/CUDA/"/>
+    
+    <category term="debug" scheme="http://qifeng.xyz/tags/debug/"/>
+    
+    <category term="cublas" scheme="http://qifeng.xyz/tags/cublas/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ascend 全栈 AI 软硬件平台</title>
+    <link href="http://qifeng.xyz/posts/d4440279.html"/>
+    <id>http://qifeng.xyz/posts/d4440279.html</id>
+    <published>2024-03-04T06:14:41.000Z</published>
+    <updated>2024-10-10T13:03:46.272Z</updated>
+    
+    
+    <summary type="html">本文主要介绍昇腾的软硬件平台。</summary>
+    
+    
+    
+    <category term="并行计算" scheme="http://qifeng.xyz/categories/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/"/>
+    
+    <category term="Ascend" scheme="http://qifeng.xyz/categories/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/Ascend/"/>
+    
+    
+    <category term="Ascend" scheme="http://qifeng.xyz/tags/Ascend/"/>
+    
+    <category term="NPU" scheme="http://qifeng.xyz/tags/NPU/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hugo+Github搭建个人主页</title>
+    <link href="http://qifeng.xyz/posts/a260d87d.html"/>
+    <id>http://qifeng.xyz/posts/a260d87d.html</id>
+    <published>2024-02-23T06:14:41.000Z</published>
+    <updated>2024-10-11T01:57:17.776Z</updated>
+    
+    
+    <summary type="html">本文主要介绍了如何利用Hugo搭建个人博客。</summary>
+    
+    
+    
+    <category term="杂项" scheme="http://qifeng.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+    <category term="网站" scheme="http://qifeng.xyz/tags/%E7%BD%91%E7%AB%99/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>NTT（快速数论变换）</title>
+    <link href="http://qifeng.xyz/posts/a0adbc0f.html"/>
+    <id>http://qifeng.xyz/posts/a0adbc0f.html</id>
+    <published>2024-01-23T06:14:41.000Z</published>
+    <updated>2024-07-12T06:16:25.000Z</updated>
+    
+    
+    <summary type="html">本文主要是介绍了NTT算法的基础知识，并扩展了四步NTT，并介绍了相应的优化思路。</summary>
+    
+    
+    
+    <category term="算法" scheme="http://qifeng.xyz/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="NTT" scheme="http://qifeng.xyz/tags/NTT/"/>
+    
+    <category term="算法" scheme="http://qifeng.xyz/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   

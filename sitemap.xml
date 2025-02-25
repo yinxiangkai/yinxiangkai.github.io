@@ -11,105 +11,6 @@
   </url>
   
   <url>
-    <loc>http://qifeng.xyz/posts/af6b5fbd.html</loc>
-    
-    <lastmod>2025-01-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qifeng.xyz/posts/5afd145b.html</loc>
-    
-    <lastmod>2025-01-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qifeng.xyz/posts/90bbb405.html</loc>
-    
-    <lastmod>2025-01-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qifeng.xyz/posts/e35c4051.html</loc>
-    
-    <lastmod>2025-01-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qifeng.xyz/posts/2e34cdb8.html</loc>
-    
-    <lastmod>2025-01-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qifeng.xyz/posts/a098a643.html</loc>
-    
-    <lastmod>2025-01-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qifeng.xyz/posts/95c64ca1.html</loc>
-    
-    <lastmod>2025-01-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qifeng.xyz/posts/f9ed3af.html</loc>
-    
-    <lastmod>2025-01-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qifeng.xyz/posts/8ea7f284.html</loc>
-    
-    <lastmod>2025-01-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qifeng.xyz/posts/1cbcd929.html</loc>
-    
-    <lastmod>2025-01-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qifeng.xyz/posts/168e861e.html</loc>
-    
-    <lastmod>2025-01-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://qifeng.xyz/posts/b7d757fa.html</loc>
     
     <lastmod>2025-01-07</lastmod>
@@ -568,20 +469,6 @@
   </url>
   
   <url>
-    <loc>http://qifeng.xyz/tags/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/</loc>
-    <lastmod>2025-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://qifeng.xyz/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2025-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://qifeng.xyz/tags/Git/</loc>
     <lastmod>2025-02-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -648,20 +535,6 @@
   
   <url>
     <loc>http://qifeng.xyz/categories/debug/CUDA/</loc>
-    <lastmod>2025-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/</loc>
-    <lastmod>2025-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://qifeng.xyz/categories/%E8%B5%9B%E5%8D%9A%E5%9C%9F%E6%9C%A8/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%8C%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2025-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
