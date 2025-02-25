@@ -6,7 +6,7 @@
   <link href="http://qifeng.xyz/atom.xml" rel="self"/>
   
   <link href="http://qifeng.xyz/"/>
-  <updated>2025-01-07T02:01:30.407Z</updated>
+  <updated>2025-02-25T07:28:08.054Z</updated>
   <id>http://qifeng.xyz/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://qifeng.xyz/posts/b7d757fa.html"/>
     <id>http://qifeng.xyz/posts/b7d757fa.html</id>
     <published>2025-01-06T07:35:51.000Z</published>
-    <updated>2025-01-07T02:01:30.407Z</updated>
+    <updated>2025-02-25T07:28:08.054Z</updated>
     
     
     <summary type="html">git pro 阅读笔记</summary>
@@ -44,7 +44,7 @@
     <link href="http://qifeng.xyz/posts/fc1d140d.html"/>
     <id>http://qifeng.xyz/posts/fc1d140d.html</id>
     <published>2024-12-11T08:55:13.000Z</published>
-    <updated>2024-12-17T07:44:15.220Z</updated>
+    <updated>2025-02-25T07:27:53.099Z</updated>
     
     
     <summary type="html">介绍下用word 写论文常用的一些技巧。</summary>
@@ -63,7 +63,7 @@
     <link href="http://qifeng.xyz/posts/fcebcda5.html"/>
     <id>http://qifeng.xyz/posts/fcebcda5.html</id>
     <published>2024-11-27T09:33:25.000Z</published>
-    <updated>2024-12-17T07:44:13.183Z</updated>
+    <updated>2025-02-25T07:28:13.044Z</updated>
     
     
     <summary type="html">介绍常用的几个学术工具，以及一些常用国标文件。</summary>
@@ -84,7 +84,7 @@
     <link href="http://qifeng.xyz/posts/a1546b3a.html"/>
     <id>http://qifeng.xyz/posts/a1546b3a.html</id>
     <published>2024-10-10T07:55:04.000Z</published>
-    <updated>2024-12-17T07:44:08.043Z</updated>
+    <updated>2025-02-25T07:28:09.256Z</updated>
     
     
     <summary type="html">主要介绍如何配置cuda环境</summary>
@@ -105,7 +105,7 @@
     <link href="http://qifeng.xyz/posts/1ea709cb.html"/>
     <id>http://qifeng.xyz/posts/1ea709cb.html</id>
     <published>2024-10-05T13:42:01.000Z</published>
-    <updated>2024-12-17T07:43:15.251Z</updated>
+    <updated>2025-02-25T07:28:20.673Z</updated>
     
     
     <summary type="html">介绍对对共享内存大小的调整。</summary>
@@ -128,7 +128,7 @@
     <link href="http://qifeng.xyz/posts/b49c4352.html"/>
     <id>http://qifeng.xyz/posts/b49c4352.html</id>
     <published>2024-09-12T08:34:47.000Z</published>
-    <updated>2024-12-17T07:44:14.381Z</updated>
+    <updated>2025-02-25T07:28:12.085Z</updated>
     
     
     <summary type="html">介绍如何连接组内服务器以及泉城实验室网段冲突问题</summary>
@@ -151,7 +151,7 @@
     <link href="http://qifeng.xyz/posts/89d9e386.html"/>
     <id>http://qifeng.xyz/posts/89d9e386.html</id>
     <published>2024-09-11T09:55:07.000Z</published>
-    <updated>2024-12-17T07:42:59.489Z</updated>
+    <updated>2025-02-25T07:28:21.467Z</updated>
     
     
     <summary type="html">主要介绍NVTX的简单使用方式。</summary>
@@ -174,7 +174,7 @@
     <link href="http://qifeng.xyz/posts/ed5d8a1b.html"/>
     <id>http://qifeng.xyz/posts/ed5d8a1b.html</id>
     <published>2024-07-08T02:01:16.000Z</published>
-    <updated>2024-12-17T07:44:10.156Z</updated>
+    <updated>2025-02-25T07:28:19.730Z</updated>
     
     
     <summary type="html">本文主要介绍通过WMMA API 使用TensorCore的方法。</summary>
@@ -197,7 +197,7 @@
     <link href="http://qifeng.xyz/posts/c0dc4c.html"/>
     <id>http://qifeng.xyz/posts/c0dc4c.html</id>
     <published>2024-06-23T06:14:41.000Z</published>
-    <updated>2024-11-27T09:44:31.231Z</updated>
+    <updated>2025-02-25T07:28:11.200Z</updated>
     
     
     <summary type="html">本文呢主要介绍了bib文件中参考文献的国标格式。</summary>
@@ -218,7 +218,7 @@
     <link href="http://qifeng.xyz/posts/e16561b3.html"/>
     <id>http://qifeng.xyz/posts/e16561b3.html</id>
     <published>2024-06-23T06:14:41.000Z</published>
-    <updated>2024-10-11T02:28:50.457Z</updated>
+    <updated>2025-02-25T07:28:06.367Z</updated>
     
     
     <summary type="html">本文主要介绍了ZKP的大致发展脉络。</summary>
@@ -237,7 +237,7 @@
     <link href="http://qifeng.xyz/posts/15893855.html"/>
     <id>http://qifeng.xyz/posts/15893855.html</id>
     <published>2024-05-21T06:14:41.000Z</published>
-    <updated>2024-12-17T07:44:05.607Z</updated>
+    <updated>2025-02-25T07:28:10.061Z</updated>
     
     
     <summary type="html">本文主要介绍了怎么在Linux中配置clang环境。</summary>
@@ -258,7 +258,7 @@
     <link href="http://qifeng.xyz/posts/d10c5bba.html"/>
     <id>http://qifeng.xyz/posts/d10c5bba.html</id>
     <published>2024-04-23T06:14:41.000Z</published>
-    <updated>2024-12-17T07:44:12.501Z</updated>
+    <updated>2025-02-25T07:28:14.870Z</updated>
     
     
     <summary type="html">本文主要介绍了如何通过更新DNS访问Github。</summary>
@@ -277,7 +277,7 @@
     <link href="http://qifeng.xyz/posts/50b55d72.html"/>
     <id>http://qifeng.xyz/posts/50b55d72.html</id>
     <published>2024-03-23T06:14:41.000Z</published>
-    <updated>2024-12-16T01:58:10.979Z</updated>
+    <updated>2025-02-25T07:28:22.733Z</updated>
     
     
     <summary type="html">本主要介绍了N卡架构的发展脉络。</summary>
@@ -304,7 +304,7 @@
     <link href="http://qifeng.xyz/posts/f191b528.html"/>
     <id>http://qifeng.xyz/posts/f191b528.html</id>
     <published>2024-03-23T06:14:41.000Z</published>
-    <updated>2024-12-17T07:44:11.592Z</updated>
+    <updated>2025-02-25T07:28:17.685Z</updated>
     
     
     <summary type="html">本文主要介绍在使用cublas计算矩阵乘法时遇到的问题。</summary>
@@ -329,7 +329,7 @@
     <link href="http://qifeng.xyz/posts/d4440279.html"/>
     <id>http://qifeng.xyz/posts/d4440279.html</id>
     <published>2024-03-04T06:14:41.000Z</published>
-    <updated>2024-10-10T13:03:46.272Z</updated>
+    <updated>2025-02-25T07:28:23.459Z</updated>
     
     
     <summary type="html">本文主要介绍昇腾的软硬件平台。</summary>
@@ -352,7 +352,7 @@
     <link href="http://qifeng.xyz/posts/a260d87d.html"/>
     <id>http://qifeng.xyz/posts/a260d87d.html</id>
     <published>2024-02-23T06:14:41.000Z</published>
-    <updated>2024-10-11T01:57:17.776Z</updated>
+    <updated>2025-02-25T07:28:07.110Z</updated>
     
     
     <summary type="html">本文主要介绍了如何利用Hugo搭建个人博客。</summary>
