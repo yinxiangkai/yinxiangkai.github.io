@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkmy_website=globalThis.webpackChunkmy_website||[]).push([[472],{5513(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Long Blog Post","permalink":"/blog/long-blog-post","unlisted":false,"date":"2019-05-29T00:00:00.000Z"}]}')}}]);
